@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introdução ao planejamento e análise de experimentos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Juliano Bortolini" />
+    <link href="aula2_files/remark-css/default.css" rel="stylesheet" />
+    <link href="aula2_files/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="libs\sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs\sydney-juca3.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <strong>Introdução ao planejamento e análise de experimentos</strong>
+## Delineamento Experimental
+### Prof. Juliano Bortolini
+### Depto. de Estatística da UFMT
+
+---
+
+
+
+
+
+
+
+
+
+
+## Conteúdo <i class="fas  fa-chart-bar fa-pull-right "></i>
+
+- estudo observacional
+
+- estudo experimental
+
+- objetivos da experimentação
+
+- breve história do PAE
+
+- conceitos básicos do PAE
+
+- consideraçÕes éticas
+
+- princípios básicos do PAE
+
+- erro experimental
+
+- planejamento de experimentos
+
+- comparações simples
+
+- *tarefinha*
+
+
+---
+
+## Introdução ao PAE
+
+.blockquote[
+**estudo observacional:** observamos os elementos (animais) do estudo e registramos os dados relevantes. Não é feita nenhuma intervenção com o uso de tratamentos ou impedimento de variáveis que possam influenciar a variável sendo estudada.
+
+- *estudo epidemiológico* se refere à investigação das causas e origens (etiologia) de uma doença, verificando se fatores (de risco) estão associados com a ocorrência e a disseminação da doença.
+
+  - *Exemplo:* a prevalência da síndrome de Cushing em cães é maior em raças *toy*. Resultado obtido por estudo epidemiológico.
+
+
+]
+---
+
+## Introdução ao PAE
+
+.blockquote[
+**estudo experimental:** são realizadas intervenções nos elementos (animais) do estudo por meio do uso de tratamentos ou restrição em variáveis que possam interferir na variável de estudo.
+
+- Distribuição aleatória dos elementos aos tratamentos é fundamental.
+
+- *Exemplo:* utilizar uma medida preventiva como tratamento, ou redução da exposição, do animal a um fator (por exemplo, a temperatura, dieta etc).
+
+
+- *experimentos laboratoriais:* as unidades experimentais podem ser células, tecidos ou animais.
+
+- *estudos clínicos:* se referem à investigação da eficácia de um tratamento específico ou de medidas profiláticas para resolver ou prevenir doenças.
+
+
+]
+---
+
+
+
+## Introdução ao PAE
+
+.blockquote[
+
+
+- Um experimento é um teste ou uma série de testes.
+
+- Experimentos são amplamente utilizados em diversas áreas: medicina, veterinária, farmácia, engenharias, agronomia, química, aeroespacial,  *ad infinitum*.
+
+  - Avaliação de remédios, vacinas, protocolos de tratamento...
+  - Avaliação de dietas alimentares
+  - Análise sensorial de novos produtos
+  - Caracterização e otimização de processos (produtivos).
+  - Avaliação da produtividade de cultivares.
+  - Avaliação das propriedades de materiais.
+  - Planejamento e desenvolvimento de novos produtos
+  - Determinação de concentrações ideais de substâncias químicas em um processo químico
+  - ...
+
+
+]
+---
+
+## Introdução ao PAE
+
+
+&lt;img src="docs_aula1/proc1.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+.small[Figura. Modelo geral de um processo.]
+
+
+---
+
+
+## Objetivos da experimentação
+
+.blockquote[
+
+
+- Determinar quais são as variáveis mais influentes sobre a variável resposta.
+
+- Determinar o valor a ser atribuido às variáveis influentes de modo que a variável resposta esteja próxima da exigência nominal.
+
+- Determinar o valor a ser atribuído às variáveis influentes de modo que a variabilidade da variável resposta seja pequena.
+
+- Determinar o valor a ser atribuído às variáveis influentes de modo que os efeitos das variáveis não-controláveis sejam minimizados.
+
+]
+
+---
+
+
+## Breve história do PAE: as quatro eras do PAE
+
+.blockquote[
+
+.scroll-box-20[
+
+1. A origem na agricultura (1908 - 1940).
+  - W.S. Gossett e o teste `\(t\)` (1908).
+  - Ronald. A. Fisher e seus colegas de trabalho.
+  - Profundo impacto na agricultura.
+  - Experimentos fatoriais e ANOVA
+
+2. A primeira era industrial (1951 - 1970).
+  - Superfícies de resposta.
+  - Aplicações nos processos industriais químicos.
+
+3. A segunda era industrial (1970 - 1990).
+  - Iniciativas de melhoria da qualidade em muitas empresas.
+  - Processos robustos
+
+4. A era moderna (1990 - atualmente)
+
+]
+
+]
+
+---
+
+
+## Breve história do PAE: William Sealy Gosset (1876-1937)
+
+.pull-left[
+
+
+.blockquote[
+
+
+- Gosset trabalhou na destilaria Guinness na seleção de cevada.
+
+- Karl Pearson ajudou Gosset nos relatórios de 1908, mas dava pouca importância aos resultados obtidos.
+
+- A Guinness proibiu que os seus empregados publicassem quaisquer trabalhos, por causa dos segredos da cervejeira.
+
+- Gosset  usou o pseudônimo "Student".
+
+- O seu feito mais conhecido é a distribuição t-Student.
+
+]
+
+]
+
+.pull-right[
+
+
+&lt;img src="docs_aula1/Gosset.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+.small[Figura. William Sealy Gosset.]
+
+
+]
+
+---
+
+
+## Breve história do PAE: Ronald. A. Fisher (1890 - 1962)
+
+.pull-left[
+
+&lt;img src="docs_aula1/Fisher1.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+&lt;img src="docs_aula1/Fisher2.jpg" width="67%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+
+---
+
+## Breve história do PAE: George E. P. Box (1919 - 2013)
+
+.pull-left[
+
+.blockquote[
+
+- George Edward Pelham Box trabalhou com controle de qualidade, séries temporais, estatística experimental e inferência Bayesiana.
+
+- É uma das grandes mentes estatísticas do século 20.
+
+]
+
+]
+
+.pull-right[
+&lt;img src="docs_aula1/Box.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+
+]
+
+**Essentially, all models are wrong, but some are useful.** 
+
+
+.small[Essencialmente, todos os modelos estão errados, mas alguns são úteis.]
+
+
+---
+
+## Introdução ao PAE
+
+.blockquote[
+
+O **planejamento de experimentos** refere-se ao processo de planejar um experimento de tal forma que os dados coletados são adequados para obter resultados confiáveis de análises estatísticas.
+
+]
+
+
+.blockquote[ ## Conceitos básicos:
+
+- **Fator:** variável cujo efeito deseja-se avaliar no experimento.
+
+- **Tratamento:** é o que se quer estudar, pode ser as combinações dos níveis dos fatores.
+				
+- **Variável resposta:** característica que é mensurada.
+				
+- **Parcela:** é a unidade experimental que recebe um tratamento.
+				
+- **Repetição:** número de vezes que um tratamento é aplicado.
+				
+- **Delineamento:** modo como os tratamentos são designados às unidades experimentais.
+				
+- **Bloco:** conjunto de unidades experimentais homogêneas.
+
+]
+
+---
+
+## Introdução ao PAE
+
+.blockgreen[ ## Exemplo
+
+Em um experimento com suínos, deseja-se comparar quatro rações ( `\(A\)`, `\(B\)`, `\(C\)`, `\(D\)` ) e duas doses de vitaminas ( `\(2\)` e `\(4mg\)` ). Há 30 animais disponíveis para o experimento, sendo 18 com pesos aproximados em `\(16kg\)` e os demais com pesos aproximados em `\(8kg\)`. A parcela é constituída por um animal e a variável respota foi o ganho de peso, em `\(kg\)`, dos animais após 30 dias do início do experimento.
+
+- Descreva:
+
+**fatores**, **tratamentos**, **parcela**, **bloco**, **número de repetições**,  **variável resposta** e *delineamento*.
+
+
+]
+
+---
+
+## Introdução ao PAE
+
+.blockquote[
+**considerações éticas (Festing e Altman, 2002)**
+
+- Animais devem ser usados apenas se os objetivos científicos irão contribuir para o bem-estar humano ou animal, possivelmente a longo prazo.
+
+- não houver outra alternativa, e o custo para os animais não são excessivos.
+
+- Os animais devem ser substituídos por alternativas menos sensíveis
+como invertebrados ou métodos *in vitro*, sempre que possível.
+
+- Os protocolos experimentais devem ser refinados para minimizar
+quaisquer efeitos adversos para cada animal.
+
+  - Anestesia e analgesia devem ser usadas para qualquer intervenção cirúrgica. A morte não é aceitável se for precedida por algumas horas de
+sofrimento agudo.
+
+- O número de animais deve ser reduzido ao mínimo possível para o alcance dos objetivos científicos, considerando que efeitos biológicos podem ser perdidos se poucos animais forem usados.
+
+]
+---
+
+## Introdução ao PAE
+
+.blockgreen[
+**considerações éticas**
+
+- Ler o artigo 
+
+  - Festing, M. F. W., Altman, D. G. Guidelines for the Design and Statistical Analysis of Experiments Using Laboratory Animals. **ILAR Journal**. Volume 43, Number 4, 2002.
+
+- Ler o capítulo 5 - *delineamento experimental e testes clínicos* -, do livro
+
+  - Petrie, A., Watson, P. **Estatística em ciência animal e veterinária**. Roca, 2009.
+
+
+- Consultar a legislação atual sobre o uso científico de animais.
+
+   - Lei 11.794/2008   (?)
+   - Resoluções normativas
+   - sugestão: http://portal.inpa.gov.br/index.php/component/content/article?id=3672
+
+]
+---
+
+## Introdução ao PAE:  princípios básicos da experimentação
+
+.blockquote[
+
+**Repetição:** É aplicação do mesmo tratamento em duas ou mais unidades experimentais.
+
+
+  - Permite estimar o erro experimental e obter estimativas mais precisas dos efeitos.
+  - Por exemplo, se `\(\sigma^2\)` é a variância de uma observação individual `\(X\)` e há `\(n\)` repetições, a variância da média amostral é `$$\sigma_{\bar X}^2 = \frac{\sigma^2}{n}.$$`
+
+&lt;img src="docs_aula1/rep.jpg" width="45%" style="display: block; margin: auto;" /&gt;
+
+- **Atenção:** replicação (duplicata, triplicata etc) não é repetição!			
+
+]
+
+---
+
+## Introdução ao PAE:  princípios básicos da experimentação
+
+.blockgreen[ ## Exemplo (Sampaio, 2015)
+
+Três concentrações de um extrato vegetal com reconhecido poder de ação sobre a proliferação celular irão ser testadas sobre placas de cultura de tecino animal em metástase. Para cada concentração serão preparadas cinco placas obtidas de uma única cultura mãe.
+
+**Avalie se o experimento está adequado.**
+
+]
+
+---
+
+## Introdução ao PAE:  princípios básicos da experimentação
+
+
+.blockquote[
+
+**Aleatorização (ou casualização):** É a aleatorização da aplicação dos tratamentos sobre as unidades experimentais e da ordem de execução dos ensaios (experimentos).
+
+  - Reduz a influência de efeitos externos (não controláveis).
+  - Proporciona uma estimativa válida para o erro experimental.
+
+
+&lt;img src="docs_aula1/aleo.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+
+## Introdução ao PAE: princípios básicos da experimentação:
+
+.blockquote[
+
+**Controle local:** É o agrupamento de unidades experimentais homogêneas.
+
+  - Reduz a influência de efeitos externos (controláveis).
+  - Quando usada adequadamente, fornece estimativas mais precisas do erro experimental.
+
+
+&lt;img src="docs_aula1/controle.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+
+
+## Introdução ao PAE: erro experimental
+
+.blockquote[
+
+- O **erro experimental** é uma medida da variação existente entre observações de unidades experimentais que receberam o mesmo tratamento.
+
+
+
+- As variações que dão origem ao erro experimental são:
+  - **erro aleatório:** variação aleatória inerente ao material experimental
+
+  - **erro sistemático:** variação causada pelo método de medição ou falta de uniformidade na condução física do experimento
+  
+
+- Replicação reduz o erro sistemático.
+
+]
+---
+
+
+## Introdução ao PAE: erro experimental
+
+.blockgreen[ ## Exemplo
+
+- Em um experimento de nutrição com ratos (unidade experimental) haverá diferentes constituições genéticas (variabilidade inerente ao material experimental).
+
+- Os animais poderiam estar aprisionados em gaiolas sujeitas a diferenças em calor, luz, e outros fatores (falta de uniformidade na condução física do experimento).
+
+
+]
+---
+
+
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockquote[
+
+- O objetivo principal de um experimento é fazer inferências referentes à **comparações de tratamentos**.
+
+- As inferências do experimento são referentes às diferenças de efeitos de  tratamentos (ou combinações de tratamentos) sobre a(s) variável(eis) resposta(s).
+
+- O planejamento de um experimento consiste em definir (ou descrever) as características do experimento para que seja factível a sua condução combinada com a redução do erro experimental.
+
+
+]
+
+---
+
+
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockquote[
+
+Os principais questionamentos a serem **respondidos** em um planejamento de experimento são:
+
+
+1. Quais são os problemas de pesquisa e hipóteses?
+
+2. Qual é a população do estudo? *A qual população as inferências do experimento devem ser aplicadas?*
+
+3. Quais as características (ou variáveis) que serão analisadas?
+
+4. Quais os fatores que afetam essas características?
+
+5. Quais desses fatores serão estudados no experimento?
+
+6. Como será constituída a unidade experimental?
+
+7. Quantas repetições deverão ser utilizadas?
+
+8. Como serão analisados os dados obtidos no experimento?
+]
+
+
+---
+
+
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockquote[
+  
+As principais considerações no planejamento do
+experimento são:
+
+
+- **Planejamento da amostra:** definição da população alvo e do plano amostral (como será feita a amostragem)
+
+- **Definição das variáveis respostas** e as possíveis variáveis controláveis e não controláveis
+  - É importante definir a escala de medida (quantitativa ou
+qualitativa) da variável resposta
+
+- **Definição dos fatores experimentais:** variáveis controláveis que serão estudadas
+
+- **Definição do protocolo experimental:** documento com todos os procedimentos, possíveis problemas e soluções
+
+- **Definições dos modelos estatísticos e análises**
+
+
+]
+---
+
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockquote[
+
+A mensuração de uma **variável resposta** pode ser:
+- diretamente na unidade experimental
+    
+- subjetivamente por meio de um avaliador (análise clínica ou sensorial). Para evitar a tendenciosidade em mensurações subjetivas recomenda-se:
+  - ter mais de um avaliador
+	- treinar os avaliadores
+	- usar critérios e padrões uniformes e bem estabelecidos.
+			
+
+]
+
+---
+
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockquote[
+
+**definição dos fatores**
+
+- Ao planejar um experimento deve-se ter clareza de quais
+fatores experimentais e seus respectivos níveis serão utilizados.
+
+- As definições de cada fator experimental e de seus níveis dependem do tipo de fator a ser utilizado:
+
+	- Fator qualitativo: é expresso por uma variável qualitativa e
+seus níveis podem ser ordinais ou nominais.
+
+	- Fator quantitativo: é expresso por uma variável quantitativa
+e seus níveis podem ser discretos ou contínuos.
+
+
+]
+---
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockquote[
+
+**definição dos fatores**
+
+- Um experimento pode ser classificado de acordo com o número de fatores:
+  - unifatorial ou simples: com um único fator experimental.
+  - multifatorial ou fatorial: com dois ou mais fatores experimentais.
+
+
+- O número de fatores um experimento determina diferentes estruturas experimentais:
+  - estrutura unifatorial é necessariamente um fator de tratamento, e as condições experimentais, ou seja, os tratamentos são os próprios níveis do único fator experimental na amostra.
+
+  - estrutura fatorial cruzada: quando os níveis dos fatores são cruzados, todos os níveis de um fator combinam com todos
+os níveis do outro fator.
+
+  - estrutura fatorial hierárquica: quando os níveis dos fatores
+são aninhados ou hierarquizados. Neste caso tem-se um
+fator principal e outro fator que se encotra ``aninhado'' (dentro) deste fator principal.
+
+
+- **estudo longitudinal:** é investigado mudanças no decorrer do tempo.
+]
+
+---
+
+
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockgreen[ ## Exemplo
+
+**Descreva os fatores dos experimentos:**
+
+**Experimento 1.**
+
+&lt;br&gt;
+
+Um pesquisador pretende avaliar o comportamento produtivo de diferentes cultivares de milho para produção de forragem, com vista a sua utilização na alimentação animal. Foi avaliado cinco cultivares (A, B, C, D e E), sendo que cada cultivar foi repetido por seis vezes. A parcela experimental foi constituída por cinco linhas de seis metros de comprimento, espaçadas de um metro entre si; como área útil de avaliação foi considerada as três linhas centrais, eliminando-se 50 centímetros em ambas as extremidades. Após a germinação e feito o desbaste foram deixadas cinco plantas por metro linear. Foram medidos a produção de grãos, produção de matéria verde e de matéria seca, e teores de macro e micro nutrientes.
+
+]
+
+---
+
+
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockgreen[ ## Exemplo
+
+**Descreva os fatores dos experimentos:**
+
+
+**Experimento 2.**
+
+&lt;br&gt;
+
+Um pesquisador tem interesse em avaliar se misturas de proteína e de carboidrato forem adicionadas em uma ração, se esta vai melhorar sua qualidade. A pesquisa foi realizada em uma granja de aves poedeiras, sendo que as aves escolhidas pertenciam a uma mesma faixa de idade e peso. Cada amostra da ração foi servida a grupos de cinco aves, e os avaliadores pesavam as aves antes de iniciar o fornecimento da ração e depois ao final do experimento. Os tipos de misturas elaboradas foram: `\(i.\)` ração comum, `\(ii.\)` ração comum `\(+\)` carboidrato, `\(iii.\)` ração comum `\(+\)` proteína e `\(iv.\)` ração comum `\(+\)` carboidrato `\(+\)` proteína.
+
+]
+
+---
+## Introdução ao PAE: planejamento de experimentos
+
+.blockgreen[ ## Exemplo
+
+**Descreva os fatores dos experimentos:**
+
+
+**Experimento 3.**
+
+&lt;br&gt;
+
+O rendimento de um processo químico é investigado em função da pressão ( `\(200, 215\)` e `\(230psi\)` ) e temperatura ( `\(150, 160\)` e `\(170ºC\)` ).
+
+&lt;br&gt;
+
+**Experimento 4.**
+
+&lt;br&gt;
+
+Em um experimento foram avaliados os teores de frutose ( `\(\%\)` ) dos frutos de três cultivares de pêssego ( `\(A\)`, `\(B\)`, `\(C\)` ) em cinco tempos de armazenamento ( `\(7dias\)`,  `\(14dias\)`, `\(21dias\)`, `\(28dias\)` e `\(35dias\)` ). O experimento foi conduzido em laboratório e o delineamento foi inteiramente ao acaso.
+
+]
+
+---
+## Introdução ao PAE: planejamento de experimentos
+
+.blockquote[
+
+**definição das repetições**
+
+
+- O número de repetições depende de várias características:
+
+  - a quantidade e o tipo de material experimental disponível
+  - a variabilidade intrínseca das variáveis mensuradas
+
+- Sugestões:
+
+  - No mínimo `\(20\)` parcelas experimentais (Pimentel-Gomes, 1978).
+	- Grau de liberdade do erro (ANOVA) superior a `\(10\)` (Pimentel-Gomes, 1978) ou a `\(20\)` (Steel et al., 1997)
+
+
+]
+---
+
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockquote[
+
+**condução do experimento**
+
+- O pesquisador deve acompanhar e conduzir o experimento
+cuidadosamente conforme o planejado para evitar o surgimento de variáveis
+não controladas.
+
+
+- Deve-se registrar ocorrências estranhas, pois estas podem
+ter influências relevantes.
+
+]
+
+---
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockquote[
+
+**precisão do experimento**
+
+- baixa dispersão entre as observações do mesmo tratamento
+
+- A precisão pode ser avaliada pelo Coeficiente de Variação ( `\(CV\)` )
+
+$$
+CV = \frac{S}{\bar{Y}} = \frac{\sqrt{QM_E}}{\bar{Y}}
+$$
+
+
+- Considerações para aumentar a precisão do experimento: 
+  - Escolha apropriada das variáveis respostas
+  - Escolha apropriada dos fatores experimentais e de seus níveis.
+  - Tamanho e tempo apropriado do experimento
+  - Controle de técnicas experimentais
+
+]
+
+---
+
+
+## Introdução ao PAE: planejamento de experimentos
+
+.blockquote[
+
+**delineamentos experimentais**
+
+- Delineamento inteiramente casualizado (DIC)
+- Delineamento em blocos casualizados (DBC)
+- Delineamento quadrado latino (DQL)
+- Os três delineamentos (DIC, DBC, DQL) constituem os delineamentos básicos, mas existem vários outros, tais como:
+blocos incompletos, quadrado greco-latino, ...
+
+]
+---
+
+## Introdução ao PAE: comparações simples
+
+.blockgreen[ ##  Estimulando a formação óssea
+
+Veterinários estudaram o efeito de suplementação de fosfato sobre a formação óssea em cães adultos saudáveis. Para cada cão, a formação óssea foi medida por um período de 12 meses. A cada cão foi aleatorizado o tratamento **sem suplementação** ou **com suplementação de fosfato**. A variável resposta foi o crescimento percentual por ano.
+
+
+&lt;br&gt;
+
+Como avaliar se os tratamentos (sem ou com suplementação) influenciam no crescimento percentual por ano?
+
+
+]
+---
+
+## Introdução ao PAE: comparações simples
+
+.blockgreen[ ##  Estimulando a formação óssea
+
+
+&lt;img src="docs_aula1/dados_cimento.jpg" width="40%" style="display: block; margin: auto;" /&gt;
+Tabela. Dados de porcentagem de crescimento por ano de 20 cães.
+
+.large[Dados fictícios!]
+
+]
+
+---
+
+
+## Introdução ao PAE: comparações simples
+
+.blockgreen[ ##  Estimulando a formação óssea
+
+
+&lt;img src="docs_aula1/boxplot_cimento.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+
+
+]
+---
+
+## Introdução ao PAE: comparações simples
+
+
+.blockquote[ ## Teste de hipóteses
+
+Sejam `\(Y_{11}, \cdots ,Y_{1n_1}\)` as `\(n_1\)` observações do tratamento 1 e `\(Y_{21}, \cdots ,Y_{2n_2}\)` as `\(n_2\)` observações do tratamento 2.
+
+Assumindo que as observações são obtidas aleatoriamente de duas populações normais independentes.
+
+
+&lt;img src="docs_aula1/2pop_normal.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+]
+---
+
+## Introdução ao PAE: comparações simples
+
+
+.blockquote[ ## Teste de hipóteses
+
+- Os resultados de um experimento são descritos por um modelo.
+
+- Um **modelo estatístico** para um experimento de dois tratamentos é dado por
+
+`\begin{align*}
+Y_{ij} = \mu_i + \epsilon_{ij}, \quad i = 1,2, \quad j = 1, \cdots, n_i,
+\end{align*}`
+
+em que, `\(Y_{ij}\)` é a *j-ésima* observação do *i-ésimo* tratamento, `\(\mu_i\)` é o efeito médio do *i-ésimo* tratamento, `\(\epsilon_{ij}\)` é uma variável aleatória normal  associada a *ij-ésima* observação.
+
+&lt;br&gt;
+
+Assume-se que `\(\epsilon_{ij}\)` é `\(N(0,\sigma_i^2)\)` i.i.d. para todo `\(i,j\)`.
+
+&lt;br&gt;
+
+Como `\(\mu_1\)` e `\(\mu_2\)` são constantes, tem-se que `\(Y_{ij}\)` segue uma distribuição `\(N(\mu_i,\sigma_i^2)\)` i.i.d. para todo `\(i,j\)`.
+
+]
+
+---
+
+## Introdução ao PAE: comparações simples
+
+
+.blockquote[ ## Teste de hipóteses
+
+- Uma **hipótese estatística** é uma afirmação sobre os parâmetros de uma distribuição de probabilidade ou sobre os parâmetros de um modelo.
+
+- As hipóteses refletem alguma conjectura sobre a situação problema.
+
+- Para o exemplo de estimulação da formação óssea, as hipóteses para a porcentagem de crescimento médio para os dois tratamentos, podem ser
+
+`\begin{align*}
+&amp;H_0: \mu_1 = \mu_2 \\
+&amp;H_1: \mu_1 \neq \mu_2,
+\end{align*}`
+
+em que `\(\mu_1\)` é porcentagem de crescimento anual médio dos cães sem suplementação e `\(\mu_2\)` com suplementação.
+
+]
+
+---
+
+## Introdução ao PAE: comparações simples
+
+
+.blockquote[ ## Teste de hipóteses
+
+
+- A afirmação `\(H_0: \mu_1 = \mu_2\)` é  chamada de hipótese nula e `\(H_1: \mu_1 \neq \mu_2\)` de hipótese alternativa.
+
+- A hipótese alternativa agora considerada é chamada de hipótese alternativa bilateral, pois, será verdadeira se `\(\mu_1 &lt; \mu_2\)` ou `\(\mu_1 &gt; \mu_2\)`.
+
+- **Exercício:**  Pesquisar sobre hipótese alternativa unilateral.
+
+]
+
+---
+
+## Introdução ao PAE: comparações simples
+
+
+.blockquote[ ## Teste de hipóteses
+
+
+**Para testar uma hipótese:**
+
+1. Definir as hipóteses (nula e alternativa)
+
+2. Obter uma amostra aleatória das populações
+
+3. Calcular uma estatística de teste (região crítica)
+
+4. Tomar uma decisão: rejeitar ou não rejeitar `\(H_0\)`.
+
+]
+
+---
+
+## Introdução ao PAE: comparações simples
+
+
+.blockquote[ ## Teste de hipóteses
+
+- Dois tipos de erros podem ser cometidos em um teste de hipóteses
+
+`\begin{align*}
+&amp;\alpha = P({\text{Erro tipo I}}) = P({\text{rejeitar }} H_0 | H_0 {\text{ é verdadeira}}) \\
+&amp;\beta = P({\text{Erro tipo II}}) = P({\text{não rejeitar }} H_0 | H_0 {\text{ é falsa}}).
+\end{align*}`
+
+- Em geral, especifica-se um valor para a probabilidade do erro tipo I `\(\alpha\)`, chamado de nível de significância do teste, e depois constrói-se um teste de modo que a probabilidade do erro do tipo II `\(\beta\)` seja pequena.
+
+]
+
+---
+
+
+## Introdução ao PAE: comparações simples
+
+
+
+.blockquote[ ## Teste t
+
+- Suponha que as variâncias das porcentagens de crescimento por ano são idênticas para os dois tratamentos (sem ou com suplementação).
+
+- Uma estatística de teste apropriada para **comparar dois tratamentos** em um experimento completamente aleatorizado é
+
+`\begin{align*}
+t_c = \frac{\bar{Y_1} - \bar{Y_2}}{S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}},
+\end{align*}`
+
+em que (...) e `\(S_p^2\)` é o estimador da variância combinada ( *pooled* ) de `\(\sigma_1^2 = \sigma_2^2 = \sigma^2\)`, sendo
+
+`\begin{align*}
+S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}, \quad S_i^2 = \frac{\sum_{j = 1}^{n_i} (Y_{ij} - \bar{Y}_{i})^2}{n_i - 1}, \ i = 1,2,
+\end{align*}`
+
+em que `\(S_1^2\)` e `\(S_2^2\)` são as variâncias amostrais individuais.
+
+]
+
+---
+
+## Introdução ao PAE: comparações simples
+
+
+.blockquote[ ## Teste t
+
+- Para determinar se rejeita `\(H_0:\mu_1 = \mu_2\)`, deve-se comparar o valor de `\(t_c\)` com a distribuição `\(t\)` com `\(n_1 + n_2 - 2\)` graus de liberdade.
+
+- Se `\(|t_c| &gt; t_{\left(\alpha/2, n_1 + n_2 - 2\right)}\)`, em que  `\(P(t_{\left(n_1 + n_2 - 2\right)} &gt; t_{\left(\alpha/2, n_1 + n_2 - 2\right)}) = \alpha/2\)`, então rejeita-se `\(H_0\)` e conclui-se que as médias dos efeitos dos tratamentos são diferentes.
+
+
+&lt;img src="docs_aula1/regiaoct.jpg" width="40%" style="display: block; margin: auto;" /&gt;
+
+Distribuição t com 18 graus de liberdade e região crítica `\(\pm t_{0,025;18} = \pm 2,101\)` .
+
+]
+
+---
+
+## Introdução ao PAE: comparações simples
+
+.blockgreen[ ##  Estimulando a formação óssea
+
+&lt;img src="docs_aula1/dados_cimento2.jpg" width="40%" style="display: block; margin: auto;" /&gt;
+
+`\begin{align*}
+S_p^2 =&amp; \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2} =  \frac{9 (0,100) +  9 (0,061)}{18} \approx 0,081, \\
+S_p \approx&amp; 0,284. \\
+t_c =&amp; \frac{\bar{Y_1} - \bar{Y_2}}{S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} = \frac{16,76 - 17,04}{0,284 \sqrt{\frac{1}{10} + \frac{1}{10}}} = \frac{- 0,28}{0,127} \approx -2,20. 
+\end{align*}`
+
+
+- Como `\(|t_c| = |-2,20| = 2,20 &gt; 2,101 = t_{\left(0,025;18\right)}\)`, rejeita-se `\(H_0\)`.
+
+]
+
+---
+
+## Introdução ao PAE
+
+.blockgreen[ ## Pesquisar
+
+- Hipóteses unilaterais.
+
+- Poder do teste.
+
+- Intervalo de confiança.
+
+- Tamanho da amostra.
+
+- Teste t para o caso `\(\sigma_1^2 \neq \sigma_2^2\)`.
+
+- Teste t para o caso em que `\(\sigma_1^2\)` e `\(\sigma_2^2\)` são conhecidas.
+
+- Teste t para a comparação com um valor especificado (ou de referência).
+
+- Teste t para amostras pareadas.
+
+- Teste t no `R`.
+
+**Sugestões:** Livro do Montgomery ou aulas de Estatística Geral (ava)
+
+]
+
+---
+
+## Introdução ao PAE
+
+.blockgreen[ ## *tarefinha*
+
+&lt;br&gt;
+
+Marque verdadeiro ou falso:
+
+&lt;br&gt;
+
+Animais são distribuídos aleatoriamente nos grupos de tratamento em um teste clínico para:
+
+a. Assegurar que não haja tendência na avaliação.
+
+b. Assegurar que todos os animais tenham a mesma chance de receber qualquer tratamento.
+
+c. Que o grupo controle possa ser incluído no delineamento.
+
+d. Que os grupos de tratamento sejam similares quanto às variáveis que possam influenciar a resposta.
+
+e. Que o teste possa ser **cego** (único cego ou duplo cego)
+
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
