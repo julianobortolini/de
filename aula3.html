@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Delineamento inteiramente casualizado (DIC)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Juliano Bortolini" />
+    <link href="aula3_files/remark-css/default.css" rel="stylesheet" />
+    <link href="aula3_files/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="libs\sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs\sydney-juca3.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <strong>Delineamento inteiramente casualizado (DIC)</strong>
+## Delineamento Experimental
+### Prof. Juliano Bortolini
+### Depto. de Estatística da UFMT
+
+---
+
+
+
+
+
+
+
+
+
+
+## Conteúdo <i class="fas  fa-chart-bar fa-pull-right "></i>
+
+
+- Exemplo DIC
+
+- Aleatorização de tratamentos no DIC
+
+- Registro dos dados
+
+- Modelo estatístico
+
+- Modelo completo e reduzido
+
+- Estimação dos parâmetros (mínimos quadrados)
+
+- Soma de quadrados
+
+- Partição das somas de quadrados
+
+- Modelo de efeitos de tratamentos
+
+- Graus de liberdade
+
+- Tabela de análise de variância
+
+- Teste F
+
+- Uso do R
+
+
+---
+
+## Delineamento inteiramente casualizado (DIC)
+
+.blockgreen[ ## Supressão do crescimento bacteriano em carnes armazenadas
+
+- A vida útil das carnes armazenadas é o tempo que um corte previamente embalado é saudável, nutritivo e vendável.
+
+- Um pacote normal exposto ao ar ambiente tem uma vida útil de aproximadamente 48 horas, após esse período a carne começa a deteriorar-se devido à contaminação de micróbios, à degradação da cor e encolhimento. - Embalagem a vácuo é eficaz para suprimir o desenvolvimento
+de micróbios; no entanto, os outros aspectos continuam sendo um problema.
+
+]
+
+---
+
+
+.blockgreen[ ## Supressão do crescimento bacteriano...
+
+- Alguns estudos sugerem atmosferas controladas de gás, como alternativa à embalagem atual.
+
+- Duas atmosferas que prometem combinar a capacidade de suprimir o desenvolvimento de micróbios com a conservação das qualidades da carne são: 
+
+**(1)** dióxido de carbono puro (CO) e 
+
+**(2)** misturas de monóxido de carbono (CO), oxigênio (O) e nitrogênio (N).
+
+]
+---
+
+
+
+
+
+.blockgreen[ ## Supressão do crescimento bacteriano...
+
+- **Hipótese de pesquisa:** Com base nessa nova informação, o pesquisador
+levanta a hipótese de que alguma forma de atmosfera controlada fornecerá
+um ambiente de embalagem mais eficaz para o armazenamento de carne.
+
+- **Tratamentos:**
+
+**(1)** ar ambiente com embalagens plásticas comerciais
+
+**(2)** vácuo
+
+**(3)** uma mistura de gases com `\(1\%\)` de `\(CO\)`, `\(40\%\)` `\(O_2\)` e `\(59\%\)` `\(N\)` e 
+
+**(4)** `\(100\%\)` `\(CO_2\)`.
+
+
+- Embalagem com ar ambiente e vácuo servem como **tratamentos de controle**, pois ambos são padrões com os quais a eficácia pode ser comparada com a da nova embalagem.
+
+]
+
+---
+
+
+
+
+.blockgreen[ ## Supressão do crescimento bacteriano...
+
+
+**Planejamento experimental:**
+
+- Um **delineamento inteiramente casualizado** foi utilizado para o experimento.
+
+- Cada conjunto de condições de embalagem foi atribuído aleatoriamente a 3 cortes do mesmo tamanho (75 g).
+
+- Cada corte foi embalado separadamente nas condições atribuídas.
+
+- A eficácia de cada tratamento é avaliada para suprimir o desenvolvimento bacteriano.
+
+- Após 9 dias de armazenamento a 4ºC em uma instalação normal, o número de bactérias psicotrópicas na carne foi medido.
+
+- **Bactérias psicotrópicas** são encontradas na superfície da carne e estão associadas a carne deteriorada.
+
+]
+
+---
+
+
+.blockgreen[ ## Supressão do crescimento bacteriano...
+
+
+
+&lt;img src="docs_aula3/ex_carne_1.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+Figura. Bactérias psicotrópicas ( `\(log({\text{contagem}}/cm^2)\)` ) em amostras de carne armazenadas em quatro condições de embalagem durante nove dias.
+
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Aleatorização dos tratamentos no DIC
+
+- Os cortes de carne utilizados para o experimento eram unidades experimentais relativamente homogêneas e um DIC foi utilizado para evitar a atribuição subjetiva de tratamentos aos cortes.
+
+- O procedimento de aleatorização apropriado para o DIC é ilustrado com o estudo do armazenamento de carne:
+
+**Passo 1:** Atribuir a sequência de números de 1 a 12 para as unidades experimentais, os cortes de carne.
+
+**Passo 2:** Obter uma permutação aleatória dos números de 1 a 12. Suponha que a permutação ordenada seja:
+
+$$
+1 \ 6 \ 7 \ 12 \ 5 \ 3 \ 10 \ 9 \ 2 \ 8 \ 4 \ 11
+$$
+
+**Passo 3:** Atribuir os três primeiros cortes da lista (1, 6 e 7) ao tratamento A. Os próximos três cortes (12, 5 e 3) são atribuídos ao tratamento B e assim por diante.
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Aleatorização dos tratamentos no DIC
+
+- A alocação final de cortes aos tratamentos é:
+
+
+&lt;img src="docs_aula3/ex_carne_tab1.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+**ou**, de forma equivalente,
+
+
+
+&lt;img src="docs_aula3/ex_carne_tab2.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+- A permutação aleatória dos números 1 a 12 garante que cada um dos tratamentos possuam a mesma probabilidade de ocorrência.
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Registro dos dados para análise
+
+
+&lt;img src="docs_aula3/ex_carne_tab3.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+Tabela. Dados para o experimento de armazenamento de carne.
+
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Modelo estatístico
+
+- A análise estatística é baseada em um modelo estatístico.
+
+- A interpretação adequada da análise requer a compreensão do modelo.
+
+- Nos estudos comparativos, a característica das unidades experimentais medida é a variável resposta, identificada pela variável `\(Y\)`.
+
+- No experimento de armazenamento de carne, a contagem de bactérias é a variável resposta.
+
+- Cada unidade experimental na população tem um valor para a variável resposta `\(Y\)`, e essa variável tem uma média `\(\mu\)` e uma variância `\(\sigma^2\)`.
+
+]
+
+---
+
+
+
+
+.blockquote[
+
+
+
+&lt;img src="docs_aula3/ex_carne_2.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+Figura. Ilustração das populações dos tratamentos no experimento de armazenamento de carne.
+
+]
+
+---
+
+
+
+.blockquote[ ## Modelo estatístico
+
+`\begin{align*}
+Y_{ij} = \mu_i + \epsilon_{ij}, \quad i = 1,\cdots, I, \quad j = 1,\cdots, J,
+\end{align*}`
+
+em que
+`\(Y_{ij}\)` denota a *j-ésima* observação do *i-ésimo* tratamento, `\(\mu_i\)` é a média populacional do *i-ésimo* tratamento e `\(\epsilon_{ij}\)` é o erro experimental associado a observação `\(Y_{ij}\)`.
+
+- Este é um modelo estatístico linear de um experimento no delineamento inteiramente casualizado.
+
+- Por causa do erro experimental, cada observação se desvia da média de sua população `\(\mu_i\)` por uma quantidade `\(\epsilon_{ij}\)`.
+
+- A variância do erro experimental, `\(\sigma^2\)`, é a variância de `\(\epsilon_{ij}\)`, e é assumido como sendo a mesma para toda a população sob tratamento.
+
+]
+
+---
+
+
+
+
+.blockquote[
+
+
+&lt;img src="docs_aula3/ex_carne_tab4.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+Tabela. Identificação dos valores observados no experimento de armazenamento de carne e sua representação com o modelo estatístico linear, com `\(I = 4\)` tratamentos e `\(J = 3\)` repetições.
+
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Modelos alternativos para descrever outras hipóteses estatísticas
+
+- O modelo estatístico para o experimento reflete as crenças sobre a relação entre tratamentos e observações.
+
+- O modelo de médias é um **modelo completo**, `\(Y_{ij} = \mu_{i} +  \epsilon_{ij}\)`, que **inclui uma média diferente para cada população em tratamento**.
+
+- Se não houver diferenças entre as médias dos tratamentos, é utilizado um modelo com um conjunto reduzido de parâmetros.
+
+- O **modelo reduzido**, `\(Y_{ij} = \mu +  \epsilon_{ij}\)`, **afirma que todas as observações pertencem à mesma população com média `\(\mu\)`**.
+
+- O modelo reduzido representa `\(H_0: \mu_1 = \mu_2 = \cdots = \mu_I\)`.
+
+- O modelo completo representa `\(H_a: \mu_i \ne \mu_{i^{'}}\)`, em que `\(i \ne i^{'}\)`.
+
+]
+
+---
+
+.blockquote[
+
+**Qual dos dois modelos, completo ou reduzido, melhor caracteriza os dados experimentais?**
+
+
+
+&lt;img src="docs_aula3/ex_carne_3.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+&lt;!-- Figura. Questões de pesquisa, questões estatísticas e modelos alternativos para o experimento de armazenamento de carne. --&gt;
+
+
+
+- **Questão da pesquisa:** Há mais crescimento bacteriano com algumas embalagens do que com outras?
+
+- **Questão da Estatística:** Qual modelo melhor descreve os resultados do experimento?
+
+- Para tomar uma decisão sobre os tratamentos, é necessário estimar os parâmetros dos dois modelos e determinar qual hipótese ou modelo estatístico se ajusta melhor aos dados do experimento.
+
+]
+---
+
+
+
+
+.blockquote[ ## Estimação de parâmetros com mínimos quadrados
+
+- O método dos mínimos quadrados é, talvez, o método mais usado para estimar parâmetros do modelo linear.
+
+- As estimativas de mínimos quadrados são as estimativas de `\(\mu_i\)` resultantes da menor soma de quadrados dos erros experimentais, `\(SQE\)`.
+
+]
+
+---
+
+
+
+.blockquote[ ## Estimadores para o modelo completo
+
+- Para o modelo de médias, os erros experimentais são definidos por `\(\epsilon_{ij} = y_{ij} - \mu_i\)`, em que `\(y_{ij}\)` são as únicas quantidades conhecidas.
+
+- Denotando os estimadores de mínimos quadrados de `\(\mu_i\)` por  `\(\hat{\mu}_i\)`, para o modelo completo, então os estimadores dos erros experimentais são `\(\hat{\epsilon}_{ij} = y_{ij} - \hat{\mu}_i\)`
+
+- A soma dos quadrados dos erros experimentais é:
+
+`\begin{align*}
+SQE = \sum_{i = 1}^I \sum_{j = 1}^J \hat{\epsilon}_{ij}^2 = \sum_{i = 1}^I \sum_{j = 1}^J \left( y_{ij} - \hat{\mu}_i \right)^2 
+\end{align*}`
+
+- A SQE é a soma das estimativas dos quadrados dos erros experimentais.
+
+- É uma medida de quão bem o modelo se ajusta aos dados.
+
+]
+
+---
+
+
+
+.blockquote[ ## Estimadores para o modelo completo (cont.)
+
+- O cálculo diferencial é usado para obter os estimadores `\(\hat{\mu}_{i}\)`,
+que minimizam a soma dos quadrados:
+
+`\begin{align*}
+Q = \sum_{i = 1}^I \sum_{j = 1}^J {\epsilon}_{ij}^2 = \sum_{i = 1}^I \sum_{j = 1}^J \left( y_{ij} - {\mu}_i \right)^2 
+\end{align*}`
+
+- O método produz um conjunto de equações que devem ser resolvidas para os estimadores.
+
+- O nome convencional dessas equações é **equações normais**; no entanto, a designação não tem relação com a distribuição de probabilidade normal.
+
+]
+
+---
+
+
+
+.blockquote[ ## Estimadores para o modelo completo (cont.)
+
+- Para o `\(I\)` tratamentos com `\(J\)` repetições, existem `\(I\)` equações normais. Uma para cada média `\(\mu_i\)` de tratamento. 
+
+- As equações normais são obtidas derivando `\(Q\)` em relação a cada um dos parâmetros `\(\mu_i\)`, `\(i =1, \cdots, I\)`, e igualando a zero cada um dos resultados:
+
+`\begin{align*}
+\frac{\partial}{\partial \mu_i} \sum_{i = 1}^I \sum_{j = 1}^J \left( Y_{ij} - {\mu}_i \right)^2 = - 2 \sum_{j = 1}^J \left( Y_{ij} - {\mu}_i \right),
+\end{align*}`
+
+igualando a zero, obtém-se
+`\begin{align*}
+\hat{\mu}_i = \frac{\sum_{j = 1}^J Y_{ij}}{J} = \frac{Y_{i\cdot}}{J} = \bar{Y}_{i \cdot},
+\end{align*}`
+
+em que `\(Y_{i\cdot}\)` e `\(\bar{Y}_{i\cdot}\)` são, respectivamente, a soma total e a média das observações do *i-ésimo* tratamento.
+
+]
+
+---
+
+
+
+.blockquote[ ## Estimativas de mínimos quadrados para o experimento de carne:
+
+`\begin{align*}
+\hat{\mu}_1 &amp; =  \frac{22,44}{3} = 7,48 \\
+\hat{\mu}_2 &amp; =  \frac{16,50}{3} = 5,50 \\
+\hat{\mu}_3 &amp; =  \frac{21,78}{3} = 7,26 \\
+\hat{\mu}_4 &amp; =  \frac{10,08}{3} = 3,36
+\end{align*}`
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Estimadores para o modelo completo (cont.)
+
+- A soma dos quadrados do erro experimental para o modelo `\(Y_{ij} = \mu_{i} +  \epsilon_{ij}\)` é:
+
+`\begin{align*}
+SQE = \sum_{i = 1}^I \sum_{j = 1}^J \left( Y_{ij} - \hat{\mu}_i \right)^2 = \sum_{i = 1}^I \sum_{j = 1}^J \left( Y_{ij} - \bar{Y}_{i\cdot} \right)^2 
+\end{align*}`
+
+- Note que a **SQE é a soma completa dos quadrados dentro de cada grupo de tratamento**.
+
+]
+
+---
+
+
+
+.blockquote[ ## Estimadores para o modelo completo (cont.)
+
+- A variância da amostra para o *i-ésimo* tratamento é:
+
+`\begin{align*}
+S_i^2 = \frac{ \sum_{j = 1}^J \left( Y_{ij} - \bar{Y}_{i\cdot} \right)^2 }{J - 1},
+\end{align*}`
+e é uma estimativa de `\(\sigma^2\)`, a partir dos dados do  *i-ésimo* tratamento.
+
+
+- Se é possível supor que `\(\sigma^2\)` é **homogênea**, isto é, **é o mesmo para todos os tratamentos**, então:
+
+`\begin{align*}
+S^2 = \frac{ \sum_{i = 1}^I \left[\sum_{j = 1}^J \left( Y_{ij} - \bar{Y}_{i\cdot} \right)^2 \right] }{I\left(J - 1\right)} = \frac{SQE}{I\left(J - 1\right)},
+\end{align*}`
+
+é uma soma completa de `\(\sigma^2\)` para todos os dados do experimento.
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Estimativas de mínimos quadrados para o experimento de carne:
+
+
+&lt;img src="docs_aula3/ex_carne_tab5.jpg" width="75%" style="display: block; margin: auto;" /&gt;
+Tabela. Somas de quadrados e variância calculada  para o experimento de armazenamento de carne.
+
+]
+
+---
+
+
+
+.blockquote[ ## Estimadores para o modelo reduzido
+
+- Quando **não há diferenças entre as médias** das populações em tratamento, um **modelo** `\(Y_{ij} = \mu +  \epsilon_{ij}\)`  mais simples ou **reduzido** é usado para descrever os dados.
+
+- O estimador de mínimos quadrados de `\(\mu\)` é a média de todas as observações do experimento:
+`\begin{align*}
+\hat{\mu} = \bar{Y}_{\cdot \cdot} = \frac{{Y}_{\cdot \cdot}}{N},
+\end{align*}`
+
+em que `\(N = IJ\)`.
+
+]
+
+---
+
+
+
+.blockquote[ ## Estimadores para o modelo reduzido (cont.)
+
+- No **modelo reduzido**, a soma dos quadrados do erro experimental é:
+`\begin{align*}
+SQE_r = \sum_{i = 1}^I \sum_{j = 1}^J \left( Y_{ij} - \hat{\mu} \right)^2 = \sum_{i = 1}^I \sum_{j = 1}^J \left( Y_{ij} - \bar{Y}_{\cdot\cdot} \right)^2 
+\end{align*}`
+
+- A `\(SQE_r\)` é a soma dos quadrados de todos os desvios das observações em relação a média geral do experimento.
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Estimativas de mínimos quadrados para o experimento de carne:
+
+A estimativa da média geral e `\(SQE_r\)` para o experimento de carne é:
+`\begin{align*}
+\hat{\mu} = \bar{Y}_{\cdot \cdot} = \frac{70,80}{12} = 5,90,
+\end{align*}`
+e
+`\begin{align*}
+SQE_r = \left(7,66 - 5,90 \right)^2 + \cdots +  \left(3,66 - 5,90 \right)^2 = 33,7996.
+\end{align*}`
+
+]
+
+---
+
+
+
+.blockquote[ ## Soma dos quadrados: fontes importantes de variação
+
+- A diferença das somas de quadrados do erro experimental dos dois modelos pode ser usada com uma partição da variação total do experimento.
+
+- Essas partições esclarecerão e explicarão os resultados do experimento.
+
+- As somas dos quadrados do erro experimental para os dois modelos de armazenamento de cane foram muito diferentes:
+
+- `\(SQE = 0,9268\)` para o modelo completo com quatro médias populacionais de tratamento, `\(Y_{ij} = \mu_{i} + \epsilon_{ij}\)` e
+
+- `\(SQE_r = 33,7996\)` para o modelo reduzido com uma média populacional, `\(Y_{ij} = \mu + \epsilon_{ij}\)`.
+
+- A menor soma de quadrados para o modelo completo indica que as estimativas dos erros experimentais no modelo completo, `\(\hat{\epsilon}_{ij} = Y_{ij} - \hat{\mu}_i\)`, serão valores menores que os correspondentes no modelo reduzido.
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Soma dos quadrados: fontes importantes de variação
+
+
+&lt;img src="docs_aula3/ex_carne_tab6.jpg" width="75%" style="display: block; margin: auto;" /&gt;
+Tabela. Valores observados, estimados e desvios, dos modelos reduzido e completo.
+
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Soma dos quadrados: fontes importantes de variação
+
+- Modelo reduzido:
+`\begin{align*}
+SQE_r = \sum_{i = 1}^I \sum_{j = 1}^J (Y_{ij} - \bar{Y}_{\cdot \cdot})^2 = 33,7996
+\end{align*}`
+- Modelo completo:
+`\begin{align*}
+SQE = \sum_{i = 1}^I \sum_{j = 1}^J (Y_{ij} - \bar{Y}_{i \cdot})^2 = 0,9268
+\end{align*}`
+
+]
+---
+
+
+
+
+.blockquote[ ## Soma dos quadrados: fontes importantes de variação
+
+- Diferença
+`\begin{align*}
+SQE_r - SQE &amp; = \sum_{i = 1}^I \sum_{j = 1}^J (Y_{ij} - \bar{Y}_{\cdot \cdot})^2 - \sum_{i = 1}^I \sum_{j = 1}^J (Y_{ij} - \bar{Y}_{i \cdot})^2 =  \\
+&amp; = \sum_{i = 1}^I \sum_{j = 1}^J (\bar{Y}_{i\cdot} - \bar{Y}_{\cdot \cdot})^2 = J \sum_{i = 1}^I (\bar{Y}_{i\cdot} - \bar{Y}_{\cdot \cdot})^2 = \\
+&amp; = 32,8728 
+\end{align*}`
+
+- A soma dos quadrados da diferença, conhecida como a soma dos quadrados dos tratamentos, representa uma redução na SQE.
+
+- A soma dos quadrados total é `\(SQE_r\)`, pois é a soma dos quadrados da diferença entre todas as observações e a média geral `\(\bar{Y}_{\cdot \cdot}\)`.
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Soma dos quadrados: fontes importantes de variação
+
+**Partição fundamental das Somas dos Quadrados:**
+
+`\begin{align*}
+SQE_r &amp; = (SQE_r - SQE) + SQE \\
+&amp; \\
+\sum_{i = 1}^I \sum_{j = 1}^J ({Y}_{ij} - \bar{Y}_{\cdot \cdot})^2 &amp; = \sum_{i = 1}^I \sum_{j = 1}^J (\bar{Y}_{i\cdot} - \bar{Y}_{\cdot \cdot})^2 + \sum_{i = 1}^I \sum_{j = 1}^J ({Y}_{ij} - \bar{Y}_{i \cdot})^2 \\
+&amp; \\
+SQTotal &amp; = SQTrat + SQErro
+\end{align*}`
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Soma dos quadrados: fontes importantes de variação
+
+- A soma dos quadrados total foi dividida em duas partes:
+
+- `\(SQTrat\)`: é a soma dos quadrados das diferenças entre as médias dos tratamentos e a média geral.
+
+- `\(SQErro\)`: é a soma dos quadrados das diferenças entre as observações e as médias dos tratamentos.
+
+- As somas dos quadrados são derivadas de uma identidade
+
+`\begin{align}
+\label{identidadesq}
+Y_{ij} - \bar{Y}_{\cdot \cdot} = (\bar{Y}_{i \cdot} - \bar{Y}_{\cdot \cdot}) + (Y_{ij} - \bar{Y}_{i \cdot})
+\end{align}`
+
+]
+
+---
+
+
+
+
+
+.blockquote[ ## Soma dos quadrados: fontes importantes de variação
+
+- Ao elevar ao quadrado e somar em `\(i\)` e `\(j\)` ambos os membros da expressão (\ref{identidadesq}), obtém-se:
+
+`\begin{align*}
+\sum_{i = 1}^I \sum_{j = 1}^J ({Y}_{ij} - \bar{Y}_{\cdot \cdot})^2 &amp; = \sum_{i = 1}^I \sum_{j = 1}^J (\bar{Y}_{i\cdot} - \bar{Y}_{\cdot \cdot})^2 + \sum_{i = 1}^I \sum_{j = 1}^J ({Y}_{ij} - \bar{Y}_{i \cdot})^2 \\
+&amp; + 2\sum_{i = 1}^I \sum_{j = 1}^J (\bar{Y}_{i \cdot} - \bar{Y}_{\cdot \cdot})(Y_{ij} - \bar{Y}_{i \cdot}).
+\end{align*}`
+
+Contudo, o termo do produto cruzado é igual a zero (exercício), e a expressão anterior resulta em:
+`\begin{align*}
+\sum_{i = 1}^I \sum_{j = 1}^J ({Y}_{ij} - \bar{Y}_{\cdot \cdot})^2 &amp; = \sum_{i = 1}^I \sum_{j = 1}^J (\bar{Y}_{i\cdot} - \bar{Y}_{\cdot \cdot})^2 + \sum_{i = 1}^I \sum_{j = 1}^J ({Y}_{ij} - \bar{Y}_{i \cdot})^2.
+\end{align*}`
+
+]
+
+---
+
+
+
+
+
+.blockquote[ ## Modelo de efeitos de tratamentos
+
+- O efeito de um tratamento indica o quanto uma medida muda em uma unidade experimental quando submetida ao tratamento.
+
+- É possível expressar o modelo médias de uma forma que apresente os efeitos dos tratamento nas unidades experimentais:
+
+`\begin{align*}
+Y_{ij} = \mu + \tau_i + \epsilon_{ij},
+\end{align*}`
+em que `\(Y_{ij}\)` é a observação referente a j-ésima repetição do i-ésimo tratamento; `\(\mu\)` é uma constante comum a todas as observações; `\(\tau_i\)` é o efeito do i-ésimo tratamento; e `\(\epsilon_{ij}\)` é o erro associado a observação `\(Y_{ij}\)`.
+
+]
+
+---
+
+
+
+.blockquote[ ## Modelo de efeitos de tratamentos
+
+- O modelo `\(Y_{ij} = \mu + \tau_i + \epsilon_{ij}\)` tem `\(I+1\)` parâmetros populacionais, que são `\(\mu, \tau_1, \tau_2, \cdots, \tau_I\)`.
+
+- Considerando a restrição nos parâmetros `\(\sum_{i = 1}^I \tau_i = 0\)`, ou seja, a soma dos efeitos dos tratamentos é igual a zero, tem-se que os estimadores dos parâmetros do modelo de efeitos de tratamentos pelo método de mínimos quadrados são:
+`\begin{align*}
+\hat{\mu} &amp; = \bar{Y}_{\cdot \cdot} \\
+\hat{\tau}_i &amp; = \bar{Y}_{i \cdot} - \bar{Y}_{\cdot \cdot} \\
+\hat{\epsilon}_{ij} &amp; = Y_{ij} - \bar{Y}_{\cdot \cdot} - \bar{Y}_{i \cdot} - \bar{Y}_{\cdot \cdot} 
+\end{align*}`
+
+]
+
+---
+
+
+
+.blockquote[ ## Modelo de efeitos de tratamentos
+
+
+&lt;img src="docs_aula3/ex_carne_4.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+Tabela. Representação gráfica dos efeitos de tratamentos.
+
+]
+
+---
+
+
+
+.blockquote[ ## Graus de liberdade
+
+- Os graus de liberdade podem ser definidos como o número de elementos estatisticamente independentes nas somas de quadrados.
+
+- O valor dos graus de liberdade representa o número de informações independentes nas somas de quadrados.
+
+- Para a decomposição `\(SQTotal = SQTrat + SQErro\)`,
+tem-se a seguinte decomposição para os graus de liberdade:
+$$
+N - 1 = (I - 1) + (N - I),
+$$
+
+em que `\(N = IJ\)`
+- `\(gl(Total)=N-1\)`
+- `\(gl(Trat)=I-1\)`
+- `\(gl(Erro)=N-I\)`
+
+]
+
+---
+
+
+
+
+
+.blockquote[ ## Tabela de análise de variância
+
+- A tabela de análise de variância resume o conhecimento sobre a variabilidade nas observações do experimento.
+
+- Uma partição foi feita em dois da soma total de quadrados, um representa a variação entre as médias dos tratamentos, o outro representa o erro experimental.
+
+- A variância do erro experimental `\(\sigma^2\)` é estimada por `\(s^2 = SQErro/(N-I)\)`, onde `\(s^2\)` é conhecido como o quadrado médio do erro `\(QMErro\)`.
+
+- A outra metade é o quadrado médio dos tratamentos `\(QMTrat\)`, que é calculado por `\(QMTrat = SQTrat/(I - 1)\)`. 
+
+
+- As partições da soma dos quadrados, os graus de liberdade e os quadrados médios são resumidos na tabela de análise da variância.
+
+]
+---
+
+
+
+.blockquote[ ## Tabela de análise de variância
+
+
+&lt;img src="docs_aula3/tab_anova_dic.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+Tabela. Análise de variância para tratamentos com um único fator, em delineamento inteiramente casualizado.
+
+]
+
+---
+
+
+
+.blockquote[ ## Tabela de análise de variância
+
+- `\(QMErro\)` é um estimador não-viesado da variância do erro experimental `\(\sigma^2\)` (exercício), ou seja,
+`\begin{align*}
+E(QMErro) = \sigma^2
+\end{align*}`
+
+- O valor esperado do `\(QMTrat\)` é (exercício):
+`\begin{align*}
+E(QMTrat) = \sigma^2 + J\theta^2,
+\end{align*}`
+em que
+`\begin{align*}
+\theta^2 = \frac{\sum_{i = 1}^I \tau_i^2}{I - 1}.
+\end{align*}`
+
+]
+---
+
+
+
+.blockquote[ ## Estatística `\(F\)` para teste de hipóteses
+
+- A análise de variância resume a magnitude das fontes de variação em um experimento.
+
+- Se uma variação devido a tratamentos é significativamente maior que o erro experimental aleatório, então um teste de hipótese é necessário.
+
+]
+
+---
+
+
+
+.blockquote[ ## Estatística `\(F\)` para teste de hipóteses
+
+- A partir da teoria estatística, sabe-se que as somas dos quadrados das variáveis aleatórias com distribuição normal estão associadas à distribuição qui-quadrado.
+
+- Pode ser demonstrado que `\(SQErro/\sigma^2\)` segue uma distribuição qui-quadrado com `\(N-I\)` graus de liberdade.
+
+- A `\(SQTrat\)`, com `\(I - 1\)` graus de liberdade, representa a variabilidade das médias dos tratamentos em relação a média geral.
+
+]
+
+---
+
+
+
+
+.blockquote[ ## Estatística `\(F\)` para teste de hipóteses
+
+- As somas de quadrados `\(SQ_Total\)` e `\(SQ_{trat}\)` podem ser calculadas por expressões equivalentes e computacionalmente mais simples:
+
+`\begin{align*}
+S{Q_{{Total}}} = \sum\limits_{i = 1}^I {\sum\limits_{j = 1}^J {Y_{ij}^2} } - \frac{Y_{\cdot \cdot}^2}{IJ}
+\end{align*}`
+
+e
+
+`\begin{align*}
+S{Q_{trat}} = \frac{1}{J} \sum\limits_{i = 1}^I Y_{i\cdot}^2 - \frac{Y_{\cdot \cdot}^2}{IJ}
+\end{align*}`
+
+- A soma de quadrados do erro `\(SQ_{Erro}\)` é obtida por subtração
+
+`\begin{align*}
+SQ_{Erro} = SQ_{Total} - SQ_{Trat}.
+\end{align*}`
+
+]
+
+---
+
+
+
+
+
+.blockquote[ ## Estatística `\(F\)` para teste de hipóteses
+
+- Quando as médias dos tratamentos são iguais, `\(\mu_1 = \mu_2 = \cdots = \mu_I\)`, pode-se demonstrar que `\(SQTrat/\sigma^2\)` possui uma distribuição qui-quadrado com `\(I - 1\)` graus de liberdade e que é independente da distribuição de `\(SQErro/\sigma^2\)`.
+
+- O quociente:
+`\begin{align*}
+F = \frac{SQTrat/(I - 1)}{SQErro/(N - I)}
+\end{align*}`
+é o quociente de duas distribuições de qui-quadrado, cada uma dividida por seus respectivos graus de liberdade.
+
+- Sob a hipótese nula, `\(H_0: \mu_1 = \mu_2 = \cdots = \mu_I\)`, de que não há diferença entre os tratamentos, o quociente possui uma distribuição `\(F\)` com `\(I - 1\)` e `\(N - I\)` graus de liberdade, respectivamente, no numerador e no denominador.
+
+]
+
+---
+
+
+
+.blockquote[ ## Estatística `\(F\)` para teste de hipóteses
+
+- A estatística para testar a hipótese nula `\(H_0: \mu_1 = \mu_2 = \cdots = \mu_I\)` é:
+`\begin{align*}
+F_{c} = \frac{QMTrat}{QMErro},
+\end{align*}`
+que tem distribuição `\(F\)` quando a hipótese nula é verdadeira.
+
+- Grandes valores de `\(F_c\)` sugerem a rejeição da hipótese nula.
+
+]
+---
+
+
+
+.blockquote[ ## Estatística `\(F\)` para teste de hipóteses
+
+- A hipótese nula `\(H_0: \mu_1 = \mu_2 = \cdots = \mu_I\)` é rejeitada, com uma probabilidade `\(\alpha\)` de erro tipo I, se
+
+`\begin{align*}
+F_c &gt; F_{\alpha, (I - 1), (N - I)}
+\end{align*}`
+
+em que `\(F_{\alpha, I - 1, N - I}\)` é o quantil  da distribuição `\(F_{I - 1, N - I}\)`, de probabilidade `\(\alpha\)` da cauda superior.
+
+]
+---
+
+
+
+
+.blockquote[ ## Análise de variância para o experimento de carne:
+
+
+&lt;img src="docs_aula3/ex_carne_tab7.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+Tabela. Análise de variância para `\(log(contagem/cm^2)\)` de bactérias psicotrópicas no
+experimento de armazenamento de carne.
+
+
+
+`\(F_{(0,05; 3; 8)} =\)` *qf(0.05, 3, 8, lower.tail = FALSE)* `\(= 4,07\)`
+
+]
+
+---
+
+
+
+.blockgreen[ ## Supressão do crescimento bacteriano (R)
+
+
+
+&lt;img src="docs_aula3/ex_carne_tab3.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+Tabela. Dados para o experimento de armazenamento de carne.
+
+
+]
+
+---
+
+.blockgreen[ ## R
+
+
+
+```r
+# Vetor com os dados
+y_comercial &lt;- c(7.66, 6.98, 7.80)
+y_vacuo     &lt;- c(5.26, 5.44, 5.80)
+y_gases     &lt;- c(7.41, 7.33, 7.04)
+y_CO2       &lt;- c(3.51, 2.91, 3.66)
+
+y           &lt;- c(y_comercial, y_vacuo, y_gases, y_CO2)
+
+# Vetor com os nomes dos tratamentos
+tratamentos &lt;- c("comercial", "comercial", "comercial",
+                 "vacuo", "vacuo", "vacuo",
+                 "gases", "gases", "gases",
+                 "CO2", "CO2", "CO2")
+```
+
+
+]
+
+---
+
+
+.blockgreen[ ## R
+
+
+
+```r
+# Biblioteca (pacote) que realiza análise de experimentos: "ExpDes"
+# install.packages("ExpDes") # instalar pacote
+library(ExpDes) # carregar pacote
+
+args(crd) # argumentos da função "crd": Completely Randomized Design
+```
+
+```
+## function (treat, resp, quali = TRUE, mcomp = "tukey", nl = FALSE, 
+##     hvar = "bartlett", sigT = 0.05, sigF = 0.05) 
+## NULL
+```
+
+```r
+# help(crd)
+# ?crd
+```
+
+
+]
+
+---
+
+
+
+.blockgreen[ ## R
+
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = tratamentos, resp = y)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS      MS     Fc      Pr&gt;Fc
+## Treatament  3 32.873 10.9576 94.584 1.3759e-06
+## Residuals   8  0.927  0.1158                  
+## Total      11 33.800                          
+## ------------------------------------------------------------------------
+## CV = 5.77 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.1335542 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.7511091 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+## 
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 comercial 	 7.48 
+## a 	 gases 	 7.26 
+##  b 	 vacuo 	 5.5 
+##   c 	 CO2 	 3.36 
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F.
+qf(0.05, 3, 8, lower.tail = FALSE)
+```
+
+```
+## [1] 4.066181
+```
+
+]
+]
+
+---
+
+.blockgreen[ ## R
+
+**OU**
+
+
+```r
+# Vetor com os dados
+y           &lt;- c(7.66, 6.98, 7.80, 5.26, 5.44, 5.80, 7.41, 7.33, 7.04, 3.51, 2.91, 3.66)
+
+# Vetor com os nomes dos tratamentos
+tratamentos &lt;- c("A", "A", "A", "B", "B", "B", "C", "C", "C", "D", "D", "D")
+```
+
+
+]
+
+---
+.blockgreen[ ## R
+
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = tratamentos, resp = y)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS      MS     Fc      Pr&gt;Fc
+## Treatament  3 32.873 10.9576 94.584 1.3759e-06
+## Residuals   8  0.927  0.1158                  
+## Total      11 33.800                          
+## ------------------------------------------------------------------------
+## CV = 5.77 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.1335542 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.7511091 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+## 
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 A 	 7.48 
+## a 	 C 	 7.26 
+##  b 	 B 	 5.5 
+##   c 	 D 	 3.36 
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F.
+qf(0.05, 3, 8, lower.tail = FALSE)
+```
+
+```
+## [1] 4.066181
+```
+
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
