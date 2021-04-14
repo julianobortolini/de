@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Delineamento inteiramente casualizado (DIC) cont.</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Juliano Bortolini" />
+    <link href="aula4_files/remark-css/default.css" rel="stylesheet" />
+    <link href="aula4_files/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="libs\sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs\sydney-juca3.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <strong>Delineamento inteiramente casualizado (DIC) cont.</strong>
+## Delineamento Experimental
+### Prof. Juliano Bortolini
+### Depto. de Estatística da UFMT
+
+---
+
+
+
+
+
+
+
+
+
+
+## Conteúdo <i class="fas  fa-chart-bar fa-pull-right "></i>
+
+
+- Lista 1
+
+- Exemplo de DIC no R
+
+
+---
+
+## Lista 1
+
+.blockgreen[
+
+**Em cada experimento descrito a seguir, identifique: tratamentos, fatores e os seus níveis, blocos, número de repetições, parcela, número de parcelas e variável resposta.**
+
+]
+
+.blockgreen[
+
+**Experimento 1**
+
+Um pesquisador pretende avaliar o comportamento produtivo de diferentes cultivares de milho para produção de forragem, com vista a sua utilização na alimentação animal. Foi avaliado cinco cultivares ( `\(A\)`, `\(B\)`, `\(C\)`, `\(D\)` e `\(E\)` ), sendo que cada cultivar foi repetido por seis vezes. A parcela experimental foi constituída por cinco linhas de seis ( `\(6\)` ) metros de comprimento, espaçadas de um metro entre si; como área útil de avaliação foi considerada as três linhas centrais, eliminando-se `\(50\)` centímetros em ambas as extremidades. Após a germinação e feito o desbaste foram deixadas cinco plantas por metro linear. Foram medidos a produção de grãos, produção de matéria verde e de matéria seca, e teores de macro e micro nutrientes.
+
+]
+
+---
+
+.blockgreen[ **Experimento 1** ]
+
+.scroll-box-20[
+
+**Tratamentos:** cultivares de milho ( `\(A\)`, `\(B\)`, `\(C\)`, `\(D\)` e `\(E\)` )
+
+**Fatores:** cultivares de milho
+
+**Níveis dos fatores:** `\(A\)`, `\(B\)`, `\(C\)`, `\(D\)` e `\(E\)`
+
+**Blocos:** Não há.
+
+**Número de repetições:** 6.
+
+**Parcela:** cinco linhas de seis ( `\(6\)` ) metros de comprimento, espaçadas de um metro entre si.
+
+*Área útil:* três linhas centrais da parcela, eliminando-se `\(50\)` centímetros em ambas as extremidades (bordadura). Após a germinação e feito o desbaste, foram deixadas cinco plantas por metro linear.
+
+*Área útil:* é a parte da parcela que será mensurada.
+
+**Número de parcelas:** `\(\#REP \times \#TRAT=5\times6=30\)`.
+
+**Variável resposta:** produção de grãos, produção de matéria verde e de matéria seca, e teores de macro e micro nutrientes.
+
+]
+
+---
+
+.blockgreen[
+
+**Experimento 2**
+
+
+Um pesquisador tem interesse em avaliar se misturas de proteína e de carboidrato forem adicionadas em uma ração, se esta vai melhorar sua qualidade. A pesquisa foi realizada em uma granja de aves poedeiras, sendo que as aves escolhidas pertenciam a uma mesma faixa de idade e peso. Cada amostra da ração foi servida a grupos de cinco aves, e os avaliadores pesavam as aves antes de iniciar o fornecimento da ração e depois ao final do experimento. Os tipos de misturas elaboradas foram:
+
+`\(i.\)` ração comum, 
+
+`\(ii.\)` ração comum `\(+\)` carboidrato, 
+
+`\(iii.\)` ração comum `\(+\)` proteína e 
+
+`\(iv.\)` ração comum `\(+\)` carboidrato `\(+\)` proteína.
+
+]
+
+---
+
+.blockgreen[ **Experimento 2** ]
+
+.scroll-box-20[
+
+**Tratamentos:** misturas de proteína e carboidrato
+
+`\(i.\)` ração comum, 
+
+`\(ii.\)` ração comum `\(+\)` carboidrato, 
+
+`\(iii.\)` ração comum `\(+\)` proteína e 
+
+`\(iv.\)` ração comum `\(+\)` carboidrato `\(+\)` proteína.
+
+**Fatores:** misturas de proteína e carboidrato.
+
+**OU** A) proteína e B) carboidrato.
+
+**Níveis dos fatores:**
+
+`\(i.\)` ração comum, 
+
+`\(ii.\)` ração comum `\(+\)` carboidrato, 
+
+`\(iii.\)` ração comum `\(+\)` proteína e 
+
+`\(iv.\)` ração comum `\(+\)` carboidrato `\(+\)` proteína.
+
+**OU**
+
+A) Proteína: ausente e presente e 
+
+B) Carboidrato: ausente e presente.
+
+**Blocos:** Não há.
+
+**Número de repetições:** 5.
+
+**Parcela:** 1 ave.
+
+**Número de parcelas:** `\(\#REP \times \#TRAT=5\times4=20\)`.
+
+**Variável resposta:** Variação de peso.
+
+]
+
+---
+
+.blockgreen[
+
+**Experimento 3**
+
+
+Um pesquisador pretende estudar o efeito que a aplicação de cloreto de cálcio pode provocar nas características físico-químicas durante o armazenamento de uvas para consumo *in natura*. Foram preparadas soluções de `\(CaCl_2\)` nas concentrações de `\(0, 1, 2, 3\)` e `\(4\%\)` . Foram escolhidos aleatoriamente `\(120\)` cachos de uvas de um conjunto uniforme, previamente colhidos e limpos de qualquer injúria. Cada repetição foi constituída por quatro cachos e cada tratamento foi repetido por seis vezes. Algumas das características avaliadas foram: perda de peso, teores de sólidos solúveis, acidez titulável, açúcares e vitamina `\(C\)`.
+
+]
+
+---
+
+.blockgreen[ **Experimento 3** ]
+
+.scroll-box-20[
+
+**Tratamentos:** soluções de `\(CaCl_2\)` nas concentrações de `\(0, 1, 2, 3\)` e `\(4\%\)`.
+
+**Fatores:**  solução de `\(CaCl_2\)`.
+
+**Níveis dos fatores:** `\(0, 1, 2, 3\)` e `\(4\%\)`.
+
+**Blocos:** Não há.
+
+**Número de repetições:** 6.
+
+**Parcela:** quatro cachos de uvas.
+
+**Número de parcelas:** `\(\#REP \times \#TRAT=6\times5=30\)`.
+
+**Número de unidades experimentais básicas (cachos de uvas):** `\(\#REP \times \#TRAT \times Parcela=6\times5\times4=120\)` cachos de uvas.
+
+**Variável resposta:** perda de peso, teores de sólidos solúveis, acidez titulável, açúcares e vitamina `\(C\)`.
+
+
+]
+
+---
+
+.blockgreen[
+
+**Experimento 4**
+
+
+Um pesquisador tem interesse avaliar se a utilização de determinados medicamentos podem afetar o nível de colesterol no sangue de ratos (cobaias experimentais). Cada animal foi tratado com três medicamentos ( `\(A\)`, `\(B\)` e `\(C\)` ), com suficiente tempo entre as aplicações para que o efeito residual de cada medicamento desaparecesse. Os medicamentos foram aplicados em `\(20\)` animais distintos.
+
+]
+
+---
+
+.blockgreen[ **Experimento 4** ]
+
+
+.scroll-box-20[
+
+**Tratamentos:** medicamentos ( `\(A\)`, `\(B\)` e `\(C\)` )
+
+**Fatores:** medicamento
+
+**Níveis dos fatores:** `\(A\)`, `\(B\)` e `\(C\)`
+
+**Blocos:** Não há.
+
+**Número de repetições:** 20
+
+**Parcela:** 1 rato.
+
+**Número de parcelas:** `\(\#REP \times \#TRAT=20\times3=60\)`.
+
+**Variável resposta:** nível de colesterol.
+
+*Esse é um experimento chamado teste cruzado (ou crossover). Todos os animais receberão todos os tratamentos em momentos distintos.*
+
+
+]
+
+---
+
+.blockgreen[
+
+**Experimento 5**
+
+
+Um pesquisador da área de gado de leite estudou 4 rações com o intuito de avaliar os efeitos na produção leite. Para o experimento havia disponível 25 vacas holandesas, sendo 12 puras, 8 mestiças girolandas 3/4 e 5 mestiças girolandas 7/8.
+
+]
+
+---
+
+.blockgreen[ **Experimento 5** ]
+
+.scroll-box-20[
+
+*Esse exercício permite vários planejamentos.*
+
+*Planejamento 1:*
+
+**Tratamentos:** rações (1, 2, 3 e 4).
+
+**Fatores:** rações.
+
+**Níveis dos fatores:** 1, 2, 3 e 4.
+
+**Blocos:** Não há.
+
+**Número de repetições:** 3.
+
+**Parcela:** 1 vaca holandesa.
+
+**Número de parcelas:** `\(\#REP \times \#TRAT=3\times4=12\)`.
+
+**Variável resposta:** produção de leite.
+
+*Planejamento 2:*
+
+**Tratamentos:** rações (1, 2, 3 e 4).
+
+**Fatores:** rações.
+
+**Níveis dos fatores:** 1, 2, 3 e 4.
+
+**Blocos:** raça de vacas.
+
+**Número de repetições:** 6.
+
+**Parcela:** 1 vaca.
+
+**Número de parcelas:** `\(\#REP \times \#TRAT=6\times4=24\)`.
+
+**Variável resposta:** produção de leite.
+]
+
+---
+
+## Exemplo de DIC no R
+
+.blockgreen[ 
+
+**Alterações da histomorfologia hepática em relação à suplementação de cobre inorgânico e orgânico em ratos em crescimento**
+
+
+*Alterations of liver histomorphology in relation to copper supplementation in inorganic and organic form in growing rats*
+
+
+Autores: Ewa Tomaszewska, Piotr Dobrowolski, Małgorzata Kwiecień, Natalia Burmańczuk, Barbara Badzian, Sylwia Szymańczyk e Paulina Kurlak 
+
+
+Revista: *Bulletin-Veterinary Institute in Pulawy*, 2014, Vol.58 No.3 pp.479-486.
+
+DOI (e link): [10.2478/bvip-2014-0073](https://cyberleninka.org/article/n/160540.pdf)
+
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+- Aquivo com os dados: [dados_doses_de_cobre_ratos_dic.xlsx](docs_aula4/dados_doses_de_cobre_ratos_dic.xlsx)
+- **Dados simulados a partir das estatísticas disponíveis no artigo.**
+
+]
+
+---
+
+
+.blockgreen[
+
+.scroll-box-20[
+
+- **Objetivo:** determinar as alterações histomorfológicas em fígado de ratos submetidos a dietas com fonte de cobre inorgânica e de diferentes concentrações de suplementação com cobre-quelato.
+
+- **Variáveis:** Fonte de cobre inorgânica, diferentes concentrações de cobre quelato, análise plasmática, análise imunohistoquímica, histopatológica e histomorfométrica dos fígados.
+
+- **Como obtiveram os dados:** Experimento com divisão aleatoriamente dos indivíduos em grupo controle (dieta com fonte inorgânica de Cu dentro dos valores de ref. para espécie) e grupo experimental dividido a partir da suplementação com 4 concentrações diferentes de cobre. 
+
+- **Análises estatísticas:**  Média e SD; comparação de médias com  one way ANOVA e teste de Dunett para realizar correções na comparação das médias.  Verificar normalidade dos dados com Shapiro Wilk e homogeneidade de variâncias com Brown-Forsythe. Significância p&lt;0,05. Software utilizado: STATISTICA 8.0.
+
+- **Principais resultados:** Aumento do nº de apoptose no grupo II e III (100 e 75% de suplementação cúprica). Aumento no número total de células, de hepatócitos e de hepatócitos multinucleados em grupo V (25% de suplementação). Demais variáveis sem alterações significativas.
+
+
+]
+]
+
+
+---
+
+.blockgreen[
+
+.scroll-box-20[
+
+- **Tratamentos:**
+
+1. Controle: `\(100\%\)` da demanda diária de Cu na forma inorgânica.
+2. `\(100\%\)` da demanda diária de Cu na forma orgânica (quelato de Cobre).
+3. `\(75\%\)` da demanda diária de Cu na forma orgânica.
+4. `\(50\%\)` da demanda diária de Cu na forma orgânica.
+5. `\(25\%\)` da demanda diária de Cu na forma orgânica.
+
+
+- **Número de repetições:** 12.
+
+- **Parcela:** 1 rato Wistar com peso `\(217,9 \pm 25,5 g\)` e idade de 5 semanas.
+
+- **Número de parcelas:** `\(\#REP \times \#TRAT=12\times5=60\)`.
+
+- **Variáveis respostas:** peso (g), concentração de Cu no plasma (μmol/L) e fígado (μg/g), número de núcleos `\(/mm^2\)`, número total de células `\(/mm^2\)`, número total de hepatócitos `\(/mm^2\)`, número de hepatócitos mononucleares `\(/mm^2\)`, número de hepatócitos multinucleados `\(/mm^2\)`, número de células não hepatócitos `\(/mm^2\)`, espaço intercelular como área ( `\(\%\)`), dimensão fractal do espaço intercelular, área de colágeno `\(\mu m^2/mm^2\)` e células apoptóticas `\(/mm^2\)`.
+
+
+]
+]
+
+
+---
+
+.scroll-box-20[
+
+
+```r
+# leitura de dados xlsx
+# install.packages("openxlsx")
+
+# Carregar pacote openxlsx
+library(openxlsx)
+
+# leitura dos dados.
+# Atenção: verificar o diretório onde o arquivo de dados está salvo.
+# Para escolher diretório no RStudio: ctrl + shift + H
+# OU: ir em "Session" --&gt; Set Working Directory --&gt; Choose directory
+dados &lt;- read.xlsx("docs_aula4/dados_doses_de_cobre_ratos_dic.xlsx")
+
+# Variáveis no conjunto de dados:
+names(dados)
+```
+
+```
+##  [1] "grupo"                      "peso"                      
+##  [3] "Cu_plasma"                  "Cu_figado"                 
+##  [5] "nucleos"                    "celulas"                   
+##  [7] "hepatocitos"                "hepatocitos_mononucleares" 
+##  [9] "hepatocitos_multinucleados" "nao_hepatocitos"           
+## [11] "area_intercelular"          "dim_intercelular"          
+## [13] "area_colageno"              "apoptoticas"
+```
+
+]
+
+---
+
+.scroll-box-20[
+
+
+```r
+# Visualização dos dados (apenas executar o objeto dados)
+dados
+```
+
+```
+##    grupo  peso Cu_plasma Cu_figado nucleos celulas hepatocitos
+## 1      1 392.9     28.04      0.25    1604    2260        1591
+## 2      1 392.3     27.87      0.25    1605    2275        1593
+## 3      1 395.4     28.70      0.28    1594    2246        1594
+## 4      1 381.1     24.87      0.14    1629    2242        1595
+## 5      1 401.7     30.37      0.34    1644    2232        1577
+## 6      1 390.0     27.24      0.23    1592    2262        1587
+## 7      1 400.7     30.11      0.33    1608    2284        1600
+## 8      1 391.2     27.57      0.24    1600    2256        1564
+## 9      1 391.3     27.60      0.24    1605    2255        1583
+## 10     1 393.2     28.10      0.26    1606    2281        1594
+## 11     1 390.9     27.50      0.23    1610    2250        1555
+## 12     1 396.7     29.05      0.29    1619    2244        1572
+## 13     2 413.3     28.14      0.19    1745    2338        1679
+## 14     2 413.8     28.26      0.17    1761    2333        1673
+## 15     2 408.7     26.87      0.24    1731    2347        1687
+## 16     2 425.1     31.37      0.16    1727    2332        1673
+## 17     2 431.8     33.23      0.22    1717    2343        1683
+## 18     2 407.7     26.60      0.32    1747    2363        1703
+## 19     2 415.1     28.64      0.08    1769    2317        1657
+## 20     2 411.7     27.70      0.30    1741    2360        1700
+## 21     2 413.9     28.31      0.42    1740    2382        1722
+## 22     2 414.5     28.45      0.21    1766    2341        1682
+## 23     2 416.2     28.92      0.27    1735    2353        1693
+## 24     2 420.5     30.11      0.30    1729    2358        1698
+## 25     3 423.3     28.06      0.23    1743    2189        1680
+## 26     3 421.0     27.32      0.24    1745    2190        1696
+## 27     3 427.3     29.33      0.18    1746    2178        1666
+## 28     3 420.7     27.22      0.36    1746    2215        1662
+## 29     3 425.3     28.69      0.44    1727    2230        1651
+## 30     3 434.5     31.61      0.17    1739    2176        1682
+## 31     3 413.7     24.98      0.25    1752    2193        1705
+## 32     3 432.9     31.11      0.22    1714    2185        1676
+## 33     3 442.9     34.31      0.24    1734    2190        1675
+## 34     3 424.7     28.49      0.25    1745    2191        1702
+## 35     3 429.9     30.15      0.27    1706    2195        1670
+## 36     3 432.1     30.87      0.31    1722    2205        1664
+## 37     4 426.2     30.79      0.32    1719    2371        1674
+## 38     4 427.1     31.07      0.33    1714    2373        1675
+## 39     4 427.6     31.19      0.33    1727    2374        1664
+## 40     4 427.7     31.22      0.33    1713    2375        1699
+## 41     4 419.1     28.72      0.24    1723    2355        1714
+## 42     4 424.3     30.24      0.30    1741    2367        1662
+## 43     4 430.3     31.98      0.36    1699    2381        1678
+## 44     4 413.0     26.95      0.16    1738    2341        1670
+## 45     4 422.3     29.66      0.27    1758    2363        1675
+## 46     4 427.3     31.10      0.33    1721    2374        1676
+## 47     4 409.0     25.79      0.12    1732    2332        1680
+## 48     4 416.7     28.03      0.21    1736    2350        1689
+## 49     5 449.1     31.83      0.30    1838    2485        1769
+## 50     5 456.6     34.06      0.38    1837    2484        1768
+## 51     5 442.2     29.75      0.23    1842    2489        1773
+## 52     5 440.1     29.13      0.21    1816    2462        1747
+## 53     5 435.1     27.64      0.16    1854    2501        1785
+## 54     5 450.0     32.09      0.31    1832    2479        1763
+## 55     5 460.8     35.33      0.42    1852    2499        1783
+## 56     5 447.1     31.23      0.28    1834    2481        1765
+## 57     5 446.6     31.08      0.28    1835    2482        1766
+## 58     5 459.5     34.92      0.41    1838    2485        1769
+## 59     5 444.0     30.31      0.25    1834    2481        1765
+## 60     5 441.2     29.45      0.22    1845    2492        1776
+##    hepatocitos_mononucleares hepatocitos_multinucleados nao_hepatocitos
+## 1                       1540                       9.65             664
+## 2                       1535                       9.48             661
+## 3                       1548                      10.35             670
+## 4                       1535                       6.35             660
+## 5                       1544                      12.09             667
+## 6                       1562                       8.83             681
+## 7                       1521                      11.81             650
+## 8                       1559                       9.17             679
+## 9                       1578                       9.20             694
+## 10                      1543                       9.72             666
+## 11                      1553                       9.09             674
+## 12                      1557                      10.71             678
+## 13                      1649                      26.20             654
+## 14                      1663                      26.34             655
+## 15                      1636                      24.79             647
+## 16                      1632                      29.82             672
+## 17                      1622                      31.89             682
+## 18                      1651                      24.48             646
+## 19                      1671                      26.76             657
+## 20                      1645                      25.71             652
+## 21                      1644                      26.39             655
+## 22                      1669                      26.55             656
+## 23                      1639                      27.08             658
+## 24                      1634                      28.41             665
+## 25                      1610                      29.84             525
+## 26                      1611                      31.92             536
+## 27                      1601                      27.90             516
+## 28                      1634                      27.32             513
+## 29                      1647                      25.93             506
+## 30                      1599                      30.08             527
+## 31                      1614                      33.10             542
+## 32                      1607                      29.28             523
+## 33                      1612                      29.14             522
+## 34                      1613                      32.72             540
+## 35                      1616                      28.42             518
+## 36                      1625                      27.62             514
+## 37                      1641                      30.24             685
+## 38                      1643                      30.55             687
+## 39                      1644                      30.69             687
+## 40                      1644                      30.73             688
+## 41                      1627                      27.88             675
+## 42                      1637                      29.61             683
+## 43                      1650                      31.59             691
+## 44                      1614                      25.87             666
+## 45                      1633                      28.96             680
+## 46                      1643                      30.59             687
+## 47                      1606                      24.56             660
+## 48                      1622                      27.10             671
+## 49                      1700                      24.03             718
+## 50                      1699                      23.32             717
+## 51                      1704                      25.26             721
+## 52                      1678                      23.22             703
+## 53                      1716                      24.65             728
+## 54                      1694                      27.46             714
+## 55                      1714                      21.06             727
+## 56                      1696                      26.97             716
+## 57                      1697                      30.07             716
+## 58                      1700                      24.45             718
+## 59                      1696                      26.05             715
+## 60                      1707                      26.74             722
+##    area_intercelular dim_intercelular area_colageno apoptoticas
+## 1               5.61             1.67          5436          24
+## 2               5.06             1.71          5444          23
+## 3               6.56             1.73          5448          25
+## 4               4.98             1.74          5449          18
+## 5               6.08             1.33          5377          28
+## 6               8.26             1.58          5421          22
+## 7               3.32             1.86          5470          27
+## 8               7.88             1.04          5327          23
+## 9              10.27             1.48          5404          23
+## 10              5.93             1.72          5445          24
+## 11              7.16             0.85          5293          23
+## 12              7.70             1.21          5357          25
+## 13             11.75             1.38          4306         386
+## 14             13.60             1.40          4302         396
+## 15             10.03             1.18          4322         377
+## 16              9.51             1.88          4232         374
+## 17              8.27             2.17          4361         368
+## 18             11.97             1.14          4288         387
+## 19             14.65             1.46          4354         401
+## 20             11.26             1.31          4295         383
+## 21             11.13             1.41          4296         383
+## 22             14.32             1.43          4308         400
+## 23             10.49             1.50          4293         379
+## 24              9.78             1.69          4330         376
+## 25              9.19             1.18          4103         103
+## 26              9.43             1.06          4083         102
+## 27              9.53             1.38          4136         106
+## 28              9.56             1.05          4081         101
+## 29              7.42             1.28          4119         105
+## 30              8.72             1.73          4196         111
+## 31             10.21             0.70          4022          97
+## 32              5.90             1.65          4182         110
+## 33              8.23             2.15          4266         116
+## 34              9.46             1.24          4114         104
+## 35              4.91             1.50          4157         108
+## 36              6.82             1.62          4176         109
+## 37              5.77             1.80          5778          67
+## 38              5.88             2.72          5781          68
+## 39              4.63             0.95          5742          68
+## 40              8.68             0.69          5869          68
+## 41             10.36             0.08          5921          63
+## 42              4.38             1.91          5734          66
+## 43              6.22             3.24          5792          70
+## 44              5.37             1.56          5765          58
+## 45              5.92             1.49          5782          65
+## 46              6.05             3.07          5786          68
+## 47              6.47             1.18          5800          56
+## 48              7.54             0.83          5833          61
+## 49              5.96             1.42          9035          42
+## 50              5.84             1.40          9096          42
+## 51              6.42             1.51          8979          39
+## 52              3.77             0.99          8962          50
+## 53              7.57             1.74          8922          54
+## 54              5.41             1.31          9042          38
+## 55              7.39             1.71          9130          43
+## 56              5.64             1.36          9019          41
+## 57              5.65             1.36          9015          42
+## 58              6.00             1.43          9119          43
+## 59              5.59             1.35          8994          44
+## 60              6.66             1.56          8971          47
+```
+
+]
+
+---
+
+.scroll-box-20[
+
+
+```r
+library(tidyverse) # Pacote para explorar e manipular dados
+library(knitr) # tabelas RMarkdown (função kable)
+dados %&gt;%
+  gather(key = "Variável", value = "Valores", -grupo) %&gt;%
+  group_by(Variável, grupo) %&gt;%
+  summarise_all(.funs = c(média = mean, sd = sd)) %&gt;%
+  kable(digits = 2)
+```
+
+
+
+|Variável                   | grupo|   média|    sd|
+|:--------------------------|-----:|-------:|-----:|
+|apoptoticas                |     1|   23.75|  2.53|
+|apoptoticas                |     2|  384.17| 10.43|
+|apoptoticas                |     3|  106.00|  5.13|
+|apoptoticas                |     4|   64.83|  4.43|
+|apoptoticas                |     5|   43.75|  4.56|
+|area_colageno              |     1| 5405.92| 55.64|
+|area_colageno              |     2| 4307.25| 33.51|
+|area_colageno              |     3| 4136.25| 64.21|
+|area_colageno              |     4| 5798.58| 52.95|
+|area_colageno              |     5| 9023.67| 64.65|
+|area_intercelular          |     1|    6.57|  1.83|
+|area_intercelular          |     2|   11.40|  1.98|
+|area_intercelular          |     3|    8.28|  1.67|
+|area_intercelular          |     4|    6.44|  1.69|
+|area_intercelular          |     5|    5.99|  0.99|
+|celulas                    |     1| 2257.25| 16.11|
+|celulas                    |     2| 2347.25| 17.22|
+|celulas                    |     3| 2194.75| 15.32|
+|celulas                    |     4| 2363.00| 15.28|
+|celulas                    |     5| 2485.00| 10.11|
+|Cu_figado                  |     1|    0.26|  0.05|
+|Cu_figado                  |     2|    0.24|  0.09|
+|Cu_figado                  |     3|    0.26|  0.08|
+|Cu_figado                  |     4|    0.28|  0.08|
+|Cu_figado                  |     5|    0.29|  0.08|
+|Cu_plasma                  |     1|   28.09|  1.43|
+|Cu_plasma                  |     2|   28.88|  1.88|
+|Cu_plasma                  |     3|   29.34|  2.46|
+|Cu_plasma                  |     4|   29.73|  1.95|
+|Cu_plasma                  |     5|   31.40|  2.39|
+|dim_intercelular           |     1|    1.49|  0.32|
+|dim_intercelular           |     2|    1.50|  0.29|
+|dim_intercelular           |     3|    1.38|  0.38|
+|dim_intercelular           |     4|    1.63|  0.98|
+|dim_intercelular           |     5|    1.43|  0.20|
+|hepatocitos                |     1| 1583.75| 13.98|
+|hepatocitos                |     2| 1687.50| 17.06|
+|hepatocitos                |     3| 1677.42| 16.64|
+|hepatocitos                |     4| 1679.67| 14.72|
+|hepatocitos                |     5| 1769.08|  9.90|
+|hepatocitos_mononucleares  |     1| 1547.92| 15.06|
+|hepatocitos_mononucleares  |     2| 1646.25| 15.21|
+|hepatocitos_mononucleares  |     3| 1615.75| 13.65|
+|hepatocitos_mononucleares  |     4| 1633.67| 13.66|
+|hepatocitos_mononucleares  |     5| 1700.08|  9.90|
+|hepatocitos_multinucleados |     1|    9.70|  1.49|
+|hepatocitos_multinucleados |     2|   27.04|  2.10|
+|hepatocitos_multinucleados |     3|   29.44|  2.23|
+|hepatocitos_multinucleados |     4|   29.03|  2.21|
+|hepatocitos_multinucleados |     5|   25.27|  2.37|
+|nao_hepatocitos            |     1|  670.33| 11.67|
+|nao_hepatocitos            |     2|  658.25| 10.27|
+|nao_hepatocitos            |     3|  523.50| 11.20|
+|nao_hepatocitos            |     4|  680.00|  9.85|
+|nao_hepatocitos            |     5|  717.92|  6.50|
+|nucleos                    |     1| 1609.67| 14.72|
+|nucleos                    |     2| 1742.33| 16.22|
+|nucleos                    |     3| 1734.92| 14.54|
+|nucleos                    |     4| 1726.75| 15.52|
+|nucleos                    |     5| 1838.08|  9.90|
+|peso                       |     1|  393.12|  5.36|
+|peso                       |     2|  416.02|  6.83|
+|peso                       |     3|  427.36|  7.69|
+|peso                       |     4|  422.55|  6.69|
+|peso                       |     5|  447.69|  7.99|
+
+]
+
+---
+
+
+
+```r
+# Biblioteca (pacote) que realiza análise de experimentos: "ExpDes"
+# install.packages("ExpDes") # instalar pacote
+library(ExpDes) # carregar pacote
+
+args(crd) # argumentos da função "crd": Completely Randomized Design
+```
+
+```
+## function (treat, resp, quali = TRUE, mcomp = "tukey", nl = FALSE, 
+##     hvar = "bartlett", sigT = 0.05, sigF = 0.05) 
+## NULL
+```
+
+```r
+# help(crd)
+# ?crd
+```
+
+---
+
+**Análise de variância da variável peso**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$peso, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF      SS     MS     Fc      Pr&gt;Fc
+## Treatament  4 18682.8 4670.7 96.049 3.8532e-24
+## Residuals  55  2674.6   48.6                  
+## Total      59 21357.4                         
+## ------------------------------------------------------------------------
+## CV = 1.66 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.6381548 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.7475751 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável Cu_plasma**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$Cu_plasma, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF      SS      MS     Fc     Pr&gt;Fc
+## Treatament  4  72.892 18.2231 4.3195 0.0041366
+## Residuals  55 232.035  4.2188                 
+## Total      59 304.928                         
+## ------------------------------------------------------------------------
+## CV = 6.97 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.8581841 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.4451735 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável Cu_figado**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$Cu_figado, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF      SS        MS      Fc   Pr&gt;Fc
+## Treatament  4 0.01563 0.0039067 0.67513 0.61208
+## Residuals  55 0.31826 0.0057865                
+## Total      59 0.33388                          
+## ------------------------------------------------------------------------
+## CV = 28.76 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.8135663 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.5321731 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+## 
+## According to the F test, the means can not be considered distinct.
+## ------------------------------------------------------------------------
+##   Levels     Means
+## 1      1 0.2566667
+## 2      2 0.2400000
+## 3      3 0.2633333
+## 4      4 0.2750000
+## 5      5 0.2875000
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável nucleos**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$nucleos, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS    MS     Fc      Pr&gt;Fc
+## Treatament  4 316180 79045 383.73 1.8287e-39
+## Residuals  55  11329   206                  
+## Total      59 327510                        
+## ------------------------------------------------------------------------
+## CV = 0.83 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.8462977 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.5895958 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável celulas**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$celulas, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS     MS     Fc      Pr&gt;Fc
+## Treatament  4 587942 146986 652.54 1.2549e-45
+## Residuals  55  12389    225                  
+## Total      59 600331                         
+## ------------------------------------------------------------------------
+## CV = 0.64 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.833282 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.5317361 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável hepatocitos**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$hepatocitos, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS    MS     Fc      Pr&gt;Fc
+## Treatament  4 207139 51785 240.15 4.0407e-34
+## Residuals  55  11860   216                  
+## Total      59 218999                        
+## ------------------------------------------------------------------------
+## CV = 0.87 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.7176987 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.4755346 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável hepatocitos_mononucleares**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$hepatocitos_mononucleares, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS    MS     Fc     Pr&gt;Fc
+## Treatament  4 145463 36366 195.65 7.998e-32
+## Residuals  55  10223   186                 
+## Total      59 155686                       
+## ------------------------------------------------------------------------
+## CV = 0.84 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.806794 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.6858353 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável hepatocitos_multinucleados**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$hepatocitos_multinucleados, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS     MS     Fc      Pr&gt;Fc
+## Treatament  4 3240.6 810.15 183.29 4.2418e-31
+## Residuals  55  243.1   4.42                  
+## Total      59 3483.7                         
+## ------------------------------------------------------------------------
+## CV = 8.72 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.8519597 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.6517124 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável nao_hepatocitos**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$nao_hepatocitos, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS    MS     Fc      Pr&gt;Fc
+## Treatament  4 263957 65989 651.27 1.3228e-45
+## Residuals  55   5573   101                  
+## Total      59 269530                        
+## ------------------------------------------------------------------------
+## CV = 1.55 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.7522017 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.4212114 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável area_intercelular**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$area_intercelular, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS     MS     Fc      Pr&gt;Fc
+## Treatament  4 237.46 59.364 21.365 1.1248e-10
+## Residuals  55 152.82  2.779                  
+## Total      59 390.28                         
+## ------------------------------------------------------------------------
+## CV = 21.55 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.6712963 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.2765469 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável dim_intercelular**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$dim_intercelular, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF      SS      MS      Fc   Pr&gt;Fc
+## Treatament  4  0.4181 0.10453 0.39233 0.81325
+## Residuals  55 14.6542 0.26644                
+## Total      59 15.0723                        
+## ------------------------------------------------------------------------
+## CV = 34.77 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.0007514684 
+## WARNING: at 5% of significance, residuals can not be considered normal!
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  3.341263e-07 
+## WARNING: at 5% of significance, residuals can not be considered homocedastic!
+## ------------------------------------------------------------------------
+## 
+## According to the F test, the means can not be considered distinct.
+## ------------------------------------------------------------------------
+##   Levels    Means
+## 1      1 1.493333
+## 2      2 1.495833
+## 3      3 1.378333
+## 4      4 1.626667
+## 5      5 1.428333
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável area_colageno**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$area_colageno, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF        SS       MS    Fc      Pr&gt;Fc
+## Treatament  4 186265638 46566410 15193 5.6452e-83
+## Residuals  55    168573     3065                 
+## Total      59 186434211                          
+## ------------------------------------------------------------------------
+## CV = 0.97 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.740932 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.2814456 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+
+---
+
+**Análise de variância da variável apoptoticas**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$grupo, resp = dados$apoptoticas, mcomp = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF      SS     MS     Fc      Pr&gt;Fc
+## Treatament  4 1056003 264001 7253.4 3.7146e-74
+## Residuals  55    2002     36                  
+## Total      59 1058005                         
+## ------------------------------------------------------------------------
+## CV = 4.85 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.03992794 
+## WARNING: at 5% of significance, residuals can not be considered normal!
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.000139124 
+## WARNING: at 5% of significance, residuals can not be considered homocedastic!
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  4, df2 =  55, lower.tail = FALSE)
+```
+
+```
+## [1] 2.539689
+```
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
