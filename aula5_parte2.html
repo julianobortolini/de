@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DBC e DQL no R.</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Juliano Bortolini" />
+    <link href="aula5_parte2_files/remark-css/default.css" rel="stylesheet" />
+    <link href="aula5_parte2_files/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="libs\sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs\sydney-juca3.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <strong>DBC e DQL no R.</strong>
+## Delineamento Experimental
+### Prof. Juliano Bortolini
+### Depto. de Estatística da UFMT
+
+---
+
+
+
+
+
+
+
+
+
+
+## Conteúdo <i class="fas  fa-chart-bar fa-pull-right "></i>
+
+
+- DBC no R
+
+- DQL no R
+
+
+---
+
+## DBC no R
+
+.blockgreen[  ## Suplemento alimentar para vacas em lactação
+
+- Um produtor de leite está interessado em saber se a suplementação alimentar de vacas em lactação pode aumentar a produção de leite.
+
+- Comparar a produção de leite das vacas com suplemento e sem suplemento.
+		
+- **Tratamentos:** mandioca, araruta, batata doce e sem suplemento.
+		
+- **Blocos:** raças disponíveis (Gir, Holandesa, Jersey, Nelore e Guzerá).
+
+&lt;br&gt;
+
+- 4 tratamentos e 5 blocos
+		
+		
+]
+
+
+---
+
+.scroll-box-20[
+
+
+```r
+# leitura de dados xlsx
+# install.packages("openxlsx")
+
+# Carregar pacote openxlsx
+library(openxlsx)
+
+# leitura dos dados.
+# Atenção: verificar o diretório onde o arquivo de dados está salvo.
+# Para escolher diretório no RStudio: ctrl + shift + H
+# OU: ir em "Session" --&gt; Set Working Directory --&gt; Choose directory
+dados &lt;- read.xlsx("docs_aula5/dados_suplementacao_dbc.xlsx")
+
+# Variáveis no conjunto de dados:
+names(dados)
+```
+
+```
+## [1] "vaca"       "suplemento" "raca"       "producao"
+```
+
+]
+
+---
+
+.scroll-box-20[
+
+
+```r
+# Visualização dos dados (apenas executar o objeto dados)
+dados
+```
+
+```
+##    vaca suplemento      raca producao
+## 1     2        sem       Gir      6.4
+## 2     3   mandioca       Gir     10.9
+## 3     4    araruta       Gir     12.0
+## 4     1 batatadoce       Gir     11.2
+## 5     6        sem Holandesa      6.2
+## 6     7   mandioca Holandesa     11.6
+## 7     8    araruta Holandesa     10.9
+## 8     5 batatadoce Holandesa     11.6
+## 9     9        sem    Jersey      6.2
+## 10   12   mandioca    Jersey     11.4
+## 11   10    araruta    Jersey     11.5
+## 12   11 batatadoce    Jersey     10.9
+## 13   15        sem    Nelore      7.1
+## 14   13   mandioca    Nelore     10.4
+## 15   16    araruta    Nelore     11.1
+## 16   14 batatadoce    Nelore     12.1
+## 17   18        sem    Guzerá      6.6
+## 18   20   mandioca    Guzerá     12.4
+## 19   17    araruta    Guzerá     11.8
+## 20   19 batatadoce    Guzerá     10.1
+```
+
+```r
+# observe que a coluna "vaca" é a identificação do aninal
+#   e está aleatorizado dentro dos blocos.
+```
+
+]
+
+---
+
+.scroll-box-20[
+
+
+```r
+library(tidyverse) # Pacote para explorar e manipular dados
+library(knitr) # tabelas RMarkdown (função kable)
+dados %&gt;%
+  select(suplemento, producao) %&gt;%
+  group_by(suplemento) %&gt;%
+  summarise_all(.funs = c(média = mean, sd = sd)) %&gt;%
+  kable(digits = 2)
+```
+
+
+
+|suplemento | média|   sd|
+|:----------|-----:|----:|
+|araruta    | 11.46| 0.46|
+|batatadoce | 11.18| 0.75|
+|mandioca   | 11.34| 0.75|
+|sem        |  6.50| 0.37|
+
+]
+
+---
+
+
+
+```r
+# Biblioteca (pacote) que realiza análise de experimentos: "ExpDes"
+# install.packages("ExpDes") # instalar pacote
+library(ExpDes) # carregar pacote
+
+args(rbd) # argumentos da função "crd": randomized blocks design
+```
+
+```
+## function (treat, block, resp, quali = TRUE, mcomp = "tukey", 
+##     nl = FALSE, hvar = "oneillmathews", sigT = 0.05, sigF = 0.05) 
+## NULL
+```
+
+```r
+# help(rbd)
+# ?rbd
+```
+
+---
+
+**Análise de variância da variável producao**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DBC
+rbd(treat = dados$suplemento, block = dados$raca, resp = dados$producao)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS      MS     Fc   Pr&gt;Fc
+## Treatament  3 87.560 29.1867 60.075 0.00000
+## Block       4  0.122  0.0305  0.063 0.99176
+## Residuals  12  5.830  0.4858               
+## Total      19 93.512                       
+## ------------------------------------------------------------------------
+## CV = 6.89 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.9033368 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.3346682 
+## According to the test of oneillmathews at 5% of significance, the variances can be considered homocedastic.
+## ------------------------------------------------------------------------
+## 
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 araruta 	 11.46 
+## a 	 mandioca 	 11.34 
+## a 	 batatadoce 	 11.18 
+##  b 	 sem 	 6.5 
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos
+qf(p = 0.05, df1 =  3, df2 =  12, lower.tail = FALSE)
+```
+
+```
+## [1] 3.490295
+```
+
+```r
+# valor crítico para o teste F para blocos
+qf(p = 0.05, df1 =  4, df2 =  12, lower.tail = FALSE)
+```
+
+```
+## [1] 3.259167
+```
+
+]
+
+---
+
+
+## DQL no R
+
+.blockgreen[  ## Formulações de propulsores (Ex. 4.3, Montgomery, 2012)
+
+- Um engenheiro aeroespacial está estudando os efeitos de cinco formulações diferentes de um propulsor de foguete usado em sistemas de evacuação da tripulação.
+
+- Variável a ser observada: velocidade de queima das formulações.
+
+- Cada formulação é misturada a partir de um lote de matéria-prima que é suficientemente para cinco formulações.
+
+- As formulações são preparadas por diversos operadores.
+
+- Duas fontes de perturbação: lotes e operadores.
+
+- Delineamento apropriado: testar cada formulação apenas uma vez em cada lote de matéria-prima e cada operador preparar uma vez cada formulação.
+
+]
+
+
+---
+
+.scroll-box-20[
+
+
+```r
+# leitura de dados xlsx
+# install.packages("openxlsx")
+
+# Carregar pacote openxlsx
+library(openxlsx)
+
+# leitura dos dados.
+# Atenção: verificar o diretório onde o arquivo de dados está salvo.
+# Para escolher diretório no RStudio: ctrl + shift + H
+# OU: ir em "Session" --&gt; Set Working Directory --&gt; Choose directory
+dados &lt;- read.xlsx("docs_aula5/dados_propulsores_dql.xlsx")
+
+# Variáveis no conjunto de dados:
+names(dados)
+```
+
+```
+## [1] "LoteMP"     "Operador"   "Formulacao" "Velocidade"
+```
+
+]
+
+---
+
+.scroll-box-20[
+
+
+```r
+# Visualização dos dados (apenas executar o objeto dados)
+dados
+```
+
+```
+##    LoteMP Operador Formulacao Velocidade
+## 1       1        1          A         24
+## 2       2        1          B         17
+## 3       3        1          C         18
+## 4       4        1          D         26
+## 5       5        1          E         22
+## 6       1        2          B         20
+## 7       2        2          C         24
+## 8       3        2          D         38
+## 9       4        2          E         31
+## 10      5        2          A         30
+## 11      1        3          C         19
+## 12      2        3          D         30
+## 13      3        3          E         26
+## 14      4        3          A         26
+## 15      5        3          B         20
+## 16      1        4          D         24
+## 17      2        4          E         27
+## 18      3        4          A         27
+## 19      4        4          B         23
+## 20      5        4          C         29
+## 21      1        5          E         24
+## 22      2        5          A         36
+## 23      3        5          B         21
+## 24      4        5          C         22
+## 25      5        5          D         31
+```
+
+]
+
+---
+
+.scroll-box-20[
+
+
+```r
+library(tidyverse) # Pacote para explorar e manipular dados
+library(knitr) # tabelas RMarkdown (função kable)
+dados %&gt;%
+  select(Formulacao, Velocidade) %&gt;%
+  group_by(Formulacao) %&gt;%
+  summarise_all(.funs = c(média = mean, sd = sd)) %&gt;%
+  kable(digits = 2)
+```
+
+
+
+|Formulacao | média|   sd|
+|:----------|-----:|----:|
+|A          |  28.6| 4.67|
+|B          |  20.2| 2.17|
+|C          |  22.4| 4.39|
+|D          |  29.8| 5.40|
+|E          |  26.0| 3.39|
+
+]
+
+---
+
+
+
+```r
+# Biblioteca (pacote) que realiza análise de experimentos: "ExpDes"
+# install.packages("ExpDes") # instalar pacote
+library(ExpDes) # carregar pacote
+
+args(latsd) # argumentos da função "latsd": Latin Square Design
+```
+
+```
+## function (treat, row, column, resp, quali = TRUE, mcomp = "tukey", 
+##     sigT = 0.05, sigF = 0.05) 
+## NULL
+```
+
+```r
+# help(latsd)
+# ?latsd
+```
+
+---
+
+**Análise de variância da variável Velocidade**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DQL
+latsd(treat = dados$Formulacao, row = dados$LoteMP, column = dados$Operador, resp = dados$Velocidade)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF  SS     MS     Fc    Pr&gt;Fc
+## Treatament  4 330 82.500 7.7344 0.002537
+## Row         4  68 17.000 1.5938 0.239059
+## Column      4 150 37.500 3.5156 0.040373
+## Residuals  12 128 10.667                
+## Total      24 676                       
+## ------------------------------------------------------------------------
+## CV = 12.86 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.05810583 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 D 	 29.8 
+## ab 	 A 	 28.6 
+## abc 	 E 	 26 
+##  bc 	 C 	 22.4 
+##   c 	 B 	 20.2 
+## ------------------------------------------------------------------------
+```
+
+```r
+# valor crítico para o teste F para tratamentos (linhas e colunas)
+qf(p = 0.05, df1 =  4, df2 =  12, lower.tail = FALSE)
+```
+
+```
+## [1] 3.259167
+```
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
