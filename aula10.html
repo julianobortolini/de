@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Experimentos fatoriais (2 fatores)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Juliano Bortolini" />
+    <link href="aula10_files/remark-css/default.css" rel="stylesheet" />
+    <link href="aula10_files/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="libs\sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs\sydney-juca3.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <strong>Experimentos fatoriais (2 fatores)</strong>
+## Delineamento Experimental
+### Prof. Juliano Bortolini
+### Depto. de Estatística da UFMT
+
+---
+
+
+
+
+
+
+
+
+
+
+## Conteúdo <i class="fas  fa-chart-bar fa-pull-right "></i>
+
+
+- Experimentos fatoriais
+
+- Exemplos de experimentos
+
+- Experimentos fatoriais de 2 fatores
+
+- Efeitos simples, principal e de interação
+
+- Casualização dos tratamentos
+
+- Análise de exp. fat. no R
+
+---
+
+## Experimentos fatoriais
+
+**Até agora:**
+
+- experimentos mais simples:
+	- comparação de tratamentos de apenas um fator e demais fatores constantes.
+OU
+	- comparação das combinações dos níveis de mais de um fator sem estudar diretamente o efeito de interação entre fatores.
+
+---
+
+**Exemplos:**
+
+**Experimento 1.**
+
+Um pesquisador da área de gado de leite estudou 4 rações com o intuito de avaliar os efeitos na produção leite (...).
+
+**Fator:** rações (1, 2, 3 e 4)
+
+**Níveis:** 1, 2, 3 e 4.
+
+**Tratamentos:** 1, 2, 3 e 4.
+
+---
+
+**Exemplos:**
+
+**Experimento 2.**
+
+Um pesquisador tem interesse avaliar se a utilização de determinados medicamentos podem afetar o nível de colesterol no sangue de ratos (cobaias experimentais). Cada animal foi tratado com três medicamentos ( `\(A\)`, `\(B\)` e `\(C\)` ), com suficiente tempo entre as aplicações para que o efeito residual de cada medicamento desaparecesse (...)
+
+**Fator:** medicamentos ( `\(A\)`, `\(B\)` e `\(C\)` )
+
+**Níveis:** `\(A\)`, `\(B\)` e `\(C\)`
+
+**Tratamentos:** `\(A\)`, `\(B\)` e `\(C\)`
+
+
+---
+
+**Exemplos:**
+
+**Experimento 3.**
+
+Um pesquisador tem interesse em avaliar se misturas de proteína e de carboidrato forem adicionadas em uma ração, se esta vai melhorar sua qualidade (...)
+
+**Fatores:**
+
+**A** proteína (ausência e presença) e 
+**B** carboidrato (ausência e presença).
+
+**Níveis:**
+
+**Fator A:** ausência e presença
+**Fator B:** ausência e presença
+
+**Tratamentos:**
+
+`\(i.\)` ração comum, 
+
+`\(ii.\)` ração comum `\(+\)` carboidrato, 
+
+`\(iii.\)` ração comum `\(+\)` proteína e 
+
+`\(iv.\)` ração comum `\(+\)` carboidrato `\(+\)` proteína.
+
+---
+
+**Exemplos:**
+
+**Experimento 4.**
+
+
+
+
+&lt;img src="docs_aula10/fat1.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+## Experimentos fatoriais
+
+
+- Experimentos fatoriais não constituem um delineamento experimental, mas sim um esquema de arranjo dos tratamentos, que deverão ser distribuídos num delineamento inteiramente casualizado, em blocos casualizados etc.
+
+
+**Agora:**
+
+- Com os experimentos fatoriais será possível obter informações mais amplas (efeito de interações entre fatores).
+
+Por exemplo, no experimento 4 podemos comparar os efeitos das 3 Variedades, os efeitos dos 4 Espaçamentos e, ainda, **como se comportam as 3 Variedades em cada Espaçamento, ou como se comportam os 4 Espaçamentos em cada Variedade**, tudo isso com um único experimento.
+
+---
+
+No experimento 3 (misturas de proteína e carboidrato) podemos comparar o efeito (principal) da proteína (ausência e presença), o efeito (principal) do carboidrato (ausência e presença) e, ainda, **como se comporta a proteína na ausência ou presença de carboidrato, ou como se comporta o carboidrato na ausência ou presença de proteína**.
+
+
+Vamos considerar o **experimento 3**, um fatorial `\(2 \times 2\)`, com os fatores: Proteína (P) e Carboidrato (C), nos níveis:
+
+Proteína:
+
+`\(P_0\)` = sem proteína (ausência)
+
+
+`\(P_1\)` = com proteína (presença)
+
+
+
+
+
+Carboidrato:
+
+`\(C_0\)` = sem carboidrato (ausência)
+
+
+`\(C_1\)` = com carboidrato (presença)
+
+---
+
+Os dados (fictícios) a seguir são as médias das diferenças relativas de pesos de aves ( `\(\%\)` ) no período de estudo, em cada tratamento:
+
+
+`\(P_0C_0:\)` sem proteína e sem carboidrato = 14
+
+`\(P_0C_1:\)` sem proteína e com carboidrato = 23
+
+`\(P_1C_0:\)` com proteína e sem carboidrato = 32
+
+`\(P_1C_1:\)` com proteína e com carboidrato = 53
+
+
+&lt;img src="docs_aula10/fat2.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+**(A) Efeito simples de um fator:** é uma medida da variação que ocorre com a característica em estudo (por exemplo: peso relativo), correspondente à variação nos níveis desse fator, em cada um dos
+níveis do outro fator.
+
+
+Efeito simples de Proteína na ausência de Carboidrato:
+
+`\(P\)` dentro de `\(C_0\)` = `\(P\)` d. `\(C_0\)` = `\(P_1C_0\)` - `\(P_1C_0\)` = 32 - 14 = 18
+
+Efeito simples de Proteína na presença de Carboidrato:
+
+`\(P\)` dentro de `\(C_1\)` = `\(P\)` d. `\(C_1\)` = `\(P_1C_1\)` - `\(P_0C_1\)` = 53 - 23 = 30
+
+Efeito simples de Carboidrato na ausência de Proteína:
+
+`\(C\)` dentro de `\(P_0\)` = `\(C\)` d. `\(P_0\)` = `\(C_1P_0\)` - `\(C_0P_0\)`   =  23 - 14 = 9
+
+Efeito simples de Carboidrato na presença de Proteína:
+
+`\(C\)` dentro de `\(P_1\)` = `\(C\)` d. `\(P_1\)` = `\(C_1P_1\)` - `\(C_0P_1\)`  =  53 - 32 = 21
+
+
+---
+
+Graficamente:
+
+
+&lt;img src="docs_aula10/fat3.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+**(B) Efeito principal de um fator:** é uma medida da variação que ocorre com a característica em estudo (por exemplo: peso relativo), correspondente à variação nos níveis desse fator, em média de
+todos os níveis do outro fator.
+
+O **efeito principal** de um fator é a **média dos efeitos simples desse fator**, isto é:
+
+
+Efeito principal de `\(P\)`:
+
+$$
+\frac{(P \ \ d. \ \ C_0) + (P \ \  d. \ \  C_1)}{2} = \frac{(P_1C_0 - P_0C_0) + (P_1C_1 - P_0C_1)}{2} = \frac{18+30}{2} = 48/2 = 24
+$$
+
+Efeito principal de `\(C\)`:
+
+$$
+\frac{(C \ \ d. \ \ P_0) + (C \ \  d. \ \  P_1)}{2} = \frac{(C_1P_0 - C_0P_0) + (C_1P_1 - C_0P_1)}{2} = \frac{9+21}{2} = 30/2 = 15
+$$
+
+---
+
+**(C) Efeito principal de um fator:** é uma medida da variação que ocorre com a característica em estudo  (por exemplo: peso relativo), correspondente à variação nos níveis de um fator, ao passar de um nível a outro do outro fator.
+
+
+O efeito da interação entre dois fatores é um efeito adicional devido à ação conjunta dos fatores.
+
+O efeito da interação entre os fatores `\(P\)` e `\(C\)` é:
+
+Efeito da interação `\(P \times C\)` = `\(\frac{(P \ \ d. \ \ C_1) - (P \ \ d. \ \ C_0)}{2} = \frac{30-18}{2} =12/2 = 6\)`
+
+Efeito da interação `\(C \times P\)` = `\(\frac{(C \ \ d. \ \ P_1) - (C \ \ d. \ \ P_0)}{2} = \frac{21-9}{2} = 12/2 = 6\)`
+
+**Tanto faz calcular `\(P \times C\)` ou `\(C \times P\)`.**
+
+---
+
+- Devemos observar como a Proteína se comporta na ausência de `\(C\)` ( `\(P  d. C_0\)` ) e na presença de `\(C\)` ( `\(P \ \ d. \ \ C_1\)` ),
+
+- e como o carboidrato se comporta na ausência de `\(P\)` ( `\(C \ \ d. \ \ P_0\)` ) e na presença de `\(P\)` ( `\(C  \ \ d. \ \ P_1\)` ).
+
+
+**Se o comportamento for o mesmo, tanto na ausência como na presença, não há interação.**
+
+
+---
+
+
+&lt;img src="docs_aula10/fat4.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+- Nos casos `a` e `b`  não há interação.
+- No caso `c` existe uma interação devida à diferença na grandeza da resposta.
+- No caso `d`  existe uma interação devida à diferença na direção da resposta.
+
+
+
+
+Quando não há interação, ocorre um paralelismo entre as retas.
+
+
+A interação pode ser **positiva** (letra `c`) (sinergismo entre os fatores)  ou **negativa** (letra `d`) (antagonismo entre os fatores).
+
+
+---
+
+**Casualização dos tratamentos**
+
+Um experimento fatorial `\(2 \times 3\)`, com 2 níveis de Calagem ( `\(C_0\)` e `\(C_1\)` ) e 3 níveis de Adubação ( `\(A_1, A_2\)` e `\(A_3\)` ) poderia ter a seguinte casualização, se fosse instalado, por exemplo, em 4 blocos ao acaso:
+
+
+&lt;img src="docs_aula10/fat5.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+Esquema da análise de variância "comum" em DBC:
+
+
+&lt;img src="docs_aula10/fat6.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+Esquema de análise de variância com desdobramento dos graus de liberdade de tratamentos, de acordo com o esquema fatorial `\(2 \times 3\)`:
+
+
+&lt;img src="docs_aula10/fat7.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+**Análise e interpretação de um experimento fatorial com dois fatores** (Banzatto e Kronka, 2005)
+
+**Caso 1: Interação não significativa**
+
+
+&lt;img src="docs_aula10/fat8.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+&lt;img src="docs_aula10/fat9.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+&lt;img src="docs_aula10/fat10.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+- Arquivo com os dados: [dados_producao_peneira_densidade_fatorial_dbc.xlsx](docs_aula10/dados_producao_peneira_densidade_fatorial_dbc.xlsx)
+
+---
+
+
+
+&lt;img src="docs_aula10/fat11.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+**Análise no R**
+
+.scroll-output[
+
+
+```r
+library(openxlsx)
+library(ExpDes)
+
+dados &lt;- read.xlsx("dados_producao_peneira_densidade_fatorial_dbc.xlsx")
+
+dados
+```
+
+```
+##    tratamento peneira densidade bloco producao
+## 1        P1D1       1         1     1    11.82
+## 2        P1D2       1         2     1    12.34
+## 3        P1D3       1         3     1    13.41
+## 4        P2D1       2         1     1     6.97
+## 5        P2D2       2         2     1     8.96
+## 6        P2D3       2         3     1     8.48
+## 7        P3D1       3         1     1     7.53
+## 8        P3D2       3         2     1     6.71
+## 9        P3D3       3         3     1     7.82
+## 10       P1D1       1         1     2    12.03
+## 11       P1D2       1         2     2    14.08
+## 12       P1D3       1         3     2    12.98
+## 13       P2D1       2         1     2    10.26
+## 14       P2D2       2         2     2     9.02
+## 15       P2D3       2         3     2     9.66
+## 16       P3D1       3         1     2     7.67
+## 17       P3D2       3         2     2     7.87
+## 18       P3D3       3         3     2     9.44
+## 19       P1D1       1         1     3    12.55
+## 20       P1D2       1         2     3    12.13
+## 21       P1D3       1         3     3    13.35
+## 22       P2D1       2         1     3     9.02
+## 23       P2D2       2         2     3     9.84
+## 24       P2D3       2         3     3     8.50
+## 25       P3D1       3         1     3     7.81
+## 26       P3D2       3         2     3     9.49
+## 27       P3D3       3         3     3     9.37
+```
+
+]
+
+---
+.scroll-output[
+
+
+```r
+# Função fat2.rbd() do pacote ExpDes
+
+args(fat2.rbd)
+```
+
+```
+## function (factor1, factor2, block, resp, quali = c(TRUE, TRUE), 
+##     mcomp = "tukey", fac.names = c("F1", "F2"), sigT = 0.05, 
+##     sigF = 0.05) 
+## NULL
+```
+
+```r
+fat2.rbd(factor1 = dados$peneira, factor2 = dados$densidade,
+         block = dados$bloco, resp = dados$producao,
+         fac.names = c("Peneira", "Densidade"))
+```
+
+```
+## ------------------------------------------------------------------------
+## Legend:
+## FACTOR 1:  Peneira 
+## FACTOR 2:  Densidade 
+## ------------------------------------------------------------------------
+## 
+## 
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##                   DF      SS     MS     Fc   Pr&gt;Fc
+## Block              2   5.396  2.698  4.396 0.03010
+## Peneira            2 106.778 53.389 86.986 0.00000
+## Densidade          2   3.092  1.546  2.519 0.11196
+## Peneira*Densidade  4   1.573  0.393  0.641 0.64105
+## Residuals         16   9.820  0.614               
+## Total             26 126.659                      
+## ------------------------------------------------------------------------
+## CV = 7.86 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.667136 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## No significant interaction: analyzing the simple effect
+## ------------------------------------------------------------------------
+## Peneira
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 1 	 12.74333 
+##  b 	 2 	 8.967778 
+##  b 	 3 	 8.19 
+## ------------------------------------------------------------------------
+## 
+## Densidade
+## According to the F test, the means of this factor are statistical equal.
+## ------------------------------------------------------------------------
+##   Levels     Means
+## 1      1  9.517778
+## 2      2 10.048889
+## 3      3 10.334444
+## ------------------------------------------------------------------------
+```
+
+]
+
+
+---
+
+
+&lt;img src="docs_aula10/fat12.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+&lt;img src="docs_aula10/fat13.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+&lt;img src="docs_aula10/fat14.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+**Caso 2: Interação significativa**
+
+
+&lt;img src="docs_aula10/fat15.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+&lt;img src="docs_aula10/fat16.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+- Arquivo com os dados: [dados_altura_recipiente_especie_fatorial_dic.xlsx](docs_aula10/dados_altura_recipiente_especie_fatorial_dic.xlsx)
+
+---
+
+
+**Análise no R**
+
+.scroll-output[
+
+
+```r
+# library(openxlsx)
+# library(ExpDes)
+
+dados &lt;- read.xlsx("dados_altura_recipiente_especie_fatorial_dic.xlsx")
+
+dados
+```
+
+```
+##    tratamento recipiente especie repeticao altura
+## 1        R1E1          1       1         1   26.2
+## 2        R1E2          1       2         1   24.8
+## 3        R2E1          2       1         1   25.7
+## 4        R2E2          2       2         1   19.6
+## 5        R3E1          3       1         1   22.8
+## 6        R3E2          3       2         1   19.8
+## 7        R1E1          1       1         2   26.0
+## 8        R1E2          1       2         2   24.6
+## 9        R2E1          2       1         2   26.3
+## 10       R2E2          2       2         2   21.1
+## 11       R3E1          3       1         2   19.4
+## 12       R3E2          3       2         2   21.4
+## 13       R1E1          1       1         3   25.0
+## 14       R1E2          1       2         3   26.7
+## 15       R2E1          2       1         3   25.1
+## 16       R2E2          2       2         3   19.0
+## 17       R3E1          3       1         3   18.8
+## 18       R3E2          3       2         3   22.8
+## 19       R1E1          1       1         4   25.4
+## 20       R1E2          1       2         4   25.2
+## 21       R2E1          2       1         4   26.4
+## 22       R2E2          2       2         4   18.6
+## 23       R3E1          3       1         4   19.2
+## 24       R3E2          3       2         4   21.3
+```
+
+]
+
+---
+.scroll-output[
+
+
+```r
+# Função fat2.crd() do pacote ExpDes
+
+args(fat2.crd)
+```
+
+```
+## function (factor1, factor2, resp, quali = c(TRUE, TRUE), mcomp = "tukey", 
+##     fac.names = c("F1", "F2"), sigT = 0.05, sigF = 0.05) 
+## NULL
+```
+
+```r
+fat2.crd(factor1 = dados$recipiente, factor2 = dados$especie,
+         resp = dados$altura,
+         fac.names = c("Recipiente", "Espécie"))
+```
+
+```
+## ------------------------------------------------------------------------
+## Legend:
+## FACTOR 1:  Recipiente 
+## FACTOR 2:  Espécie 
+## ------------------------------------------------------------------------
+## 
+## 
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##                    DF      SS     MS     Fc      Pr&gt;Fc
+## Recipiente          2  92.861 46.430 36.195 0.00000049
+## Espécie             1  19.082 19.082 14.875 0.00115535
+## Recipiente*Espécie  2  63.761 31.880 24.853 0.00000664
+## Residuals          18  23.090  1.283                  
+## Total              23 198.793                         
+## ------------------------------------------------------------------------
+## CV = 4.93 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.09401682 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## 
+## 
+## Significant interaction: analyzing the interaction
+## ------------------------------------------------------------------------
+## 
+## Analyzing  Recipiente  inside of each level of  Espécie 
+## ------------------------------------------------------------------------
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##                      DF        SS       MS      Fc  Pr.Fc
+## Espécie               1  19.08167 19.08167 14.8753 0.0012
+## Recipiente:Espécie 1  2  87.12167 43.56083 33.9582      0
+## Recipiente:Espécie 2  2  69.50000    34.75 27.0896      0
+## Residuals            18  23.09000  1.28278               
+## Total                23 198.79333                        
+## ------------------------------------------------------------------------
+## 
+## 
+## 
+##  Recipiente  inside of the level  1  of  Espécie 
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 2 	 25.875 
+## a 	 1 	 25.65 
+##  b 	 3 	 20.05 
+## ------------------------------------------------------------------------
+## 
+## 
+##  Recipiente  inside of the level  2  of  Espécie 
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 1 	 25.325 
+##  b 	 3 	 21.325 
+##  b 	 2 	 19.575 
+## ------------------------------------------------------------------------
+## 
+## 
+## 
+## Analyzing  Espécie  inside of each level of  Recipiente 
+## ------------------------------------------------------------------------
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##                      DF        SS       MS      Fc  Pr.Fc
+## Recipiente            2  92.86083 46.43042 36.1952      0
+## Espécie:Recipiente 1  1   0.21125  0.21125  0.1647 0.6897
+## Espécie:Recipiente 2  1  79.38000    79.38 61.8813      0
+## Espécie:Recipiente 3  1   3.25125  3.25125  2.5345 0.1288
+## Residuals            18  23.09000  1.28278               
+## Total                23 198.79333                        
+## ------------------------------------------------------------------------
+## 
+## 
+## 
+##  Espécie  inside of the level  1  of  Recipiente 
+## 
+## According to the F test, the means of this factor are statistical equal.
+## ------------------------------------------------------------------------
+##     Levels     Means
+## 1        1    25.650
+## 2        2    25.325
+## ------------------------------------------------------------------------
+## 
+## 
+##  Espécie  inside of the level  2  of  Recipiente 
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 1 	 25.875 
+##  b 	 2 	 19.575 
+## ------------------------------------------------------------------------
+## 
+## 
+##  Espécie  inside of the level  3  of  Recipiente 
+## 
+## According to the F test, the means of this factor are statistical equal.
+## ------------------------------------------------------------------------
+##     Levels     Means
+## 1        1    20.050
+## 2        2    21.325
+## ------------------------------------------------------------------------
+```
+
+]
+
+
+---
+
+
+&lt;img src="docs_aula10/fat17.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+&lt;img src="docs_aula10/fat18.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+**Desdobramento da Interação `\(R\times E\)` para estudar o comportamento dos Recipientes dentro de cada Espécie**
+
+
+&lt;img src="docs_aula10/fat19.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+&lt;img src="docs_aula10/fat21.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+
+
+&lt;img src="docs_aula10/fat20.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+
+&lt;img src="docs_aula10/fat22.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+**Desdobramento da Interação `\(R\times E\)` para estudar o comportamento dos Espécies dentro de cada Recipiente**
+
+
+&lt;img src="docs_aula10/fat23.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="docs_aula10/fat24.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+
+
+&lt;img src="docs_aula10/fat25.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+
+&lt;img src="docs_aula10/fat26.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+&lt;img src="docs_aula10/fat27.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+**Tarefa**
+
+- Estudar os experimentos fatoriais triplos no livro do Banzatto e Kronka (2005). Exemplos 5.3 e 5.4.
+
+- Realizar a análise no R.
+
+**Observação:** as funções de fatorial triplo no R (pacote `ExpDes`) são: `fat3.crd` e `fat3.rbd`.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
