@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Experimentos fatoriais em parcelas subdivididas</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Juliano Bortolini" />
+    <link href="aula11_files/remark-css/default.css" rel="stylesheet" />
+    <link href="aula11_files/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="libs\sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs\sydney-juca3.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <strong>Experimentos fatoriais em parcelas subdivididas</strong>
+## Delineamento Experimental
+### Prof. Juliano Bortolini
+### Depto. de Estatística da UFMT
+
+---
+
+
+
+
+
+
+
+
+
+
+## Conteúdo <i class="fas  fa-chart-bar fa-pull-right "></i>
+
+- Experimentos fatoriais em parcelas subdivididas
+
+- Casualização
+
+- Exemplo
+
+- Exemplos no R
+
+- Medidas repetidas
+
+- Exemplo no R
+
+
+---
+
+## Experimentos fatoriais em parcelas subdivididas
+
+ - Nos experimentos (fatoriais) em parcelas subdivididas (ou *split-plot*), as parcelas são divididas em partes menores e iguais, denominadas **sub parcelas**. (que serão as unidades básicas experimentais)
+ 
+ - As parcelas podem ser distribuídas de modo inteiramente casualizado, em blocos
+casualizados, ou em linhas e colunas (DQL).
+
+- A principal característica dos experimentos em parcelas subdivididas é a casualização dos níveis dos fatores em dois (ou mais) estágios.
+
+---
+
+**Casualização:**
+
+-  No primeiro estágio são casualizados os níveis do primeiro fator (fator primário ou fator principal), nas parcelas (em DIC, DBC ou DQL).
+
+- No segundo estágio são **casualizados os níveis do outro fator** (fator secundário) **nas subparcelas de cada parcela**.
+
+- **Atenção:** cada parcela é constituída por subparcelas!
+
+-  Os níveis do fator casualizado nas parcelas são denominados **Tratamentos Primários** ou  **Tratamentos Principais**.
+
+-  Os níveis do fator casualizado nas subparcelas são denominados **Tratamentos Secundários** ou **Subtratamentos**.
+
+---
+
+
+- Nos experimentos (fatoriais) em parcelas subdivididas há dois resíduos:
+
+  - **Resíduo a:** base de comparação dos Tratamentos Principais, Blocos, Linhas e Colunas (se houver).
+  
+  - **Resíduo b:** base de comparação dos Tratamentos Secundários e da Interação Tratamentos Principais `\(\times\)` Tratamentos Secundários.
+
+---
+
+**Exemplo**
+
+
+- Exemplificando a distribuição dos níveis dos fatores...
+
+- Em um experimento em parcelas subdivididas, com os fatores:
+
+- **Fator principal**: Adubações ( `\(A_0\)` e `\(A_1\)` )
+
+- **Fator secundário**: Variedades ( `\(V_1\)`, `\(V_2\)` e `\(V_3\)` )
+
+- e em  cinco blocos casualizados.
+
+
+**Aleatorização**:
+
+1. Cada bloco deve ser dividido em duas parcelas, nas quais serão distribuídas ao acaso as duas Adubações.
+
+2. Cada parcela deve ser dividida em três subparcelas, e as três Variedades serão sorteadas nas três subparcelas de cada parcela.
+
+**Atenção**:  Se o experimento fosse instalado como fatorial, deveria ser feito um sorteio único dos seis tratamentos (combinações das duas Adubações com as três Variedades) nas seis parcelas de cada bloco.
+
+---
+
+**Croqui em parcelas subdivididas**:
+
+&lt;img src="docs_aula11/sub1.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+**Croqui em fatorial**:
+
+&lt;img src="docs_aula11/sub2.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+**Esquema da análise de variância para cada caso:**
+
+
+&lt;img src="docs_aula11/sub3.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+- No experimento fatorial, todos os fatores são testados com um resíduo único, com 20 graus de liberdade.
+
+- No experimento em parcelas subdivididas, Adubações é testado com um resíduo com apenas 4 graus de liberdade e  Variedades e a Interação Adubações `\(\times\)` Variedades são testados com um resíduo com 16 graus de liberdade.
+
+- Sempre que possível, é preferível utilizar o fatorial em vez de parcelas subdivididas.
+
+---
+
+**Exemplo 1 no R**
+
+**Caso 1: interação não significativa:**
+
+
+- Em um experimento avaliou a produção (t/ha) de 5 variedades de cana-de-açúcar (fator principal) com dois espaçamentos de plantio (fator secundário), em 4 blocos.
+
+
+- Arquivo com os dados: [dados_producao_cana_de_acucar_subdivididas_dbc.xlsx](docs_aula11/dados_producao_cana_de_acucar_subdivididas_dbc.xlsx)
+
+
+---
+
+&lt;img src="docs_aula11/sub4.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+.scroll-output[
+
+
+```r
+library(openxlsx)
+library(ExpDes)
+
+dados &lt;- read.xlsx("dados_producao_cana_de_acucar_subdivididas_dbc.xlsx")
+
+dados
+```
+
+```
+##    tratamento variedade espacamento bloco producao
+## 1        V1E1         1           1     1    105.0
+## 2        V1E2         1           2     1     94.3
+## 3        V2E1         2           1     1    101.8
+## 4        V2E2         2           2     1     86.3
+## 5        V3E1         3           1     1     83.4
+## 6        V3E2         3           2     1     90.7
+## 7        V4E1         4           1     1     72.6
+## 8        V4E2         4           2     1     65.7
+## 9        V5E1         5           1     1     57.3
+## 10       V5E2         5           2     1     51.6
+## 11       V1E1         1           1     2    101.4
+## 12       V1E2         1           2     2     91.7
+## 13       V2E1         2           1     2     96.3
+## 14       V2E2         2           2     2     90.7
+## 15       V3E1         3           1     2     60.7
+## 16       V3E2         3           2     2     58.4
+## 17       V4E1         4           1     2     54.2
+## 18       V4E2         4           2     2     56.3
+## 19       V5E1         5           1     2     50.2
+## 20       V5E2         5           2     2     53.4
+## 21       V1E1         1           1     3     97.2
+## 22       V1E2         1           2     3     93.5
+## 23       V2E1         2           1     3    110.0
+## 24       V2E2         2           2     3     92.4
+## 25       V3E1         3           1     3     71.3
+## 26       V3E2         3           2     3     65.2
+## 27       V4E1         4           1     3     60.5
+## 28       V4E2         4           2     3     51.3
+## 29       V5E1         5           1     3     61.3
+## 30       V5E2         5           2     3     51.9
+## 31       V1E1         1           1     4     89.6
+## 32       V1E2         1           2     4     81.8
+## 33       V2E1         2           1     4     90.5
+## 34       V2E2         2           2     4     85.8
+## 35       V3E1         3           1     4     62.6
+## 36       V3E2         3           2     4     58.9
+## 37       V4E1         4           1     4     57.4
+## 38       V4E2         4           2     4     52.6
+## 39       V5E1         5           1     4     65.2
+## 40       V5E2         5           2     4     48.7
+```
+
+]
+
+---
+
+.scroll-output[
+
+
+```r
+# Função split2.rbd() do pacote ExpDes
+
+args(split2.rbd)
+```
+
+```
+## function (factor1, factor2, block, resp, quali = c(TRUE, TRUE), 
+##     mcomp = "tukey", fac.names = c("F1", "F2"), sigT = 0.05, 
+##     sigF = 0.05) 
+## NULL
+```
+
+```r
+split2.rbd(factor1 = dados$variedade, factor2 = dados$espacamento,
+         block = dados$bloco, resp = dados$producao,
+         fac.names = c("Variedade", "Espacamento"))
+```
+
+```
+## ------------------------------------------------------------------------
+## Legend:
+## FACTOR 1 (plot):  Variedade 
+## FACTOR 2 (split-plot):  Espacamento 
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## $`Analysis of Variance Table`
+##                       DF      SS      MS     Fc  Pr(&gt;Fc)    
+## Variedade              4 11524.4 2881.09 38.679    1e-06 ***
+## Block                  3   782.2  260.73  3.500 0.049630 *  
+## Error a               12   893.9   74.49                    
+## Espacamento            1   405.1  405.13 22.589 0.000257 ***
+## Variedade*Espacamento  4   105.4   26.35  1.469 0.260715    
+## Error b               15   269.0   17.93                    
+## Total                 39 13980.0                            
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## ------------------------------------------------------------------------
+## CV 1 = 11.6249 %
+## CV 2 = 5.704178 %
+## 
+## No significant interaction: analyzing the simple effects
+## ------------------------------------------------------------------------
+## Variedade
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 1 	 94.3125 
+## a 	 2 	 94.225 
+##  b 	 3 	 68.9 
+##  bc 	 4 	 58.825 
+##   c 	 5 	 54.95 
+## ------------------------------------------------------------------------
+## 
+## Espacamento
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 1 	 77.425 
+##  b 	 2 	 71.06 
+## ------------------------------------------------------------------------
+```
+
+]
+
+
+---
+
+
+&lt;img src="docs_aula11/sub5.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+&lt;img src="docs_aula11/sub6.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+
+&lt;img src="docs_aula11/sub7.jpg" width="30%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+&lt;img src="docs_aula11/sub8.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+**Exemplo 2 no R**
+
+**Caso 2: interação significativa:**
+
+
+- Um experimento avaliou o peso do pulmão (g) de ratos em duas dietas de vitamina A (moderada e suficiente) e em 5 períodos após o início da dieta.
+
+- 60 ratos Lister Hooded foram distribuídas em 12 gaiolas (5 ratos em cada gaiola).
+
+- Cada gaiola foi aleatorizada a uma das dietas, totalizando 6 gaiolas por dieta.
+
+- Em cada um dos tempos 10, 15, 20, 25 e 30, um animal por gaiola era sacrificado e o peso do pulmão era mensurado. 
+
+- Nesse experimento as gaiolas (dietas de vitamina A) são as parcelas e os animais (tempo) são as subparcelas.
+
+- O experimento foi realizado em DIC.
+
+
+- Arquivo com os dados: [dados_peso_pulmao_ratos_subdivididas_dic.xlsx](docs_aula11/dados_peso_pulmao_ratos_subdivididas_dic.xlsx)
+
+
+---
+
+.scroll-output[
+
+
+```r
+# library(openxlsx)
+# library(ExpDes)
+
+dados &lt;- read.xlsx("dados_peso_pulmao_ratos_subdivididas_dic.xlsx")
+
+dados
+```
+
+```
+##    tratamento      dieta tempo gaiola peso
+## 1         m10   moderada    10      3  1.7
+## 2         m15   moderada    15      3  1.9
+## 3         m20   moderada    20      3  2.6
+## 4         m25   moderada    25      3  2.0
+## 5         m30   moderada    30      3  2.2
+## 6         s10 suficiente    10      1  1.9
+## 7         s15 suficiente    15      1  2.2
+## 8         s20 suficiente    20      1  1.4
+## 9         s25 suficiente    25      1  1.7
+## 10        s30 suficiente    30      1  2.9
+## 11        m10   moderada    10      5  2.6
+## 12        m15   moderada    15      5  2.2
+## 13        m20   moderada    20      5  2.2
+## 14        m25   moderada    25      5  2.1
+## 15        m30   moderada    30      5  1.7
+## 16        s10 suficiente    10      2  2.9
+## 17        s15 suficiente    15      2  2.2
+## 18        s20 suficiente    20      2  1.8
+## 19        s25 suficiente    25      2  2.4
+## 20        s30 suficiente    30      2  3.1
+## 21        m10   moderada    10      6  1.5
+## 22        m15   moderada    15      6  1.9
+## 23        m20   moderada    20      6  1.5
+## 24        m25   moderada    25      6  1.6
+## 25        m30   moderada    30      6  1.7
+## 26        s10 suficiente    10      4  1.2
+## 27        s15 suficiente    15      4  2.4
+## 28        s20 suficiente    20      4  2.1
+## 29        s25 suficiente    25      4  2.6
+## 30        s30 suficiente    30      4  3.0
+## 31        m10   moderada    10      9  2.2
+## 32        m15   moderada    15      9  1.9
+## 33        m20   moderada    20      9  2.4
+## 34        m25   moderada    25      9  2.4
+## 35        m30   moderada    30      9  2.4
+## 36        s10 suficiente    10      7  2.3
+## 37        s15 suficiente    15      7  2.3
+## 38        s20 suficiente    20      7  2.0
+## 39        s25 suficiente    25      7  2.8
+## 40        s30 suficiente    30      7  3.0
+## 41        m10   moderada    10      8  1.7
+## 42        m15   moderada    15      8  1.9
+## 43        m20   moderada    20      8  1.4
+## 44        m25   moderada    25      8  2.1
+## 45        m30   moderada    30      8  2.0
+## 46        s10 suficiente    10     11  1.4
+## 47        s15 suficiente    15     11  1.8
+## 48        s20 suficiente    20     11  1.8
+## 49        s25 suficiente    25     11  2.4
+## 50        s30 suficiente    30     11  2.8
+## 51        m10   moderada    10     12  2.1
+## 52        m15   moderada    15     12  2.0
+## 53        m20   moderada    20     12  2.0
+## 54        m25   moderada    25     12  1.7
+## 55        m30   moderada    30     12  1.9
+## 56        s10 suficiente    10     10  2.8
+## 57        s15 suficiente    15     10  1.2
+## 58        s20 suficiente    20     10  2.3
+## 59        s25 suficiente    25     10  2.1
+## 60        s30 suficiente    30     10  3.1
+```
+
+]
+
+---
+
+.scroll-output[
+
+
+```r
+# Função split2.crd() do pacote ExpDes
+
+args(split2.crd)
+```
+
+```
+## function (factor1, factor2, repet, resp, quali = c(TRUE, TRUE), 
+##     mcomp = "tukey", fac.names = c("F1", "F2"), sigT = 0.05, 
+##     sigF = 0.05) 
+## NULL
+```
+
+```r
+split2.crd(factor1 = dados$dieta, factor2 = dados$tempo,
+         repet = dados$gaiola, resp = dados$peso,
+         fac.names = c("Dieta", "Tempo"))
+```
+
+```
+## ------------------------------------------------------------------------
+## Legend:
+## FACTOR 1    (plot):  Dieta 
+## FACTOR 2 (split-plot):  Tempo 
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## $`Analysis of Variance Table`
+##             DF      SS      MS     Fc    Pr&gt;Fc
+## Dieta        1  1.1760 1.17600 5.0271 0.048829
+## Error a     10  2.3393 0.23393                
+## Tempo        4  2.2207 0.55517 4.1348 0.006760
+## Dieta*Tempo  4  2.2807 0.57017 4.2465 0.005868
+## Error b     40  5.3707 0.13427                
+## Total       59 13.3873                        
+## 
+## ------------------------------------------------------------------------
+## CV 1 = 22.77863 %
+## CV 2 = 17.25705 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test (Error b)
+## p-value:  0.2009823 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## 
+## 
+## Significant interaction: analyzing the interaction
+## ------------------------------------------------------------------------
+## 
+## Analyzing  Dieta  inside of each level of  Tempo 
+## ------------------------------------------------------------------------
+##                         DF       SS       MS        Fc  p.value
+## Dieta : Tempo 10   1.00000 0.040833 0.040833  0.264807 0.609255
+## Dieta : Tempo 15   1.00000 0.007500 0.007500  0.048638 0.826408
+## Dieta : Tempo 20   1.00000 0.040833 0.040833  0.264807 0.609255
+## Dieta : Tempo 25   1.00000 0.367500 0.367500  2.383265 0.129367
+## Dieta : Tempo 30   1.00000 3.000000 3.000000 19.455228    6e-05
+## Pooled Error      46.86733 7.226943 0.154200                   
+## ------------------------------------------------------------------------
+## 
+## 
+##  Dieta inside of Tempo 10
+## ------------------------------------------------------------------------
+## According to F test, the means of this factor are not distinct.
+## ------------------------------------------------------------------------
+##       Levels    Means
+## 1   moderada 1.966667
+## 2 suficiente 2.083333
+## ------------------------------------------------------------------------
+## 
+##  Dieta inside of Tempo 15
+## ------------------------------------------------------------------------
+## According to F test, the means of this factor are not distinct.
+## ------------------------------------------------------------------------
+##       Levels    Means
+## 1   moderada 1.966667
+## 2 suficiente 2.016667
+## ------------------------------------------------------------------------
+## 
+##  Dieta inside of Tempo 20
+## ------------------------------------------------------------------------
+## According to F test, the means of this factor are not distinct.
+## ------------------------------------------------------------------------
+##       Levels    Means
+## 1   moderada 2.016667
+## 2 suficiente 1.900000
+## ------------------------------------------------------------------------
+## 
+##  Dieta inside of Tempo 25
+## ------------------------------------------------------------------------
+## According to F test, the means of this factor are not distinct.
+## ------------------------------------------------------------------------
+##       Levels    Means
+## 1   moderada 1.983333
+## 2 suficiente 2.333333
+## ------------------------------------------------------------------------
+## 
+##  Dieta inside of Tempo 30
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 suficiente 	 2.983333 
+##  b 	 moderada 	 1.983333 
+## ------------------------------------------------------------------------
+## 
+## 
+## Analyzing  Tempo  inside of each level of  Dieta 
+## ------------------------------------------------------------------------
+##                           DF       SS       MS      Fc  p.value
+## Tempo : Dieta moderada     4 0.010000 0.002500 0.01862 0.999292
+## Tempo : Dieta suficiente   4 4.491333 1.122833 8.36269  5.3e-05
+## Error b                   40 5.370667 0.134267                 
+## ------------------------------------------------------------------------
+## 
+## 
+##  Tempo inside of Dieta moderada
+## ------------------------------------------------------------------------
+## According to F test, the means of this factor are not different.
+## ------------------------------------------------------------------------
+##   Levels    Means
+## 1     10 1.966667
+## 2     15 1.966667
+## 3     20 2.016667
+## 4     25 1.983333
+## 5     30 1.983333
+## ------------------------------------------------------------------------
+## 
+##  Tempo inside of Dieta suficiente
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 30 	 2.983333 
+##  b 	 25 	 2.333333 
+##  b 	 10 	 2.083333 
+##  b 	 15 	 2.016667 
+##  b 	 20 	 1.9 
+## ------------------------------------------------------------------------
+## ------------------------------------------------------------------------
+```
+
+]
+
+
+---
+
+
+**Exemplo 3 no R (Exemplo 11.2, Sampaio; 2015)**
+
+**Caso 2: interação significativa:**
+
+- Avaliar a motilidade observada no sêmen em função de 3 diluentes (A, B e C) e 3 tempos de conservação (8, 24 e 36h) a `\(5^\circ C\)`.
+
+- Cinco jumentos (blocos) foram utilizados.
+
+- Para cada jumento, o primeiro ejaculado foi dividido em três alíquotas, diluídas cada uma em um dos diluentes e este volume novamente dividido em outras três alíquotas, uma para cada tempo de conservação.
+
+
+**bloco:** animal
+
+**parcela:** diluente
+
+**subparcela:** tempo de conservação
+
+
+- Arquivo com os dados: [dados_motilidade_semen_subdivididas_dbc.xlsx](docs_aula11/dados_motilidade_semen_subdivididas_dbc.xlsx)
+
+
+---
+
+.scroll-output[
+
+
+```r
+# library(openxlsx)
+# library(ExpDes)
+
+dados &lt;- read.xlsx("dados_motilidade_semen_subdivididas_dbc.xlsx")
+
+dados
+```
+
+```
+##    tratamento jumento diluente tempo_conservacao motilidade
+## 1          A8       1        A                 8         75
+## 2         A24       1        A                24         73
+## 3         A36       1        A                36         66
+## 4          B8       1        B                 8         81
+## 5         B24       1        B                24         75
+## 6         B36       1        B                36         62
+## 7          C8       1        C                 8         68
+## 8         C24       1        C                24         61
+## 9         C36       1        C                36         50
+## 10         A8       2        A                 8         65
+## 11        A24       2        A                24         60
+## 12        A36       2        A                36         61
+## 13         B8       2        B                 8         69
+## 14        B24       2        B                24         62
+## 15        B36       2        B                36         51
+## 16         C8       2        C                 8         60
+## 17        C24       2        C                24         55
+## 18        C36       2        C                36         50
+## 19         A8       3        A                 8         78
+## 20        A24       3        A                24         83
+## 21        A36       3        A                36         70
+## 22         B8       3        B                 8         79
+## 23        B24       3        B                24         76
+## 24        B36       3        B                36         60
+## 25         C8       3        C                 8         72
+## 26        C24       3        C                24         68
+## 27        C36       3        C                36         61
+## 28         A8       4        A                 8         68
+## 29        A24       4        A                24         61
+## 30        A36       4        A                36         51
+## 31         B8       4        B                 8         76
+## 32        B24       4        B                24         66
+## 33        B36       4        B                36         51
+## 34         C8       4        C                 8         61
+## 35        C24       4        C                24         57
+## 36        C36       4        C                36         53
+## 37         A8       5        A                 8         44
+## 38        A24       5        A                24         43
+## 39        A36       5        A                36         37
+## 40         B8       5        B                 8         55
+## 41        B24       5        B                24         51
+## 42        B36       5        B                36         41
+## 43         C8       5        C                 8         34
+## 44        C24       5        C                24         24
+## 45        C36       5        C                36         21
+```
+
+]
+
+---
+
+.scroll-output[
+
+
+```r
+# Função split2.rbd() do pacote ExpDes
+
+args(split2.rbd)
+```
+
+```
+## function (factor1, factor2, block, resp, quali = c(TRUE, TRUE), 
+##     mcomp = "tukey", fac.names = c("F1", "F2"), sigT = 0.05, 
+##     sigF = 0.05) 
+## NULL
+```
+
+```r
+split2.rbd(factor1 = dados$diluente, factor2 = dados$tempo_conservacao,
+         block = dados$jumento, resp = dados$motilidade,
+         fac.names = c("Diluente", "Tempo"))
+```
+
+```
+## ------------------------------------------------------------------------
+## Legend:
+## FACTOR 1 (plot):  Diluente 
+## FACTOR 2 (split-plot):  Tempo 
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## $`Analysis of Variance Table`
+##                DF     SS      MS     Fc   Pr(&gt;Fc)    
+## Diluente        2 1013.3  506.67  9.989  0.006685 ** 
+## Block           4 5845.6 1461.39 28.812   8.4e-05 ***
+## Error a         8  405.8   50.72                     
+## Tempo           2 1373.3  686.67 93.283 &lt; 2.2e-16 ***
+## Diluente*Tempo  4  153.3   38.33  5.208  0.003644 ** 
+## Error b        24  176.7    7.36                     
+## Total          44 8968.0                             
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## ------------------------------------------------------------------------
+## CV 1 = 11.93623 %
+## CV 2 = 4.547157 %
+## 
+## 
+## 
+## Significant interaction: analyzing the interaction
+## ------------------------------------------------------------------------
+## 
+## Analyzing  Diluente  inside of each level of  Tempo 
+## ------------------------------------------------------------------------
+##                            DF       SS        MS       Fc  p.value
+## Diluente : Tempo 8    2.00000 423.3333 211.66667 9.702886 0.002659
+## Diluente : Tempo 24   2.00000 490.0000 245.00000  11.2309 0.001482
+## Diluente : Tempo 36   2.00000 253.3333 126.66667 5.806452 0.015839
+## Pooled Error         12.95422 282.5939  21.81481                  
+## ------------------------------------------------------------------------
+## 
+## 
+##  Diluente inside of Tempo 8
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 B 	 72 
+## ab 	 A 	 66 
+##  b 	 C 	 59 
+## ------------------------------------------------------------------------
+## 
+##  Diluente inside of Tempo 24
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 B 	 66 
+## a 	 A 	 64 
+##  b 	 C 	 53 
+## ------------------------------------------------------------------------
+## 
+##  Diluente inside of Tempo 36
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 A 	 57 
+## ab 	 B 	 53 
+##  b 	 C 	 47 
+## ------------------------------------------------------------------------
+## 
+## 
+## Analyzing  Tempo  inside of each level of  Diluente 
+## ------------------------------------------------------------------------
+##                     DF       SS         MS        Fc p.value
+## Tempo : Diluente A   2 223.3333 111.666667 15.169812 5.5e-05
+## Tempo : Diluente B   2 943.3333 471.666667 64.075473       0
+## Tempo : Diluente C   2 360.0000 180.000000 24.452831   2e-06
+## Error b             24 176.6667   7.361111                  
+## ------------------------------------------------------------------------
+## 
+## 
+##  Tempo inside of Diluente A
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 8 	 66 
+## a 	 24 	 64 
+##  b 	 36 	 57 
+## ------------------------------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## 
+##  Tempo inside of Diluente B
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 8 	 72 
+##  b 	 24 	 66 
+##   c 	 36 	 53 
+## ------------------------------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## 
+##  Tempo inside of Diluente C
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 8 	 59 
+##  b 	 24 	 53 
+##   c 	 36 	 47 
+## ------------------------------------------------------------------------
+## ------------------------------------------------------------------------
+```
+
+]
+
+
+---
+## Experimentos fatoriais em parcelas subdivididas no tempo
+
+**ou medidas repetidas**
+
+- Medidas tomadas em uma seqüência de tempos, **em uma mesma unidade experimental**.
+
+-  Os experimentos com medidas repetidas no tempo envolvem, geralmente, 2 fatores: tratamentos e tempos.
+
+- O objetivo principal desse tipo de experimento é examinar e comparar as tendências dos tratamentos ao longo do tempo. *Isto pode envolver comparações entre tratamentos dentro de cada tempo, ou comparações de tempos dentro de cada tratamento.*
+
+
+---
+
+
+**Exemplo 4 no R**
+
+**Caso 2: interação significativa:**
+
+
+- Em um experimento com suínos foram comparadas quatro rações ( `\(A\)`, `\(B\)`, `\(C\)`, `\(D\)` ) e o ganho de peso dos animais ao longo do tempo, com mensurações em 30 e 60 dias após o início da dieta.
+
+- Delineamento em blocos casualizados para controlar o peso inicial dos animais.
+
+- A parcela constituiu-se de um animal e a subparcela são os tempos de mensurações do peso (no mesmo animal).
+
+
+
+
+**bloco:** animal
+
+**parcela:** ração
+
+**subparcela:** tempos (mensuração de pesos)
+
+
+- Arquivo com os dados: [dados_pesos_suinos_subdivididas_dbc.xlsx](docs_aula11/dados_pesos_suinos_subdivididas_dbc.xlsx)
+
+
+
+
+
+
+
+---
+
+.scroll-output[
+
+
+```r
+# library(openxlsx)
+# library(ExpDes)
+
+dados &lt;- read.xlsx("dados_pesos_suinos_subdivididas_dbc.xlsx")
+
+dados
+```
+
+```
+##    animais blocos tratamentos racoes tempos pesos
+## 1        1      1          A2      A     30    55
+## 2        2      1          B2      B     30    46
+## 3        3      1          C2      C     30    46
+## 4        4      1          D2      D     30    46
+## 5        1      1          A4      A     60    72
+## 6        2      1          B4      B     60    68
+## 7        3      1          C4      C     60    65
+## 8        4      1          D4      D     60    75
+## 9        5      2          A2      A     30    53
+## 10       6      2          B2      B     30    48
+## 11       7      2          C2      C     30    44
+## 12       8      2          D2      D     30    46
+## 13       5      2          A4      A     60    74
+## 14       6      2          B4      B     60    72
+## 15       7      2          C4      C     60    66
+## 16       8      2          D4      D     60    72
+## 17       9      3          A2      A     30    54
+## 18      10      3          B2      B     30    47
+## 19      11      3          C2      C     30    44
+## 20      12      3          D2      D     30    50
+## 21       9      3          A4      A     60    76
+## 22      10      3          B4      B     60    69
+## 23      11      3          C4      C     60    72
+## 24      12      3          D4      D     60    80
+```
+
+]
+
+---
+
+.scroll-output[
+
+
+```r
+# Função split2.rbd() do pacote ExpDes
+
+args(split2.rbd)
+```
+
+```
+## function (factor1, factor2, block, resp, quali = c(TRUE, TRUE), 
+##     mcomp = "tukey", fac.names = c("F1", "F2"), sigT = 0.05, 
+##     sigF = 0.05) 
+## NULL
+```
+
+```r
+split2.rbd(factor1 = dados$racoes, factor2 = dados$tempos,
+        block = dados$blocos, resp = dados$pesos,
+        fac.names = c("Rações", "Tempos"))
+```
+
+```
+## ------------------------------------------------------------------------
+## Legend:
+## FACTOR 1 (plot):  Rações 
+## FACTOR 2 (split-plot):  Tempos 
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## $`Analysis of Variance Table`
+##               DF     SS     MS     Fc   Pr(&gt;Fc)    
+## Rações         3  214.3   71.4  12.46  0.005484 ** 
+## Block          2   27.2   13.6   2.38  0.173842    
+## Error a        6   34.4    5.7                     
+## Tempos         1 3313.5 3313.5 787.37 &lt; 2.2e-16 ***
+## Rações*Tempos  3   54.8   18.3   4.34  0.042945 *  
+## Error b        8   33.7    4.2                     
+## Total         23 3678.0                            
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## ------------------------------------------------------------------------
+## CV 1 = 3.991697 %
+## CV 2 = 3.419037 %
+## 
+## 
+## 
+## Significant interaction: analyzing the interaction
+## ------------------------------------------------------------------------
+## 
+## Analyzing  Rações  inside of each level of  Tempos 
+## ------------------------------------------------------------------------
+##                           DF        SS        MS       Fc  p.value
+## Rações : Tempos 30   3.00000 144.91667 48.305556 9.715084 0.001287
+## Rações : Tempos 60   3.00000 124.25000 41.416667 8.329609 0.002463
+## Pooled Error        12.84714  63.87883  4.972222                  
+## ------------------------------------------------------------------------
+## 
+## 
+##  Rações inside of Tempos 30
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 A 	 54 
+##  b 	 D 	 47.33333 
+##  b 	 B 	 47 
+##  b 	 C 	 44.66667 
+## ------------------------------------------------------------------------
+## 
+##  Rações inside of Tempos 60
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 D 	 75.66667 
+## ab 	 A 	 74 
+##  bc 	 B 	 69.66667 
+##   c 	 C 	 67.66667 
+## ------------------------------------------------------------------------
+## 
+## 
+## Analyzing  Tempos  inside of each level of  Rações 
+## ------------------------------------------------------------------------
+##                    DF         SS          MS         Fc p.value
+## Tempos : Rações A   1  600.00000  600.000000 142.574269   2e-06
+## Tempos : Rações B   1  770.66667  770.666667 183.128727   1e-06
+## Tempos : Rações C   1  793.50000  793.500000  188.55447   1e-06
+## Tempos : Rações D   1 1204.16667 1204.166667 286.138637       0
+## Error b             8   33.66667    4.208333                   
+## ------------------------------------------------------------------------
+## 
+## 
+##  Tempos inside of Rações A
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 60 	 74 
+##  b 	 30 	 54 
+## ------------------------------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## 
+##  Tempos inside of Rações B
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 60 	 69.66667 
+##  b 	 30 	 47 
+## ------------------------------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## 
+##  Tempos inside of Rações C
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 60 	 67.66667 
+##  b 	 30 	 44.66667 
+## ------------------------------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## 
+##  Tempos inside of Rações D
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 60 	 75.66667 
+##  b 	 30 	 47.33333 
+## ------------------------------------------------------------------------
+## ------------------------------------------------------------------------
+```
+
+]
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
