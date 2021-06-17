@@ -1,0 +1,4077 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Modelos de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Juliano Bortolini" />
+    <link href="aula12_files/remark-css/default.css" rel="stylesheet" />
+    <link href="aula12_files/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="libs\sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs\sydney-juca3.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <strong>Modelos de regressão</strong>
+## Delineamento Experimental
+### Prof. Juliano Bortolini
+### Depto. de Estatística da UFMT
+
+---
+
+
+
+
+
+
+
+
+
+
+## Conteúdo <i class="fas  fa-chart-bar fa-pull-right "></i>
+
+- Correlação e regressão linear
+
+- Diagrama de dispersão
+
+- Correlação linear: coeficiente de Pearson
+
+- Regressão Linear Simples
+
+- Regressão linear múltipla
+
+
+
+
+
+---
+## Correlação e regressão linear <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+**Objetivos:**
+
+- Verificar se há relação linear entre duas variáveis numéricas ( `\(X\)` e `\(Y\)` ) e o grau dessa relação.
+
+
+- Determinar uma função que relaciona as variáveis.
+
+
+- A partir de valores de uma variável `\(X\)`, é possível predizer os valores de `\(Y\)`.
+
+
+---
+## Diagrama de dispersão <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+
+&lt;img src="docs_aula12/pureza_oxigenio_dispersao.jpg" width="60%" style="display: block; margin: auto;" /&gt;
+
+Figura. Diagrama de dispersão da Pureza de Oxigênio em função do nível de hidrocarbonetos.
+
+
+---
+## Correlação linear <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+- Grau da **relação linear** entre duas variáveis quantitativas.
+
+
+
+&lt;img src="docs_aula12/dispersao.jpg" width="65%" style="display: block; margin: auto;" /&gt;
+
+Figura. Dados com difederentes coeficientes de correlação: (a) correlação positiva perfeita, `\(r = 1\)`; (b) correlação negativa perfeita, `\(r = -1\)`; (c) correlação positiva, `\(r = 0,86\)`; (d) correlação negativa, `\(r = -0,85\)`; (e) sem correlação, `\(r = 0\)`;
+(f) sem correlação linear, `\(r = 0\)`.
+
+
+---
+## Correlação linear: coeficiente de Pearson <i class="fas  fa-chart-line fa-pull-right "></i>
+
+- Sejam `\((X_1, Y_1), (X_2, Y_2), \cdots, (X_n, Y_n)\)` uma amostra aleatória de `\(n\)` pares independentes de variáveis aleatórias normais, de coeficiente de correlação `\(\rho\)` (letra grega *rho*), um estimador de `\(\rho\)`, é o coeficiente de correlação de Pearson, calculado por:
+
+`\begin{align*}
+r = \frac{\sum_{i = 1}^n (X_i - \bar{X}) (Y_i - \bar{Y}) }{\sqrt{ \sum_{i = 1}^n (X_i - \bar{X})
+^2  \sum_{i = 1}^n (Y_i - \bar{Y})^2   }   } = \frac{S_{XY}}{\sqrt{S_{XX}S_{YY}}}
+\end{align*}`
+
+
+**Obs:**
+
+- `\(r \in \left[ -1, 1 \right]\)`
+
+- O coeficiente de correlação independe das unidades de medida de `\(X\)` e `\(Y\)`.
+
+- `\(r\)` não tem unidade de medida.
+
+
+---
+## Correlação linear: coeficiente de Pearson <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+**Teste de hipóteses**
+
+
+- Hipóteses
+
+$$
+H_0: \rho = 0 \quad versus \quad H_1: \rho \ne 0
+$$
+- Estatística de teste
+
+$$
+T_c = r \sqrt{\frac{n - 2}{1 - r^2}  }
+$$
+
+- Decisão: Rejeita-se `\(H_0\)`, ao nível de significância `\(\alpha\)`, se `\(|T_c| &gt; t_{(\alpha/2, n - 2)}\)`, sendo `\(t_{(\alpha/2, n - 2)}\)` o quantil superior `\(\alpha/2\)` da distribuição `\(T\)` com `\(n -2\)` graus de liberdade, e
+
+`\begin{align*}
+r = \frac{\sum_{i = 1}^n (X_i - \bar{X}) (Y_i - \bar{Y}) }{\sqrt{ \sum_{i = 1}^n (X_i - \bar{X})^2  \sum_{i = 1}^n (Y_i - \bar{Y})^2   }   } \quad \quad ou \quad \quad r = \frac{S_{XY}}{\sqrt{S_{XX}S_{YY}}}.
+\end{align*}`
+
+
+---
+## Correlação linear: coeficiente de Pearson <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+**Intervalo de confiança `\(IC_{100(1 - \alpha)\%}(\rho)\)`**
+
+**Calcular os seguintes passos:**
+
+1. `\(\bar{X}\)`, `\(\bar{Y}\)`, `\(S_{XY} = \sum_{i = 1}^n (X_i - \bar{X}) (Y_i - \bar{Y})\)`, `\(S_{XX} = \sum_{i = 1}^n (X_i - \bar{X})^2\)`, `\(S_{YY} = \sum_{i = 1}^n (Y_i - \bar{Y})^2\)` e `\(r = S_{XY}/\sqrt{S_{XX}S_{YY}}\)`
+
+2. `\(z = 0,5 \log \left( \frac{1 + r}{1 - r} \right)\)`
+
+3. `\(z_1 = z - z_{\alpha/2}/\sqrt{n -3} \quad \quad e \quad \quad z_2 = z + z_{\alpha/2}/\sqrt{n -3}\)`
+
+4. `\(r_1 = \frac{e^{2z_1} - 1}{e^{2z_1} + 1} \quad \quad e \quad \quad r_2 = \frac{e^{2z_2} - 1}{e^{2z_2} + 1}\)`
+
+5. `\(IC_{100(1 - \alpha)\%}(\rho):\left(r_1, r_2\right)\)`
+
+
+
+---
+.blockgreen[ ## Exemplo (Medidas de atividade óssea)
+
+
+- Estudo de um nove exame para mensurar a atividade fosfatase alcalina óssea.
+
+- Avaliar se a mensuração da atividade da fosfatase alcalina óssea precipitada pela lectina do gérmen de trigo (wBAP) está correlacionada com um marcador independente de formação óssea, a proteína precursora de terminação carboxi de colágeno Tipo I (PICP).
+
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Medidas de atividade óssea)
+
+Tabela. Duas medidas da atividade óssea em 46 cavalos adultos.
+
+&lt;img src="docs_aula12/dados_medidas_osseas.jpg" width="40%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Medidas de atividade óssea)
+
+- Defina as variáveis `\(X = \log(wBAP)\)` e `\(Y = \log(PICP)\)`
+
+- Cálculo da correlação entre `\(X\)` e `\(Y\)`:
+
+
+
+- `\(\bar{x} =\)` 3.7347, `\(\bar{y} =\)` 6.2288, `\(n=\)` 46,
+`\(\sum_{i = 1}^{46} (x_i - \bar{x})(y_i - \bar{y})=\)` 9.6407, `\(\sum_{i = 1}^{46} (x_i - \bar{x})^2=\)` 9.3495, `\(\sum_{i = 1}^{46} (y_i - \bar{y})^2=\)` 16.1425 e `\(r = \frac{9,6407}{\sqrt{9,3495 \times 16,1425}}=\)` 0.7847458
+
+- Teste de hipóteses: `\(H_0: \rho = 0\)` versus `\(H_1: \rho \ne 0\)`, com `\(\alpha = 0,05 = 5\%\)`:
+
+$$
+T_c = r \sqrt{\frac{n - 2}{1 - r^2}  } = 0,7847 \sqrt{\frac{46 - 2}{1 - 0,7847^2}  } = 8,3970
+$$
+
+Como `\(|T_c| = 8,3970 &gt; 2,01 = t_{(2,5\%,  44)}\)` rejeita-se `\(H_0\)`.
+
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Medidas de atividade óssea)
+
+- `\(IC_{95\%}(\rho)\)`
+
+1. `\(r = 0,7847\)`
+
+2. `\(z = 0,5 \log \left( \frac{1 + r}{1 - r} \right) = 0,5 \log \left( \frac{1 + 0,7847}{1 - 0,7847} \right)=\)` 1.0575
+
+
+3. `\(z_1 = z - z_{\alpha/2}/\sqrt{n -3} = 1,0575 - 1,96/\sqrt{43}=\)` 0.7586 e `\(z_2 = z + z_{\alpha/2}/\sqrt{n -3} = 1,0575 + 1,96/\sqrt{43}=\)` 1.3564
+
+4. `\(r_1 = \frac{e^{2z_1} - 1}{e^{2z_1} + 1} = \frac{e^{2(0,7586)} - 1}{e^{2(0,7586)} + 1}=\)` 0.6403 e `\(r_2 = \frac{e^{2z_2} - 1}{e^{2z_2} + 1} = \frac{e^{2(1,3564)} - 1}{e^{2(1,3564)} + 1}=\)` 0.8756
+
+
+5. `\(IC_{95\%}(\rho):\left(r_1, r_2\right)=(\)` 0.6403 `\(,\)` 0.8756 `\()\)`.
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Medidas de atividade óssea)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Leitura dos dados
+
+x &lt;- c(20, 31, 31, 22, 18, 16, 18, 55, 28, 32,
+       33, 38, 34, 21, 41, 30, 36, 50, 54, 31,
+       35, 39, 36, 36, 40, 36, 34, 41, 48, 50,
+       52, 61, 61, 57, 59, 63, 65, 62, 61, 70,
+       71, 88, 90, 90, 110, 34)
+
+
+y &lt;- c(190, 186, 190, 205, 210, 290, 306, 1000, 170, 180,
+       300, 303, 320, 360, 340, 400, 380, 405, 370, 490,
+       470, 470, 580, 540, 520, 700, 800, 800, 850, 980,
+       1005, 1100, 1070, 810, 720, 740, 700, 750, 700, 570,
+       1300, 1050, 1100, 1200, 940, 360)
+
+# transformação log()
+
+log_x &lt;- log(x)
+
+log_y &lt;- log(y)
+```
+
+]
+
+
+]
+
+---
+.blockgreen[ ## Exemplo (Medidas de atividade óssea)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# cálculo da correlação de Pearson (apenas para dados normais!!!)
+
+cor.test(log_x, log_y)
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  log_x and log_y
+## t = 8.3983, df = 44, p-value = 1.089e-10
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.6403200 0.8755786
+## sample estimates:
+##       cor 
+## 0.7847465
+```
+
+```r
+# ou
+cor.test(log_x, log_y, method = "pearson")
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  log_x and log_y
+## t = 8.3983, df = 44, p-value = 1.089e-10
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.6403200 0.8755786
+## sample estimates:
+##       cor 
+## 0.7847465
+```
+
+```r
+# SERÁ QUE OS DADOS SÃO NORMAIS??!!!
+
+shapiro.test(log_x)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  log_x
+## W = 0.97651, p-value = 0.471
+```
+
+```r
+shapiro.test(log_y)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  log_y
+## W = 0.9435, p-value = 0.02649
+```
+
+```r
+# Alternativa: Correlação de Spearman!!!
+
+cor.test(log_x, log_y, method = "spearman")
+```
+
+```
+## 
+## 	Spearman's rank correlation rho
+## 
+## data:  log_x and log_y
+## S = 3000.7, p-value = 5.467e-12
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.8149407
+```
+
+```r
+# Pesquisar: intervalo de confiança para correlação de Spearman
+```
+
+]
+
+
+]
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+**Modelos Empíricos**
+
+-  Muitos problemas em diversas áreas do conhecimento envolvem explorar as relações entre duas ou mais variáveis.
+
+  -  *a pressão de um gás em um recipiente está relacionada com a temperatura*
+  
+  -  *a velocidade da água em um canal aberto está relacionada com a largura do canal*
+
+  -  *o deslocamento de uma partícula em certo tempo está relacionado com sua velocidade.*
+
+-  No último exemplo, se `\(d_0\)` for o deslocamento da partícula a partir da origem no tempo `\(t = 0\)` e `\(v\)` for a velocidade, então o deslocamento no tempo `\(t\)` é `\(dt = d_0 + vt\)`.
+-  Esse é um exemplo de uma relação linear determinística, porque (sem considerar os erros de medida) o modelo prevê perfeitamente o deslocamento.
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Modelos Empíricos**
+
+-  Entretanto, existem muitas situações em que a relação entre variáveis não é determinística.
+
+  -  *o consumo de energia elétrica ( `\(y\)` ) de uma casa está relacionado com o tamanho da casa ( `\(x\)`, em `\(m^2\)` ).*
+
+  -  *o consumo de combustível ( `\(y\)` ) de um automóvel está relacionado com o peso ( `\(x\)` ) do veículo.*
+
+-  Em ambos os exemplos, o valor da resposta de interesse `\(y\)` (consumo de energia, consumo de combustível) não pode ser previsto perfeitamente a partir do conhecimento do `\(x\)` correspondente.
+
+-  É possível, para diferentes automóveis, haver consumos diferentes de combustível, mesmo que eles tenham o mesmo peso, e é possível que diferentes casas usem diferentes quantidades de eletricidade, mesmo se elas têm o mesmo tamanho.
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Modelos Empíricos**
+
+A coleção de ferramentas estatísticas que são usadas para modelar e explorar relações entre variáveis que estão relacionadas de maneira **não determinística** é chamada de **análise de regressão**.
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+-  Em um processo químico de destilação foram observadas as variáveis:
+
+- a percentagem de hidrocarbonetos presentes no condensador principal da unidade de destilação, `\(x\)`.
+
+- a pureza do oxigênio produzido no processo de destilação, `\(Y\)`.
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+
+
+&lt;img src="docs_aula12/pureza_oxigenio_tabela.jpg" width="65%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+
+
+&lt;img src="docs_aula12/pureza_oxigenio_dispersao.jpg" width="60%" style="display: block; margin: auto;" /&gt;
+
+Figura. Diagrama de dispersão da Pureza de Oxigênio) em função do nível de hidrocarbonetos.
+
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+
+-  O diagrama de dispersão indica que os pontos repousam aleatoriamente em torno de uma reta.
+-  É razoável considerar que a média de `\(Y\)` esteja relacionada com `\(x\)` pela seguinte relação linear:
+  $$
+    E\left(Y | x  \right) = \mu_{Y|x} = \beta_0 + \beta_1 x,
+    $$
+em que os parâmetros `\(\beta_0\)` e `\(\beta_1\)` são chamadas de **coeficientes de regressão**.
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+-  Enquanto a média de `\(Y\)`, `\(E(Y|x)\)`, é uma função linear de `\(x\)`, o valor real observado, `\(y\)`, não cai exatamente na linha reta.
+-  A maneira apropriada de generalizar isso para um modelo linear probabilístico é considerar que, para um valor fixo de `\(x\)`, o valor real de `\(Y\)` seja determinado pela função do valor médio (o modelo linear) mais um termo de erro aleatório,
+$$
+  Y = \beta_0 + \beta_1 x + \epsilon,
+  $$
+sendo `\(\epsilon\)` o termo de erro aleatório que, em geral, será considerado normal de média `\(\mu = 0\)` e variância `\(\sigma^2\)`, ou seja, `\(N(0,\sigma^2)\)`.
+
+-  Chamaremos esse modelo de **modelo de regressão linear simples**, porque ele tem apenas uma variável independente ou regressora ( `\(x\)` ).
+
+]
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+-  No modelo
+$$
+  Y = \beta_0 + \beta_1 x + \epsilon
+  $$
+
+-  O coeficiente angular, `\(\beta_1\)`, pode ser interpretado como a mudança na média de `\(Y\)` para uma mudança unitária em `\(x\)`.
+
+$$
+  E(Y| x + 1) = \beta_0 + \beta_1 (x + 1) = \beta_0 + \beta_1 x + \beta_1 = E(Y| x ) + \beta_1
+  $$
+
+-  Além disso, a variabilidade de `\(Y\)`, em um valor particular de `\(x\)`, é determinada pela variância do erro `\(\sigma^2\)`:
+
+  $$
+    Var(Y|x) = Var(\beta_0 + \beta_1 x + \epsilon) = Var(\beta_0 + \beta_1 x)  + Var(\epsilon) = 0 + \sigma^2 = \sigma^2
+    $$
+
+- Isso implica que há uma distribuição de valores de `\(Y\)` em cada `\(x\)` e que a variância dessa distribuição é a mesma em cada `\(x\)`.
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+&lt;img src="docs_aula12/regressao_grafico.jpg" width="65%" style="display: block; margin: auto;" /&gt;
+
+Figura. Distribuição de erros em torno da linha de regressão da população.
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+-  suponha que o verdadeiro modelo de regressão, relacionando a pureza do oxigênio com o nível de hidrocarboneto, seja 
+
+$$
+Y = 75 + 15x + \epsilon,
+$$
+
+-  e que a variância de `\(\epsilon\)` seja `\(\sigma^2 = 2\)`.
+
+-  O modelo de regressão descreve a relação entre a Pureza de Oxigênio `\(Y\)` e o nível de hidrocarboneto `\(x\)`.
+
+-  Desse modo, para qualquer valor do nível de hidrocarboneto `\(x\)`, a pureza do oxigênio `\(Y\)` tem uma distribuição normal, com média `\(75 + 15x\)` e variância `\(\sigma^2 = 2\)`.
+
+-  Por exemplo, se `\(x = 1,25\)`, então `\(Y\)` tem um valor médio `\(\mu_{Y|x = 1,25} = 75 + 15(1,25) = 93,75\)` e variância `\(\sigma^2=2\)`.
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+
+&lt;img src="docs_aula12/pureza_oxigenio_grafico.jpg" width="65%" style="display: block; margin: auto;" /&gt;
+
+Figura. Distribuição de `\(Y\)` para certo valor de `\(x\)`, para os dados da pureza do oxigênio-hidrocarbonetos.
+
+]
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+-  Na maioria dos problemas reais, os valores dos **coeficientes angular e linear** ( `\(\beta_0\)`  e `\(\beta_1\)` ) e a variância do erro `\(\sigma^2\)` não serão conhecidos **e devem ser estimados a partir dos dados da amostra**.
+
+-  Então, o modelo ajustado de regressão é tipicamente usada na previsão de observações futuras de `\(Y\)` ou para estimar a resposta média em um nível particular de `\(x\)`. Tal como no exemplo anterior em que o engenheiro químico estava interessado em estimar a pureza média de oxigênio produzido, quando o nível de hidrocarboneto for `\(x = 1,25\%\)`.
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Estimação**
+
+-  Considere que cada observação, `\(Y\)`, possa ser descrita pelo modelo
+
+$$
+Y = \beta_0 + \beta_1 x + \epsilon,
+$$
+em que `\(\epsilon\)` é um erro aleatório com média zero e variância (desconhecida) `\(\sigma^2\)`. 
+
+-  Na estimação de `\(\beta_0\)` e `\(\beta_1\)`, as estimativas de `\(\beta_0\)` e `\(\beta_1\)` devem resultar em uma linha que seja (em algum sentido) o "melhor ajuste" para os dados.
+
+- *O cientista alemão Karl* **Gauss** *(1777-1855) propôs estimar os parâmetros `\(\beta_0\)` e `\(\beta_1\)` de modo a minimizar a soma dos quadrados dos desvios dos valores observados em relação aos valores estimados.*
+
+-  Chamamos esse critério para estimar os coeficientes de regressão de **método dos mínimos quadrados**.
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Estimação**
+
+
+&lt;img src="docs_aula12/regressao_grafico2.jpg" width="55%" style="display: block; margin: auto;" /&gt;
+
+Figura. Desvios dos dados em relação ao modelo estimado de regressão.
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Estimação**
+
+-  Suponha que tenhamos `\(n\)` pares de observações `\((x_1, y_1)\)`, `\((x_2, y_2)\)`, `\(\cdots\)`, `\((x_n, y_n)\)`.
+
+-  O modelo de regressão linear simples pode ser expresso por
+$$
+Y_i = \beta_0 + \beta_1 x_i + \epsilon_i, \quad \quad i = 1,2,\cdots, n.
+$$
+
+-  A soma dos quadrados dos desvios das observações em relação ao valor estimado (soma dos quadrados dos resíduos ou erros) é dada por
+
+`\begin{align*}
+L = \sum_{i = 1}^n \epsilon_i ^2 = \sum_{i = 1}^n \left( Y_i - \beta_0 - \beta_1 x_i    \right)^2.
+\end{align*}`
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Estimação**
+
+-  Os estimadores de mínimos quadrados de `\(\beta_0\)` e `\(\beta_1\)`, isto é, `\(\hat{\beta}_0\)` e `\(\hat{\beta}_1\)`, satisfazem
+
+`\begin{align*}
+{\left. {\frac{{\partial L}}{{\partial {\beta _0}}}} \right|_{{{\hat \beta }_0},{{\hat \beta }_1}}} = &amp;  - 2\sum\limits_{i = 1}^n {\left( {{y_i} - {{\hat \beta }_0} - {{\hat \beta }_1}{x_i}} \right) } = 0 \\
+{\left. {\frac{{\partial L}}{{\partial {\beta _1}}}} \right|_{{{\hat \beta }_0},{{\hat \beta }_1}}} = &amp; - 2\sum\limits_{i = 1}^n {\left( {{y_i} - {{\hat \beta }_0} - {{\hat \beta }_1}{x_i}} \right){x_i} }= 0.
+\end{align*}`
+
+-  A simplificação dessas duas equações resulta em
+`\begin{align*}
+&amp; n{{\hat \beta }_0} + {{\hat \beta }_1}\sum\limits_{i = 1}^n {{x_i}}  = \sum\limits_{i = 1}^n {{y_i}} \\
+&amp; {{\hat \beta }_0}\sum\limits_{i = 1}^n {{x_i}}  + {{\hat \beta }_1}\sum\limits_{i = 1}^n {x_i^2}  = \sum\limits_{i = 1}^n {{y_i}{x_i}}
+\end{align*}`
+
+-  A solução para essas equações resulta nos **estimadores de mínimos quadrados**
+`\({{\hat \beta }_0}\)`  e `\({{\hat \beta }_1}\)`.
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Estimativas de mínimos quadrados**
+
+As **estimativas de mínimos quadrados** dos coeficientes angular e linear no modelo de regressão linear simples são
+
+`\begin{align*}
+&amp; {{\hat \beta }_0} = \bar Y - {{\hat \beta }_1}\bar x \\
+&amp; {{\hat \beta }_1} = \frac{{\sum\limits_{i = 1}^n {{Y_i}{x_i}}  - \frac{{\left( {\sum\limits_{i = 1}^n {{x_i}} } \right)\left( {\sum\limits_{i = 1}^n {{Y_i}} } \right)}}{n}}}{{\sum\limits_{i = 1}^n {x_i^2}  - \frac{{{{\left( {\sum\limits_{i = 1}^n {{x_i}} } \right)}^2}}}{n}}} = \frac{S_{Yx}}{S_{xx}},
+\end{align*}`
+em que `\(\bar{Y} = \sum_{i = 1}^n Y_i / n\)`, `\(\bar{x} = \sum_{i = 1}^n x_i / n\)`,
+`\(S_{xx} = \sum_{i = 1}^n \left(x_i - \bar{x}\right)^2 = {\sum\limits_{i = 1}^n {x_i^2}  - \frac{{{{\left( {\sum\limits_{i = 1}^n {{x_i}} } \right)}^2}}}{n}}\)` e `\(S_{Yx} = \sum_{i = 1}^n \left(Y_i - \bar{Y}\right) \left(x_i - \bar{x}\right) = {\sum\limits_{i = 1}^n {{Y_i}{x_i}}  - \frac{{\left( {\sum\limits_{i = 1}^n {{x_i}} } \right)\left( {\sum\limits_{i = 1}^n {{Y_i}} } \right)}}{n}}\)`.
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Estimativas de mínimos quadrados**
+
+
+- O modelo de regressão ajustado (ou estimado) é
+
+$$
+  \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x,
+$$
+
+sendo `\(\hat{y}\)` o estimador da média da variável `\(Y\)` para um valor de `\(x\)` ( `\(\hat{y} = \widehat{E(Y|x)}\)` ).
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+Ajustaremos um modelo de regressão linear simples aos dados de Pureza de Oxigênio.
+
+`\begin{align*}
+&amp; n = 20, \quad \quad \sum_{i = 1}^{20} x_i = 23,92, \quad \quad \sum_{i = 1}^{20} y_i = 1.843,21 \\
+&amp; \bar{x} = 1,1960, \quad \quad \bar{y} = 92,1605 \\
+&amp; \sum_{i = 1}^{20} x_i^2 = 29,2892, \quad \quad \sum_{i = 1}^{20} = x_i y_i = 2.214,6566 
+\end{align*}`
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+`\begin{align*}
+&amp; S_{xx} = {\sum\limits_{i = 1}^{20} {x_i^2}  - \frac{{{{\left( {\sum\limits_{i = 1}^{20} {{x_i}} } \right)}^2}}}{20}} = 29,2892 - \frac{(23,92)^2}{20} = 0,68088 \\
+&amp; S_{xy} = {\sum\limits_{i = 1}^{20} {{y_i}{x_i}}  - \frac{{\left( {\sum\limits_{i = 1}^{20} {{x_i}} } \right)\left( {\sum\limits_{i = 1}^{20} {{y_i}} } \right)}}{20}} \\
+&amp; \quad \quad \quad = 2.214,6566 - \frac{(23,92)(1.843,21)}{20} = 10,17744
+\end{align*}`
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+Logo, as estimativas de mínimos quadrados dos coeficientes angular e linear são
+
+`\begin{align*}
+&amp; \hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{10,17744}{0,68088} = 14,94748 \\
+&amp; \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x} = 92,1605 - (14,94748) 1,196 = 74,28331
+\end{align*}`
+
+O modelo ajustado da regressão linear simples é
+
+$$
+  \hat{y} = 74,283 + 14,947 x.
+  $$
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+
+
+&lt;img src="docs_aula12/pureza_oxigenio_grafico2.jpg" width="60%" style="display: block; margin: auto;" /&gt;
+
+Figura. Diagrama de dispersão da pureza do oxigênio, `\(y\)`, versus o nível de hidrocarboneto, `\(x\)`, e o modelo de regressão `\(\hat{y} = 74,283 + 14,947x\)`.
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+**Interpretação Prática:** Usando o modelo de regressão estimado, esperaríamos uma pureza do oxigênio de `\(\hat{y} = 89,23\%\)`, quando o nível de hidrocarboneto fosse `\(x = 1,00\%\)`. Além disso, para cada incremento de `\(1,00\%\)` no nível de hidrocarboneto tem-se um acréscimo de `\(14,947\%\)` na pureza do oxigênio.
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Leitura dos dados
+
+x &lt;- c(0.99, 1.02, 1.15, 1.29, 1.46, 1.36, 0.87, 1.23, 1.55, 1.40,
+       1.19, 1.15, 0.98, 1.01, 1.11, 1.20, 1.26, 1.32, 1.43, 0.95)
+
+y &lt;- c(90.01, 89.05, 91.43, 93.74, 96.73, 94.45, 87.59, 91.77, 99.42, 93.65,
+       93.54, 92.52, 90.56, 89.54, 89.85, 90.39, 93.25, 93.41, 94.98, 87.33)
+```
+
+
+]
+
+
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Estimação do modelo
+
+# y = b_0 + b_1 * x
+
+# Usando a função lm (linear models)
+
+lm(formula = y  ~  x)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##       74.28        14.95
+```
+
+```r
+# atribuindo ao objeto `regressao`
+regressao &lt;- lm(formula = y  ~  x)
+
+regressao
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##       74.28        14.95
+```
+
+
+]
+
+
+
+]
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+**Estimando `\(\sigma^2\)`**
+
+-  Há outro parâmetro desconhecido no modelo de regressão, `\(\sigma^2\)` (a variância do erro aleatório `\(\epsilon\)`).
+
+-  Os resíduos, `\(\hat{\epsilon} = e_i = y_i - \hat{y}_i\)`, são usados no cálculo da estimativa de `\(\sigma^2\)`.
+
+-  A **soma dos quadrados dos resíduos**, frequentemente chamada de soma dos quadrados dos erros, é
+
+`\begin{align*}
+SQ_E = \sum_{i = 1}^n e_i^2 = \sum_{i = 1}^n (y_i - \hat{y_i})^2.
+\end{align*}`
+
+-  **Uma forma mais simples de calcular a `\(SQ_E\)` é**
+`\begin{align*}
+SQ_E = SQ_T - \hat{\beta}_1 S_{xy},
+\end{align*}`
+em que `\(SQ_T = \sum_{i = 1}^n y_i^2  - n \bar{y}^2\)`
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Estimando `\(\sigma^2\)`**
+
+
+-  O estimador de `\(\sigma^2\)` é dado por
+`\begin{align*}
+\hat{\sigma}^2 = QM_E = \frac{SQ_E}{n-2},
+\end{align*}`
+
+em que `\(QM_E\)` é chamado de quadrado médio dos resíduos.
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+A estimativa de `\(\sigma^2\)` é calculada por
+
+`\begin{align*}
+&amp; \sum_{i = 1}^{20} y_i^2 = 170.044,5321 \\
+&amp; SQ_T = \sum_{i = 1}^{20} y_i^2 - n \bar{y}^2 = 170.044,5321 - 20 \times 92,1605^2 = 173,3769 \\
+&amp; SQ_E = SQ_T - \hat{\beta}_1 S_{xy} = 173,3769 -  14,947 \times 10,17744 = 21,2547 \\
+&amp; \hat{\sigma}^2 = QM_E = \frac{21,2547}{20 - 2} =  1,180817
+\end{align*}`
+
+Portanto, uma estimativa para `\(\sigma^2\)` é
+$$
+\hat{\sigma}^2 =  1,180817
+$$
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Lembrando que:
+
+# regressao &lt;- lm(formula = y  ~  x)
+# regressao
+
+# Valor de sigma^2:
+
+summary(regressao)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.83029 -0.73334  0.04497  0.69969  1.96809 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   74.283      1.593   46.62  &lt; 2e-16 ***
+## x             14.947      1.317   11.35 1.23e-09 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.087 on 18 degrees of freedom
+## Multiple R-squared:  0.8774,	Adjusted R-squared:  0.8706 
+## F-statistic: 128.9 on 1 and 18 DF,  p-value: 1.227e-09
+```
+
+```r
+# Residual standard error: 1.087
+```
+
+
+**Residual standard error: 1.087**
+
+$$ \sigma = 1,087 $$
+
+então:
+
+$$ \sigma^2 = 1,087^2 \approx 1,18 $$
+
+]
+
+
+
+]
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Análise de variância para testar significância da regressão**
+
+-  Um método chamado **análise de variância** pode ser usado para testar a significância da regressão.
+
+-  O procedimento divide a variabilidade total na variável resposta em várias componentes.
+
+`\begin{align*}
+\sum_{i = 1}^n \left(Y_i - \bar{Y} \right)^2 = \sum_{i = 1}^n \left(\hat{Y}_i - \bar{Y}  \right)^2 + \sum_{i = 1}^n \left(Y_i - \hat{Y}_i  \right)^2
+\end{align*}`
+
+-  Os dois componentes do lado direito medem, respectivamente, a quantidade da variabilidade em `\(Y_i\)`, por causa da linha de regressão, e a variação residual deixada sem explicação pela linha de regressão.
+
+-  `\(SQ_E = \sum_{i = 1}^n (Y_i - \hat{Y}_i  )^2\)` é a **soma dos quadrados dos erros**, `\(SQ_{Reg} = \sum_{i = 1}^n (\hat{Y}_i - \bar{Y} )^2\)` é **soma dos quadrados da regressão** e `\(SQ_T = \sum_{i = 1}^n (Y_i - \bar{Y})^2\)` é a **soma dos quadrados total** corrigida.
+
+`\begin{align*}
+SQ_T = SQ_{Reg} + SQ_E
+\end{align*}`
+
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Análise de variância para testar significância da regressão**
+
+-  Para as hipóteses (regressão linear **simples**)
+
+`\begin{align*}
+H_0: \beta_1 = 0 \quad { \text{versus}  } \quad H_1: \beta_1 \neq 0
+\end{align*}`
+
+tem-se a estatística de teste
+
+`\begin{align*}
+F_c = \frac{SQ_{Reg} / 1}{SQ_E /(n - 2) } = \frac{QM_{Reg}}{QM_{E}},
+\end{align*}`
+
+em que `\(QM_{Reg} = SQ_{Reg}/1\)` é o quadrado médio de regressão e `\(QM_{E} = SQ_{E}/(n-2)\)` é o quadrado médio dos erros.
+
+-  **Decisão:** Rejeita-se `\(H_0\)` se `\(F_c &gt; F_{(1; n-2; \alpha)}\)`.
+
+-  O procedimento de teste é geralmente esquematizado em uma **tabela de análise de variância**.
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Análise de variância para testar significância da regressão**
+
+
+Tabela. Esquema da análise de variância para teste de significância da regressão linear simples.
+
+| Fonte de Variação | GL | SQ |  QM |  `\(F_c\)` | 
+|:-----------------:|:--:|:--:|:---:|:------:|
+| Regressão  |        `\(1\)`| `\(S{Q_{Reg}}\)` | `\(Q{M_{Reg}}\)`  | `\(\frac{{Q{M_{Reg}}}}{{Q{M_{{{E}}}}}}\)` |
+| Erro | `\(n-2\)`  | `\(S{Q_{{{E}}}}\)`  | `\(Q{M_{{{E}}}}\)`  | | 
+| Total  | `\(n-1\)`  |  `\(SQ_T\)` |  | | 
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Lembrando:**
+
+`\begin{align*}
+SQ_T = \sum_{i = 1}^n y_i^2  - n \bar{y}^2
+\end{align*}`
+
+`\begin{align*}
+SQ_{Reg} = \hat{\beta}_1 S_{xy},
+\end{align*}`
+
+`\begin{align*}
+SQ_E = SQ_T - SQ_{Reg}
+\end{align*}`
+
+`\begin{align*}
+S_{xy} = \sum_{i = 1}^n \left(y_i - \bar{y}\right) \left(x_i - \bar{x}\right) = {\sum\limits_{i = 1}^n {{y_i}{x_i}}  - \frac{{\left( {\sum\limits_{i = 1}^n {{x_i}} } \right)\left( {\sum\limits_{i = 1}^n {{y_i}} } \right)}}{n}}
+\end{align*}`
+
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+`\begin{align*}
+SQ_T = \sum_{i = 1}^n y_i^2  - n \bar{y}^2 = 173,38
+\end{align*}`
+
+`\begin{align*}
+SQ_{Reg} = \hat{\beta}_1 S_{xy} = 152,13
+\end{align*}`
+
+`\begin{align*}
+SQ_E = SQ_T - SQ_{Reg} = 21,25
+\end{align*}`
+
+]
+
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+
+Tabela. Esquema da análise de variância para teste de significância da regressão linear simples do experimento de pureza de oxigênio.
+
+| Fonte de Variação | GL | SQ |  QM |  `\(F_c\)` | 
+|:-----------------:|:--:|:--:|:---:|:------:|
+| Regressão  |        `\(1\)`| `\(152,13\)` | `\(152,13\)`  | `\(128,86\)` |
+| Erro | `\(18\)`  | `\(21,25\)`  | `\(1,181\)`  | | 
+| Total  | `\(19\)`  |  `\(173,38\)` |  | | 
+
+
+- `\(F_{(2,5\%, 1, 18)} = 4,41\)`
+
+- Como `\(F_c = 128,86 &gt; 4,41 = F_{(2,5\%, 1, 18)}\)` rejeita-se `\(H_0: \beta_1 = 0\)`. 
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Lembrando que:
+
+# regressao &lt;- lm(formula = y  ~  x)
+# regressao
+
+# Análise de variância para regressão
+
+anova(regressao)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Response: y
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## x          1 152.13 152.127  128.86 1.227e-09 ***
+## Residuals 18  21.25   1.181                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+
+]
+
+
+]
+
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Teste t para testar significância do coeficiente `\(\beta_1\)`**
+
+-  Suponha que desejemos testar a hipótese de o **coeficiente angular** `\(\beta_1\)` ser igual a uma constante, como `\(\beta_{1,0}\)`. As hipóteses apropriadas são
+
+`\begin{align*}
+H_0: \beta_1 = \beta_{1,0} \quad { \text{versus}  } \quad H_1: \beta_1 \neq \beta_{1,0}
+\end{align*}`
+
+-  Estatística de teste
+`\begin{align*}
+T_c = \frac{\hat{\beta_1} - \beta_{1,0}}{ep(\hat{\beta}_1)},
+\end{align*}`
+
+em que `\(ep(\hat{\beta}_1) = \sqrt{\hat{\sigma}^2/S_{xx}}\)` é o **erro-padrão** do estimador `\(\hat{\beta}_1\)`.
+
+-  **Decisão:** Rejeita-se `\(H_0\)` se `\(|T_c| &gt; t_{(\alpha/2, n-2)}\)`
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Teste t para testar significância do coeficiente `\(\beta_0\)`**
+
+-  Suponha que desejemos testar a hipótese de o **coeficiente linear** `\(\beta_0\)` ser igual a uma constante, como `\(\beta_{0,0}\)`. As hipóteses apropriadas são
+
+`\begin{align*}
+H_0: \beta_0 = \beta_{0,0} \quad { \text{versus}  } \quad H_1: \beta_0 \neq \beta_{0,0}
+\end{align*}`
+
+-  Estatística de teste
+`\begin{align*}
+T_c = \frac{\hat{\beta_0} - \beta_{0,0}}{ep(\hat{\beta}_0)},
+\end{align*}`
+em que `\(ep(\hat{\beta}_0) = \sqrt{\hat{\sigma}^2(1/n + \bar{x}^2/S_{xx})}\)` é o **erro-padrão** do estimador `\(\hat{\beta}_0\)`.
+
+-  **Decisão:** Rejeita-se `\(H_0\)` se `\(|T_c| &gt; t_{(n - 2, \alpha/2)}\)`
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Teste t para testar significância dos coeficientes**
+
+
+
+
+&lt;img src="docs_aula12/reg_fig1.jpg" width="60%" style="display: block; margin: auto;" /&gt;
+
+Figura. A hipótese `\(H_0: \beta_1 = 0\)` **não** é rejeitada.
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Teste t para testar significância dos coeficientes**
+
+&lt;img src="docs_aula12/reg_fig2.jpg" width="60%" style="display: block; margin: auto;" /&gt;
+
+Figura. A hipótese `\(H_0: \beta_1 = 0\)` é rejeitada.
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Realizar o teste de hipóteses:**
+
+`\begin{align*}
+H_0: \beta_1 = 0 \quad { \text{versus}  } \quad H_1: \beta_1 \neq 0
+\end{align*}`
+
+-  Estatística de teste
+`\begin{align*}
+T_c = \frac{\hat{\beta_1} - 0}{ep(\hat{\beta}_1)},
+\end{align*}`
+
+em que `\(ep(\hat{\beta}_1) = \sqrt{\hat{\sigma}^2/S_{xx}}\)` é o **erro-padrão** do estimador `\(\hat{\beta}_1\)`.
+
+-  **Decisão:** Rejeita-se `\(H_0\)` se `\(|T_c| &gt; t_{(\alpha/2, n-2)}\)`
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Cálculos:**
+
+- Erro padrão: `\(ep(\hat{\beta}_1) = \sqrt{\hat{\sigma}^2/S_{xx}} = \sqrt{1,181/0,681} = 1,317\)`
+
+-  Estatística de teste
+`\begin{align*}
+T_c = \frac{\hat{\beta_1} - 0}{ep(\hat{\beta}_1)} = 14,95/1,317 = 11,35,
+\end{align*}`
+
+
+-  **Decisão:** Como `\(|T_c| = 11,35 &gt; 2,10 = t_{(2,5\%, 18)}\)`  **rejeita-se `\(H_0\)`**, ao nível de `\(5\%\)` de significância.
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Realizar o teste de hipóteses:**
+
+`\begin{align*}
+H_0: \beta_0 = 0 \quad { \text{versus}  } \quad H_1: \beta_0 \neq 0
+\end{align*}`
+
+-  Estatística de teste
+`\begin{align*}
+T_c = \frac{\hat{\beta_0} - 0}{ep(\hat{\beta}_0)},
+\end{align*}`
+em que `\(ep(\hat{\beta}_0) = \sqrt{\hat{\sigma}^2(1/n + \bar{x}^2/S_{xx})}\)` é o **erro-padrão** do estimador `\(\hat{\beta}_0\)`.
+
+-  **Decisão:** Rejeita-se `\(H_0\)` se `\(|T_c| &gt; t_{(\alpha/2, n - 2)}\)`
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Cálculos:**
+
+- Erro padrão: `\(ep(\hat{\beta}_0) = \sqrt{\hat{\sigma}^2(1/n + \bar{x}^2/S_{xx})}= \sqrt{1,181 (1/20 + 1,196^2/0,681)} = 1,593\)`
+
+-  Estatística de teste
+`\begin{align*}
+T_c = \frac{\hat{\beta_0} - 0}{ep(\hat{\beta}_0)} = 74,283/1,593 = 46,62,
+\end{align*}`
+
+
+-  **Decisão:** Como `\(|T_c| = 46,62 &gt; 2,10 = t_{(2,5\%, 18)}\)`  **rejeita-se `\(H_0\)`**, ao nível de `\(5\%\)` de significância.
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Lembrando que:
+
+# regressao &lt;- lm(formula = y  ~  x)
+# regressao
+
+# TH para b_0 e b_1 (teste t ou teste Wald)
+
+summary(regressao)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.83029 -0.73334  0.04497  0.69969  1.96809 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   74.283      1.593   46.62  &lt; 2e-16 ***
+## x             14.947      1.317   11.35 1.23e-09 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.087 on 18 degrees of freedom
+## Multiple R-squared:  0.8774,	Adjusted R-squared:  0.8706 
+## F-statistic: 128.9 on 1 and 18 DF,  p-value: 1.227e-09
+```
+
+
+]
+
+
+]
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**IC para inclinação e interseção**
+
+Sob a suposição de que as observações sejam normal e independentemente distribuídas, um intervalo de confiança de `\(100(1 - \alpha)\%\)` para o coeficiente angular `\(\beta_1\)` na regressão linear simples é
+
+`\begin{align*}
+IC_{1 - \alpha}(\beta_1): \left( \hat{\beta}_1 - t_{(n - 2; \alpha/2)} ep(\hat{\beta}_{1});
+\hat{\beta}_1 + t_{(n - 2; \alpha/2)} ep(\hat{\beta}_{1})  \right)
+\end{align*}`
+
+Similarmente, um intervalo de confiança de `\(100(1 - \alpha)\%\)` para o coeficiente linear `\(\beta_0\)` é
+
+`\begin{align*}
+IC_{1 - \alpha}(\beta_0): \left( \hat{\beta}_0 - t_{(n - 2; \alpha/2)} ep(\hat{\beta}_{0}); \hat{\beta}_0 + t_{(n - 2; \alpha/2)} ep(\hat{\beta}_{0})  \right)
+\end{align*}`
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Obter `\(IC_{95\%}(\beta_0)\)` e `\(IC_{95\%}(\beta_1)\)`**
+
+**Cálculos:**
+
+- `\(IC_{95\%}(\beta_0)\)`:
+
+- `\(ep(\hat{\beta}_0) = \sqrt{\hat{\sigma}^2(1/n + \bar{x}^2/S_{xx})}= \sqrt{1,181 (1/20 + 1,196^2/0,681)} = 1,593\)`
+
+- `\(\hat{\beta_0} = 74,283\)`
+
+- `\(t_{(2,5\%, 18)} = 2,1\)`
+
+`\begin{align*}
+&amp; IC_{95\%}(\beta_0): \left( \hat{\beta}_0 - t_{(2,5\%, 18)} ep(\hat{\beta}_{0}); \hat{\beta}_0 + t_{(2,5\%, 18)} ep(\hat{\beta}_{0})  \right) = \left( 74,283 - 2,1 \times 1,593; 74,283 + 2,1 \times 1,593  \right) \\
+&amp; IC_{95\%}(\beta_0):\left( 70,94  ; 77,63\right)
+\end{align*}`
+
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Obter `\(IC_{95\%}(\beta_0)\)` e `\(IC_{95\%}(\beta_1)\)`**
+
+**Cálculos:**
+
+- `\(IC_{95\%}(\beta_1)\)`:
+
+- `\(ep(\hat{\beta}_1) = \sqrt{\hat{\sigma}^2/S_{xx}} = \sqrt{1,181/0,681} = 1,317\)`
+
+- `\(\hat{\beta_0} = 14,95\)`
+
+- `\(t_{(2,5\%, 18)} = 2,1\)`
+
+`\begin{align*}
+&amp; IC_{95\%}(\beta_1): \left( \hat{\beta}_1 - t_{(2,5\%, 18)} ep(\hat{\beta}_{1}); \hat{\beta}_1 + t_{(2,5\%, 18)} ep(\hat{\beta}_{1})  \right) = \left( 14,95 - 2,1 \times 1,317; 14,95 + 2,1 \times 1,317  \right) \\
+&amp; IC_{95\%}(\beta_1):\left( 12,18  ; 17,72\right)
+\end{align*}`
+
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Lembrando que:
+
+# regressao &lt;- lm(formula = y  ~  x)
+# regressao
+
+# IC para b_0 e b_1
+
+confint(regressao, level = 0.95)
+```
+
+```
+##                2.5 %   97.5 %
+## (Intercept) 70.93555 77.63108
+## x           12.18107 17.71389
+```
+
+
+]
+
+
+]
+
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**IC para a Resposta Média**
+
+Sob a suposição de que as observações sejam normal e independentemente distribuídas, um intervalo de confiança de `\(100(1 - \alpha)\%\)` para a resposta média no valor de `\(x = x_0\)`, ou seja `\(\hat{Y}(x_0) = \mu_{Y|x_0} = \beta_0 + \beta_1 x_0\)`, é dado por
+
+`\begin{align*}
+IC_{1 - \alpha}\left(\hat{Y}(x_0)\right):  \left( \hat{Y}(x_0) - t_{(n - 2; \alpha/2)} ep\left(\hat{Y}(x_0)\right); \ \  \hat{Y}(x_0) + t_{(n - 2; \alpha/2)} ep\left(\hat{Y}(x_0)\right)  \right),
+\end{align*}`
+em que
+
+`\begin{align*}
+ep\left(  \hat{Y}(x_0) \right) = \sqrt{\hat{\sigma}^2 \left[\frac{1}{n}  + \frac{(x_0 - \bar{x})^2}{S_{xx}} \right]  }
+\end{align*}`
+
+**OBS:** `\(x_0\)` é um valor utilizado no ajuste do modelo de regressão.
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**IC da previsão de novas observações**
+
+-  Uma aplicação importante de um modelo de regressão é prever novas ou futuras observações `\(Y\)`, correspondentes a um valor especificado do regressor `\(x\)`. Se `\(x_0\)` for o valor de interesse do regressor, então `\(\hat{Y}(x_0) = \hat{\beta}_0 + \hat{\beta}_1 x_0\)`
+será a estimativa do novo ou futuro valor da resposta `\(Y(x_0)\)`.
+
+
+-  Um intervalo de previsão de `\(100(1 - \alpha)\%\)` para uma observação futura `\(Y(x_0)\)`, em certo valor `\(x_0\)`, é dado por
+`\begin{align*}
+IC_{1 - \alpha}\left(\hat{Y}(x_0)\right):  \left( \hat{Y}(x_0) - t_{(n - 2; \alpha/2)} ep\left(\hat{Y}(x_0)\right); \ \  \hat{Y}(x_0) + t_{(n - 2; \alpha/2)} ep\left(\hat{Y}(x_0)\right)  \right),
+\end{align*}`
+em que
+
+`\begin{align*}
+ep\left(  \hat{Y}(x_0) \right) = \sqrt{\hat{\sigma}^2 \left[1 + \frac{1}{n}  + \frac{(x_0 - \bar{x})^2}{S_{xx}} \right]  }
+\end{align*}`
+
+**OBS:** `\(x_0\)` é um valor **não** utilizado no ajuste do modelo de regressão.
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Lembrando que:
+
+# regressao &lt;- lm(formula = y  ~  x)
+# regressao
+
+# Intervalo de confiança para valores médios
+
+predict(regressao, interval = "confidence", level = 0.95)
+```
+
+```
+##         fit      lwr      upr
+## 1  89.08132 88.31627 89.84637
+## 2  89.52974 88.82434 90.23515
+## 3  91.47292 90.94686 91.99897
+## 4  93.56556 92.99271 94.13842
+## 5  96.10663 95.21561 96.99766
+## 6  94.61189 93.92897 95.29480
+## 7  87.28762 86.25134 88.32390
+## 8  92.66871 92.14969 93.18774
+## 9  97.45191 96.34756 98.55626
+## 10 95.20979 94.44885 95.97072
+## 11 92.07082 91.56012 92.58152
+## 12 91.47292 90.94686 91.99897
+## 13 88.93184 88.14597 89.71772
+## 14 89.38027 88.65549 90.10505
+## 15 90.87502 90.31186 91.43817
+## 16 92.22029 91.70974 92.73084
+## 17 93.11714 92.57687 93.65740
+## 18 94.01399 93.39900 94.62898
+## 19 95.65821 94.83384 96.48258
+## 20 88.48342 87.63273 89.33411
+```
+
+
+]
+
+
+]
+
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Lembrando que:
+
+# regressao &lt;- lm(formula = y  ~  x)
+# regressao
+
+# Intervalo de confiança para novas observações
+
+novos_valores &lt;- data.frame(x = c(0.5, 0.75, 1))
+novos_valores
+```
+
+```
+##      x
+## 1 0.50
+## 2 0.75
+## 3 1.00
+```
+
+```r
+predict(regressao, interval = "prediction", level = 0.95,
+        newdata = novos_valores)
+```
+
+```
+##        fit      lwr      upr
+## 1 81.75705 78.72744 84.78667
+## 2 85.49392 82.84938 88.13847
+## 3 89.23079 86.82969 91.63190
+```
+
+```r
+# Se, por engano, usarmos `interval = "confidence"`
+
+predict(regressao, interval = "confidence", level = 0.95,
+        newdata = novos_valores)
+```
+
+```
+##        fit      lwr      upr
+## 1 81.75705 79.76513 83.74898
+## 2 85.49392 84.15869 86.82916
+## 3 89.23079 88.48612 89.97547
+```
+
+```r
+# Observem que os intervalos são menores! Porém, é errado usar `interval = "confidence"` 
+# para valores de x não usados na estimação do modelo!!!
+```
+
+
+]
+
+
+]
+
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Coeficiente de determinação ( `\(R^2\)` )**
+
+-  Uma medida largamente usada para um modelo de regressão é a razão entre somas dos quadrados.
+`\begin{align*}
+R^2 = \frac{SQ_{Reg}}{SQ_T} = 1 - \frac{SQ_E}{SQ_T}
+\end{align*}`
+
+-  O coeficiente é frequentemente usado para julgar a adequação de um modelo de regressão.
+
+-  Frequentemente `\(R^2\)` é referido como a quantidade de variabilidade nos dados explicada ou considerada pelo modelo de regressão.
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+
+-  Para o modelo de regressão da pureza do oxigênio:
+
+$$
+R^2 = \frac{SQReg}{SQT} = \frac{152,13}{173,38} = 0,877
+$$
+
+- isto é, o modelo explica `\(87,7\%\)` da variabilidade dos dados.
+
+
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Lembrando que:
+
+# regressao &lt;- lm(formula = y  ~  x)
+# regressao
+
+# Coeficiente de determinação R2
+
+summary(regressao)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.83029 -0.73334  0.04497  0.69969  1.96809 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   74.283      1.593   46.62  &lt; 2e-16 ***
+## x             14.947      1.317   11.35 1.23e-09 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.087 on 18 degrees of freedom
+## Multiple R-squared:  0.8774,	Adjusted R-squared:  0.8706 
+## F-statistic: 128.9 on 1 and 18 DF,  p-value: 1.227e-09
+```
+
+```r
+# Multiple R-squared:  0.8774
+```
+
+
+**Multiple R-squared:  0.8774**
+
+]
+
+
+]
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Coeficiente de determinação ( `\(R^2\)` )**
+
+-  A estatística `\(R^2\)` deve ser usada com cuidado, porque é sempre possível fazer `\(R^2\)` ser unitário adicionando termos suficientes ao modelo.
+
+- Por exemplo, podemos obter um ajuste "perfeito" para os `\(n\)` pontos com um polinômio de grau `\(n - 1\)`.
+
+
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+**Análise de Resíduos**
+
+-  Os resíduos de um modelo de regressão são `\(e_i = y_i - \hat{y}_i\)`, `\(i = 1, 2, \cdots, n\)`, em que `\(y_i\)` é uma observação real e `\(\hat{y}_i\)` é o valor ajustado correspondente, proveniente do modelo de regressão.
+
+
+-  A análise dos resíduos é frequentemente útil na verificação da suposição de que os erros sejam distribuídos de forma aproximadamente **normal**, com **variância constante** e **independentes**.
+
+- Além disso, na verificação da necessidade em adicionar mais termos no modelo.
+
+-  **Normalidade:** uma verificação aproximada da normalidade pode ser pela construção de um **histograma de frequência** dos resíduos ou um **gráfico de probabilidade normal** (ou gráfico de quantil-quantil) dos resíduos.
+
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Análise de Resíduos**
+
+-  **Normalidade:** Podemos também padronizar os resíduos, calculando `\(d_i = e_i / \sqrt{\sigma^2}\)`, `\(i = 1, 2, \cdots, n\)`. Se os erros forem distribuídos normalmente, então aproximadamente `\(95\%\)` dos resíduos padronizados devem cair no intervalo `\((-2, +2)\)`. Os resíduos que estiverem bem fora desse intervalo podem indicar a presença de um outlier; ou seja, uma observação que não é típica do resto dos dados.
+
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Análise de Resíduos**
+
+É frequentemente útil plotar os resíduos
+
+- em uma sequência temporal (se conhecida), 
+
+
+
+- contra os valores de `\(\hat{y}_i\)` e 
+
+
+- contra a variável independente `\(x\)`.
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Análise de Resíduos**
+
+
+&lt;img src="docs_aula12/pureza_residuos3.jpg" width="40%" style="display: block; margin: auto;" /&gt;
+
+Figura. Padrões de comportamento para gráficos dos resíduos. (a) Satisfatório, (b) Funil, (c) Arco duplo, (d) Não linear.
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+**Análise de Resíduos**
+
+-  O padrão (a) representa a situação ideal, enquanto os padrões (b), (c) e (d) representam anomalias.
+-  Se os resíduos aparecerem como em (b), a variância das observações pode estar crescendo com o tempo ou com a magnitude de `\(y_i\)` ou `\(x_i\)`. Transformação de dados na resposta `\(y_i\)` é frequentemente usada para eliminar esse problema. As transformações largamente usadas para estabilizar a variância incluem o uso de `\(\sqrt{y}\)`, `\(\log(y)\)`  ou `\(1/y\)` como a resposta.
+-  Gráficos de resíduos contra `\(\hat{y}_i\)` e `\(x_i\)` que pareçam com (c) também indicam desigualdade de variância.
+-  Gráficos residuais que pareçam com (d) indicam modelo não adequado; isto é, termos de ordens maiores devem ser adicionados ao modelo, uma transformação sobre a variável `\(x\)` ou a variável `\(y\)` (ou ambas) deve ser considerada, ou **outros regressores devem ser adicionados**.
+
+
+
+
+
+
+
+
+---
+## Regressão Linear Simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Análise de Resíduos**
+
+- A análise de resíduos pode ser feita também utilizando-se testes de hipóteses adequados. Os mais comuns são:
+
+-  **Normalidade:** Teste de Shapiro-Wilk, `\(H_0:\)` **Os dados são normais**.
+-  **Independência:** Teste de Durbin-Watson, `\(H_0:\)` **Os dados são independentes**.
+-  **Homogeneidade de variâncias (homocedasticidade):** Teste de Breusch-Pagan, `\(H_0:\)` **As variâncias são homogêneas**.
+
+
+
+**OBS**: Há outros testes para normalidade, independência e homocedasticidade!
+
+
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Lembrando que:
+
+# regressao &lt;- lm(formula = y  ~  x)
+# regressao
+
+# Análise de resíduos
+
+# plot(regressao)
+
+# Ou
+par(mfrow = c(2,2))
+plot(regressao)
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+
+```r
+par(mfrow = c(1,1))
+```
+
+
+]
+
+
+]
+
+
+
+
+---
+.blockgreen[ ## Exemplo (Pureza de Oxigênio)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Lembrando que:
+
+# regressao &lt;- lm(formula = y  ~  x)
+# regressao
+
+# Análise de resíduos
+
+# resíduos padronizados:
+d &lt;- rstandard(regressao)
+
+# teste shapiro-Wilk (normalidade)
+shapiro.test(d)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  d
+## W = 0.98176, p-value = 0.9547
+```
+
+```r
+# teste durbin-Watson (independência)
+lmtest::dwtest(d ~ x) 
+```
+
+```
+## 
+## 	Durbin-Watson test
+## 
+## data:  d ~ x
+## DW = 2.1035, p-value = 0.5579
+## alternative hypothesis: true autocorrelation is greater than 0
+```
+
+```r
+# teste Breusch-Pagan (homocedasticidade)
+lmtest::bptest(d ~ x)
+```
+
+```
+## 
+## 	studentized Breusch-Pagan test
+## 
+## data:  d ~ x
+## BP = 1.0788, df = 1, p-value = 0.299
+```
+
+
+]
+
+
+]
+
+
+
+&lt;!-- --- --&gt;
+&lt;!-- ## Regressão linear múltipla <i class="fas  fa-chart-line fa-pull-right "></i> --&gt;
+
+&lt;!-- - Modelo --&gt;
+&lt;!-- $$ --&gt;
+&lt;!--   Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p + \epsilon --&gt;
+&lt;!-- $$ --&gt;
+&lt;!-- - `\(Y\)` é a variável resposta (variável dependente), --&gt;
+
+&lt;!-- - `\(x_1, x_2, \cdots, x_p\)` são as variáveis independentes (ou regressoras ou explicativas ou covariáveis), --&gt;
+
+&lt;!-- - `\(\beta_0, \beta_1, \beta_2, \cdots, \beta_p\)` são os `\(p+1\)` parâmetros do modelo (ou coeficientes do modelo de regressão) --&gt;
+
+
+&lt;!-- - `\(\epsilon\)` são variáveis aleatórias independentes, normais de média zero e variância constante `\(\sigma^2\)`. --&gt;
+
+&lt;!-- **Interpretação:** --&gt;
+
+&lt;!-- `\(\beta_1\)` representa a variação média em `\(Y\)` para a  variação de uma unidade em `\(x_1\)` quando todas as outras variáveis explicativas, `\(x_2, x_3, \cdots, x_p\)` forem constantes --&gt;
+
+
+&lt;!-- **Obs:** é possível definir modelos polinomiais: --&gt;
+
+&lt;!-- $$ --&gt;
+&lt;!--   Y = \beta_0 + \beta_1 x + \beta_2 x^2 + \cdots + \beta_p x^p + \epsilon --&gt;
+&lt;!-- $$ --&gt;
+
+
+---
+## Regressão linear múltipla <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+
+- Muitas aplicações da análise de regressão envolvem situações em que há mais de um regressor.
+
+- Um modelo de regressão que contenha mais de um regressor é chamado de **modelo de regressão múltipla**.
+
+- Um modelo de regressão múltipla com duas covariáveis é do tipo:
+$$
+Y = \beta_0 + \beta_1 x_1 + \beta_2  x_2 + \epsilon
+$$
+em que `\(Y\)` é a variável resposta, `\(x_1\)` e `\(x_2\)` são as covariáveis, `\(\beta_1\)` e `\(\beta_2\)` são os parâmetros e `\(\epsilon\)` é um termo aleatório.
+
+
+
+---
+## Regressão linear múltipla <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+-  Em geral, a variável dependente (ou resposta), `\(Y\)`, pode estar relacionada com `\(p\)` variáveis independentes ou regressoras.
+
+- O modelo
+$$
+Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p + \epsilon
+$$
+é chamado de modelo de regressão linear múltipla com `\(p\)` variáveis regressoras. 
+Os  parâmetros `\(\beta_j\)`, `\(j = 0, 1, 2, \cdots, p\)`, são chamados de coeficientes de regressão (**OBS:** o modelo possui `\(p+1\)` parâmetros). 
+
+-  O parâmetro `\(\beta_j\)` representa a variação esperada na resposta `\(Y\)` por unidade de variação unitária em `\(x_j\)`, quando todos os outros regressores restantes `\(x_i\)` ( `\(i \neq j\)` ) forem mantidos constantes.
+
+-  Modelos de regressão linear múltipla são frequentemente usados como funções de aproximações. Isto é, a verdadeira relação funcional entre `\(Y\)` e `\(x_1, x_2, x_3,  \cdots, x_p\)` é desconhecida; porém, em certas faixas das variáveis independentes, o modelo de regressão linear é uma aproximação adequada.
+
+
+
+---
+## Regressão linear múltipla <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+- É possível definir modelos polinomiais. Por exemplo, o modelo polinomial cúbico com uma variável regressora é:
+$$
+Y = \beta_0 + \beta_1 x^1 + \beta_2 x^2 + \beta_3 x^3 + \epsilon
+$$
+
+Note que: `\(x_1 = x^1\)`, `\(x_2 = x^2\)`, `\(x_3 = x^3\)`.
+
+
+---
+## Regressão linear múltipla <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+
+- Os modelos de regressão podem incluir **efeitos de interação**, que é quando o efeito de uma variável independente depende do nível de outra variável independente.
+
+- A interação entre duas variáveis pode ser representada por um termo de produto cruzado no modelo, tal como
+
+`$$Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_{12} x_1 x_2 + \epsilon$$`
+
+Note que: `\(x_3 = x_1 x_2\)` e `\(\beta_3 = \beta_{12}\)` .
+
+
+
+---
+## Regressão linear múltipla <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+
+
+É costume apresentar os dados para regressão múltipla em uma tabela da seguinte forma:
+
+&lt;img src="docs_aula12/tabela_regressao_multipla.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+.blockgreen[ ## Exemplo (Pesos jumentos, ex. Petrie and Watson)
+
+
+
+&lt;img src="docs_aula12/reg_jumentos.jpg" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pesos jumentos, ex. Petrie and Watson)
+
+
+- Arquivo com os dados: [dados_pesos_jumentos.xlsx](docs_aula12/dados_pesos_jumentos.xlsx)
+
+
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pesos jumentos, ex. Petrie and Watson)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+library(openxlsx)
+
+# Ler arquivo de dados
+
+dados &lt;- read.xlsx("dados_pesos_jumentos.xlsx")
+
+
+head(dados)
+```
+
+```
+##   jumento sexo idade peso_corporal circ_na_altura_do_coracao
+## 1       1    0     4           128                       111
+## 2       2    0     2           102                       106
+## 3       3    0     3           100                       103
+## 4       4    0     3            92                       102
+## 5       5    0     3            98                       105
+## 6       6    0     4           110                       101
+##   circ_na_altura_do_umbigo comprimento altura
+## 1                      126          95    106
+## 2                      120          75    101
+## 3                      125          76    101
+## 4                      121          73    101
+## 5                      121          70    101
+## 6                      126          80    101
+```
+
+```r
+names(dados)
+```
+
+```
+## [1] "jumento"                   "sexo"                     
+## [3] "idade"                     "peso_corporal"            
+## [5] "circ_na_altura_do_coracao" "circ_na_altura_do_umbigo" 
+## [7] "comprimento"               "altura"
+```
+
+**Possível modelo:**
+
+
+peso_corporal = `\(\beta_0\)` + `\(\beta_1\)`  idade + `\(\beta_2\)`  circ_na_altura_do_coracao + `\(\beta_3\)` altura + `\(\beta_4\)`  comprimento + `\(\beta_5\)` sexo + `\(\beta_6\)` circ_na_altura_do_umbigo
+
+
+]
+
+
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pesos jumentos, ex. Petrie and Watson)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Definindo o modelo:
+modelo &lt;- lm(peso_corporal ~ idade + circ_na_altura_do_coracao + 
+               altura + comprimento + sexo  +
+               circ_na_altura_do_umbigo,
+             data = dados)
+
+# estimativas dos coeficientes:
+modelo
+```
+
+```
+## 
+## Call:
+## lm(formula = peso_corporal ~ idade + circ_na_altura_do_coracao + 
+##     altura + comprimento + sexo + circ_na_altura_do_umbigo, data = dados)
+## 
+## Coefficients:
+##               (Intercept)                      idade  
+##                 -216.4112                     0.2565  
+## circ_na_altura_do_coracao                     altura  
+##                    1.7707                     0.1573  
+##               comprimento                       sexo  
+##                    0.8930                    -2.2988  
+##  circ_na_altura_do_umbigo  
+##                    0.3801
+```
+
+
+]
+
+
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pesos jumentos, ex. Petrie and Watson)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+```r
+# Análise de variância
+anova(modelo)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Response: peso_corporal
+##                            Df Sum Sq Mean Sq   F value    Pr(&gt;F)    
+## idade                       1  45234   45234  513.8559 &lt; 2.2e-16 ***
+## circ_na_altura_do_coracao   1 147173  147173 1671.8780 &lt; 2.2e-16 ***
+## altura                      1   3386    3386   38.4674 1.458e-09 ***
+## comprimento                 1   5100    5100   57.9396 2.169e-13 ***
+## sexo                        1    254     254    2.8887   0.09002 .  
+## circ_na_altura_do_umbigo    1   2831    2831   32.1595 2.820e-08 ***
+## Residuals                 379  33363      88                        
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+```r
+# TH para os coeficientes
+summary(modelo)
+```
+
+```
+## 
+## Call:
+## lm(formula = peso_corporal ~ idade + circ_na_altura_do_coracao + 
+##     altura + comprimento + sexo + circ_na_altura_do_umbigo, data = dados)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -23.835  -5.748  -0.196   5.819  41.852 
+## 
+## Coefficients:
+##                             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)               -216.41120    7.66455 -28.235  &lt; 2e-16 ***
+## idade                        0.25647    0.18459   1.389   0.1655    
+## circ_na_altura_do_coracao    1.77070    0.11504  15.392  &lt; 2e-16 ***
+## altura                       0.15732    0.10971   1.434   0.1524    
+## comprimento                  0.89303    0.11740   7.606 2.25e-13 ***
+## sexo                        -2.29882    1.01522  -2.264   0.0241 *  
+## circ_na_altura_do_umbigo     0.38014    0.06703   5.671 2.82e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 9.382 on 379 degrees of freedom
+## Multiple R-squared:  0.8594,	Adjusted R-squared:  0.8572 
+## F-statistic: 386.2 on 6 and 379 DF,  p-value: &lt; 2.2e-16
+```
+
+**Multiple R-squared:  0.8594** ( `\(R^2\)` )
+
+**Adjusted R-squared:  0.8572** ( `\(R^2_{ajustado}\)` )
+
+$$
+R^2_a = 1 - \frac{n - 1}{n - (p + 1)}(1 - R^2)
+$$
+
+]
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pesos jumentos, ex. Petrie and Watson)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+**##                             Estimate Std. Error t value Pr(&gt;|t|)**
+
+
+**## idade                        0.25647    0.18459   1.389   0.1655    **
+
+
+**## altura                       0.15732    0.10971   1.434   0.1524    **
+
+
+
+**idade** e **altura** não estão contribuíndo (significativamente) na estimação do **peso_corporal**.
+
+
+```r
+# Definindo um novo modelo:
+modelo2 &lt;- lm(peso_corporal ~ circ_na_altura_do_coracao + 
+                comprimento + sexo + 
+               circ_na_altura_do_umbigo,
+             data = dados)
+
+# estimativas dos coeficientes:
+summary(modelo2)
+```
+
+```
+## 
+## Call:
+## lm(formula = peso_corporal ~ circ_na_altura_do_coracao + comprimento + 
+##     sexo + circ_na_altura_do_umbigo, data = dados)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -23.384  -5.588   0.302   5.533  40.718 
+## 
+## Coefficients:
+##                             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)               -216.40628    7.12496 -30.373  &lt; 2e-16 ***
+## circ_na_altura_do_coracao    1.83967    0.10803  17.029  &lt; 2e-16 ***
+## comprimento                  0.99947    0.10278   9.725  &lt; 2e-16 ***
+## sexo                        -2.91666    0.97012  -3.006  0.00282 ** 
+## circ_na_altura_do_umbigo     0.39579    0.06676   5.929 6.84e-09 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 9.407 on 381 degrees of freedom
+## Multiple R-squared:  0.8579,	Adjusted R-squared:  0.8564 
+## F-statistic: 575.2 on 4 and 381 DF,  p-value: &lt; 2.2e-16
+```
+
+
+**Modelo antigo**
+
+**Adjusted R-squared:  0.8572**
+
+**Modelo novo**
+
+**Adjusted R-squared:  0.8564**
+
+Pouca mudança no `\(R^2_a\)`!
+
+**Modelo para predizer o peso de jumentos:**
+
+peso_corporal = 216,41 + 1,84  circ_na_altura_do_coracao + 0,99  comprimento -3,00 sexo + 5,93 circ_na_altura_do_umbigo
+
+]
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pesos jumentos, ex. Petrie and Watson)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+
+
+```r
+# Análise de resíduos
+
+# plot(regressao)
+
+# Ou
+par(mfrow = c(2,2))
+plot(modelo2)
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+
+```r
+par(mfrow = c(1,1))
+```
+
+
+]
+
+]
+
+
+---
+.blockgreen[ ## Exemplo (Pesos jumentos, ex. Petrie and Watson)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+
+
+```r
+# Análise de resíduos
+
+# resíduos padronizados:
+d &lt;- rstandard(modelo2)
+
+# Histograma
+hist(d)
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-34-1.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+
+
+]
+
+]
+
+---
+.blockgreen[ ## Exemplo (Pesos jumentos, ex. Petrie and Watson)
+
+**Exemplo no R**
+
+.scroll-box-20[
+
+
+
+
+```r
+# teste shapiro-Wilk (normalidade)
+shapiro.test(d)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  d
+## W = 0.98625, p-value = 0.001015
+```
+
+```r
+# teste durbin-Watson (independência)
+lmtest::dwtest(d ~ circ_na_altura_do_coracao + 
+                comprimento + sexo + 
+               circ_na_altura_do_umbigo, data = dados) 
+```
+
+```
+## 
+## 	Durbin-Watson test
+## 
+## data:  d ~ circ_na_altura_do_coracao + comprimento + sexo + circ_na_altura_do_umbigo
+## DW = 1.3903, p-value = 7.268e-10
+## alternative hypothesis: true autocorrelation is greater than 0
+```
+
+```r
+# teste Breusch-Pagan (homocedasticidade)
+lmtest::bptest(d ~ circ_na_altura_do_coracao + 
+                comprimento + sexo + 
+               circ_na_altura_do_umbigo, data = dados)
+```
+
+```
+## 
+## 	studentized Breusch-Pagan test
+## 
+## data:  d ~ circ_na_altura_do_coracao + comprimento + sexo + circ_na_altura_do_umbigo
+## BP = 27.458, df = 4, p-value = 1.606e-05
+```
+
+
+
+]
+
+]
+
+
+---
+## Regressão linear múltipla em experimentos <i class="fas  fa-chart-line fa-pull-right "></i>
+
+
+## Exemplo de DIC no R
+
+.blockgreen[ 
+
+**Alterações da histomorfologia hepática em relação à suplementação de cobre inorgânico e orgânico em ratos em crescimento**
+
+
+*Alterations of liver histomorphology in relation to copper supplementation in inorganic and organic form in growing rats*
+
+
+Autores: Ewa Tomaszewska, Piotr Dobrowolski, Małgorzata Kwiecień, Natalia Burmańczuk, Barbara Badzian, Sylwia Szymańczyk e Paulina Kurlak 
+
+
+Revista: *Bulletin-Veterinary Institute in Pulawy*, 2014, Vol.58 No.3 pp.479-486.
+
+DOI (e link): [10.2478/bvip-2014-0073](https://cyberleninka.org/article/n/160540.pdf)
+
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+- Aquivo com os dados: [dados_doses_de_cobre_ratos_dic_regressao.xlsx](docs_aula12/dados_doses_de_cobre_ratos_dic_regressao.xlsx)
+- **Dados simulados a partir das estatísticas disponíveis no artigo.**
+
+]
+
+
+---
+
+.blockgreen[
+
+.scroll-box-20[
+
+- **Tratamentos:**
+
+*1. Controle: `\(100\%\)` da demanda diária de Cu na forma inorgânica.* ( **removido!!** )
+2. `\(100\%\)` da demanda diária de Cu na forma orgânica (quelato de Cobre).
+3. `\(75\%\)` da demanda diária de Cu na forma orgânica.
+4. `\(50\%\)` da demanda diária de Cu na forma orgânica.
+5. `\(25\%\)` da demanda diária de Cu na forma orgânica.
+
+
+- **Número de repetições:** 12.
+
+- **Parcela:** 1 rato Wistar com peso `\(217,9 \pm 25,5 g\)` e idade de 5 semanas.
+
+- **Número de parcelas:** `\(\#REP \times \#TRAT=12\times5=60\)`.
+
+- **Variáveis respostas:** peso (g), concentração de Cu no plasma (μmol/L) e fígado (μg/g), número de núcleos `\(/mm^2\)`, número total de células `\(/mm^2\)`, número total de hepatócitos `\(/mm^2\)`, número de hepatócitos mononucleares `\(/mm^2\)`, número de hepatócitos multinucleados `\(/mm^2\)`, número de células não hepatócitos `\(/mm^2\)`, espaço intercelular como área ( `\(\%\)`), dimensão fractal do espaço intercelular, área de colágeno `\(\mu m^2/mm^2\)` e células apoptóticas `\(/mm^2\)`.
+
+
+]
+]
+
+
+---
+
+.scroll-box-20[
+
+
+```r
+# leitura de dados xlsx
+# install.packages("openxlsx")
+
+# Carregar pacote openxlsx
+library(openxlsx)
+
+# leitura dos dados.
+# Atenção: verificar o diretório onde o arquivo de dados está salvo.
+# Para escolher diretório no RStudio: ctrl + shift + H
+# OU: ir em "Session" --&gt; Set Working Directory --&gt; Choose directory
+dados &lt;- read.xlsx("dados_doses_de_cobre_ratos_dic_regressao.xlsx")
+
+# Variáveis no conjunto de dados:
+names(dados)
+```
+
+```
+##  [1] "doses_Cu"                   "peso"                      
+##  [3] "Cu_plasma"                  "Cu_figado"                 
+##  [5] "nucleos"                    "celulas"                   
+##  [7] "hepatocitos"                "hepatocitos_mononucleares" 
+##  [9] "hepatocitos_multinucleados" "nao_hepatocitos"           
+## [11] "area_intercelular"          "dim_intercelular"          
+## [13] "area_colageno"              "apoptoticas"
+```
+
+]
+
+---
+
+.scroll-box-20[
+
+
+```r
+# Visualização dos dados (apenas executar o objeto dados)
+dados
+```
+
+```
+##    doses_Cu  peso Cu_plasma Cu_figado nucleos celulas hepatocitos
+## 1       100 413.3     28.14      0.19    1745    2338        1679
+## 2       100 413.8     28.26      0.17    1761    2333        1673
+## 3       100 408.7     26.87      0.24    1731    2347        1687
+## 4       100 425.1     31.37      0.16    1727    2332        1673
+## 5       100 431.8     33.23      0.22    1717    2343        1683
+## 6       100 407.7     26.60      0.32    1747    2363        1703
+## 7       100 415.1     28.64      0.08    1769    2317        1657
+## 8       100 411.7     27.70      0.30    1741    2360        1700
+## 9       100 413.9     28.31      0.42    1740    2382        1722
+## 10      100 414.5     28.45      0.21    1766    2341        1682
+## 11      100 416.2     28.92      0.27    1735    2353        1693
+## 12      100 420.5     30.11      0.30    1729    2358        1698
+## 13       75 423.3     28.06      0.23    1743    2189        1680
+## 14       75 421.0     27.32      0.24    1745    2190        1696
+## 15       75 427.3     29.33      0.18    1746    2178        1666
+## 16       75 420.7     27.22      0.36    1746    2215        1662
+## 17       75 425.3     28.69      0.44    1727    2230        1651
+## 18       75 434.5     31.61      0.17    1739    2176        1682
+## 19       75 413.7     24.98      0.25    1752    2193        1705
+## 20       75 432.9     31.11      0.22    1714    2185        1676
+## 21       75 442.9     34.31      0.24    1734    2190        1675
+## 22       75 424.7     28.49      0.25    1745    2191        1702
+## 23       75 429.9     30.15      0.27    1706    2195        1670
+## 24       75 432.1     30.87      0.31    1722    2205        1664
+## 25       50 426.2     30.79      0.32    1719    2371        1674
+## 26       50 427.1     31.07      0.33    1714    2373        1675
+## 27       50 427.6     31.19      0.33    1727    2374        1664
+## 28       50 427.7     31.22      0.33    1713    2375        1699
+## 29       50 419.1     28.72      0.24    1723    2355        1714
+## 30       50 424.3     30.24      0.30    1741    2367        1662
+## 31       50 430.3     31.98      0.36    1699    2381        1678
+## 32       50 413.0     26.95      0.16    1738    2341        1670
+## 33       50 422.3     29.66      0.27    1758    2363        1675
+## 34       50 427.3     31.10      0.33    1721    2374        1676
+## 35       50 409.0     25.79      0.12    1732    2332        1680
+## 36       50 416.7     28.03      0.21    1736    2350        1689
+## 37       25 449.1     31.83      0.30    1838    2485        1769
+## 38       25 456.6     34.06      0.38    1837    2484        1768
+## 39       25 442.2     29.75      0.23    1842    2489        1773
+## 40       25 440.1     29.13      0.21    1816    2462        1747
+## 41       25 435.1     27.64      0.16    1854    2501        1785
+## 42       25 450.0     32.09      0.31    1832    2479        1763
+## 43       25 460.8     35.33      0.42    1852    2499        1783
+## 44       25 447.1     31.23      0.28    1834    2481        1765
+## 45       25 446.6     31.08      0.28    1835    2482        1766
+## 46       25 459.5     34.92      0.41    1838    2485        1769
+## 47       25 444.0     30.31      0.25    1834    2481        1765
+## 48       25 441.2     29.45      0.22    1845    2492        1776
+##    hepatocitos_mononucleares hepatocitos_multinucleados nao_hepatocitos
+## 1                       1649                      26.20             654
+## 2                       1663                      26.34             655
+## 3                       1636                      24.79             647
+## 4                       1632                      29.82             672
+## 5                       1622                      31.89             682
+## 6                       1651                      24.48             646
+## 7                       1671                      26.76             657
+## 8                       1645                      25.71             652
+## 9                       1644                      26.39             655
+## 10                      1669                      26.55             656
+## 11                      1639                      27.08             658
+## 12                      1634                      28.41             665
+## 13                      1610                      29.84             525
+## 14                      1611                      31.92             536
+## 15                      1601                      27.90             516
+## 16                      1634                      27.32             513
+## 17                      1647                      25.93             506
+## 18                      1599                      30.08             527
+## 19                      1614                      33.10             542
+## 20                      1607                      29.28             523
+## 21                      1612                      29.14             522
+## 22                      1613                      32.72             540
+## 23                      1616                      28.42             518
+## 24                      1625                      27.62             514
+## 25                      1641                      30.24             685
+## 26                      1643                      30.55             687
+## 27                      1644                      30.69             687
+## 28                      1644                      30.73             688
+## 29                      1627                      27.88             675
+## 30                      1637                      29.61             683
+## 31                      1650                      31.59             691
+## 32                      1614                      25.87             666
+## 33                      1633                      28.96             680
+## 34                      1643                      30.59             687
+## 35                      1606                      24.56             660
+## 36                      1622                      27.10             671
+## 37                      1700                      24.03             718
+## 38                      1699                      23.32             717
+## 39                      1704                      25.26             721
+## 40                      1678                      23.22             703
+## 41                      1716                      24.65             728
+## 42                      1694                      27.46             714
+## 43                      1714                      21.06             727
+## 44                      1696                      26.97             716
+## 45                      1697                      30.07             716
+## 46                      1700                      24.45             718
+## 47                      1696                      26.05             715
+## 48                      1707                      26.74             722
+##    area_intercelular dim_intercelular area_colageno apoptoticas
+## 1              11.75             1.38          4306         386
+## 2              13.60             1.40          4302         396
+## 3              10.03             1.18          4322         377
+## 4               9.51             1.88          4232         374
+## 5               8.27             2.17          4361         368
+## 6              11.97             1.14          4288         387
+## 7              14.65             1.46          4354         401
+## 8              11.26             1.31          4295         383
+## 9              11.13             1.41          4296         383
+## 10             14.32             1.43          4308         400
+## 11             10.49             1.50          4293         379
+## 12              9.78             1.69          4330         376
+## 13              9.19             1.18          4103         103
+## 14              9.43             1.06          4083         102
+## 15              9.53             1.38          4136         106
+## 16              9.56             1.05          4081         101
+## 17              7.42             1.28          4119         105
+## 18              8.72             1.73          4196         111
+## 19             10.21             0.70          4022          97
+## 20              5.90             1.65          4182         110
+## 21              8.23             2.15          4266         116
+## 22              9.46             1.24          4114         104
+## 23              4.91             1.50          4157         108
+## 24              6.82             1.62          4176         109
+## 25              5.77             1.80          5778          67
+## 26              5.88             2.72          5781          68
+## 27              4.63             0.95          5742          68
+## 28              8.68             0.69          5869          68
+## 29             10.36             0.08          5921          63
+## 30              4.38             1.91          5734          66
+## 31              6.22             3.24          5792          70
+## 32              5.37             1.56          5765          58
+## 33              5.92             1.49          5782          65
+## 34              6.05             3.07          5786          68
+## 35              6.47             1.18          5800          56
+## 36              7.54             0.83          5833          61
+## 37              5.96             1.42          9035          42
+## 38              5.84             1.40          9096          42
+## 39              6.42             1.51          8979          39
+## 40              3.77             0.99          8962          50
+## 41              7.57             1.74          8922          54
+## 42              5.41             1.31          9042          38
+## 43              7.39             1.71          9130          43
+## 44              5.64             1.36          9019          41
+## 45              5.65             1.36          9015          42
+## 46              6.00             1.43          9119          43
+## 47              5.59             1.35          8994          44
+## 48              6.66             1.56          8971          47
+```
+
+]
+
+---
+
+.scroll-box-20[
+
+
+```r
+library(tidyverse) # Pacote para explorar e manipular dados
+library(knitr) # tabelas RMarkdown (função kable)
+dados %&gt;%
+  gather(key = "Variável", value = "Valores", -doses_Cu) %&gt;%
+  group_by(Variável, doses_Cu) %&gt;%
+  summarise_all(.funs = c(média = mean, sd = sd)) %&gt;%
+  kable(digits = 2)
+```
+
+
+
+|Variável                   | doses_Cu|   média|    sd|
+|:--------------------------|--------:|-------:|-----:|
+|apoptoticas                |       25|   43.75|  4.56|
+|apoptoticas                |       50|   64.83|  4.43|
+|apoptoticas                |       75|  106.00|  5.13|
+|apoptoticas                |      100|  384.17| 10.43|
+|area_colageno              |       25| 9023.67| 64.65|
+|area_colageno              |       50| 5798.58| 52.95|
+|area_colageno              |       75| 4136.25| 64.21|
+|area_colageno              |      100| 4307.25| 33.51|
+|area_intercelular          |       25|    5.99|  0.99|
+|area_intercelular          |       50|    6.44|  1.69|
+|area_intercelular          |       75|    8.28|  1.67|
+|area_intercelular          |      100|   11.40|  1.98|
+|celulas                    |       25| 2485.00| 10.11|
+|celulas                    |       50| 2363.00| 15.28|
+|celulas                    |       75| 2194.75| 15.32|
+|celulas                    |      100| 2347.25| 17.22|
+|Cu_figado                  |       25|    0.29|  0.08|
+|Cu_figado                  |       50|    0.28|  0.08|
+|Cu_figado                  |       75|    0.26|  0.08|
+|Cu_figado                  |      100|    0.24|  0.09|
+|Cu_plasma                  |       25|   31.40|  2.39|
+|Cu_plasma                  |       50|   29.73|  1.95|
+|Cu_plasma                  |       75|   29.34|  2.46|
+|Cu_plasma                  |      100|   28.88|  1.88|
+|dim_intercelular           |       25|    1.43|  0.20|
+|dim_intercelular           |       50|    1.63|  0.98|
+|dim_intercelular           |       75|    1.38|  0.38|
+|dim_intercelular           |      100|    1.50|  0.29|
+|hepatocitos                |       25| 1769.08|  9.90|
+|hepatocitos                |       50| 1679.67| 14.72|
+|hepatocitos                |       75| 1677.42| 16.64|
+|hepatocitos                |      100| 1687.50| 17.06|
+|hepatocitos_mononucleares  |       25| 1700.08|  9.90|
+|hepatocitos_mononucleares  |       50| 1633.67| 13.66|
+|hepatocitos_mononucleares  |       75| 1615.75| 13.65|
+|hepatocitos_mononucleares  |      100| 1646.25| 15.21|
+|hepatocitos_multinucleados |       25|   25.27|  2.37|
+|hepatocitos_multinucleados |       50|   29.03|  2.21|
+|hepatocitos_multinucleados |       75|   29.44|  2.23|
+|hepatocitos_multinucleados |      100|   27.04|  2.10|
+|nao_hepatocitos            |       25|  717.92|  6.50|
+|nao_hepatocitos            |       50|  680.00|  9.85|
+|nao_hepatocitos            |       75|  523.50| 11.20|
+|nao_hepatocitos            |      100|  658.25| 10.27|
+|nucleos                    |       25| 1838.08|  9.90|
+|nucleos                    |       50| 1726.75| 15.52|
+|nucleos                    |       75| 1734.92| 14.54|
+|nucleos                    |      100| 1742.33| 16.22|
+|peso                       |       25|  447.69|  7.99|
+|peso                       |       50|  422.55|  6.69|
+|peso                       |       75|  427.36|  7.69|
+|peso                       |      100|  416.02|  6.83|
+
+]
+
+---
+
+
+
+```r
+# Biblioteca (pacote) que realiza análise de experimentos: "ExpDes"
+# install.packages("ExpDes") # instalar pacote
+library(ExpDes) # carregar pacote
+
+args(crd) # argumentos da função "crd": Completely Randomized Design
+```
+
+```
+## function (treat, resp, quali = TRUE, mcomp = "tukey", nl = FALSE, 
+##     hvar = "bartlett", sigT = 0.05, sigF = 0.05) 
+## NULL
+```
+
+```r
+# help(crd)
+# ?crd
+```
+
+---
+
+**Regressão da variável peso**
+.scroll-box-20[
+
+
+```r
+# Análise de variância para o DIC
+crd(treat = dados$doses_Cu, resp = dados$peso, quali = FALSE)
+```
+
+```
+## ------------------------------------------------------------------------
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##            DF     SS     MS     Fc      Pr&gt;Fc
+## Treatament  3 6727.4 2242.5 41.833 6.0702e-13
+## Residuals  44 2358.6   53.6                  
+## Total      47 9086.0                         
+## ------------------------------------------------------------------------
+## CV = 1.71 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.6912395 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Homogeneity of variances test
+## p-value:  0.9225666 
+## According to the test of bartlett at 5% of significance, residuals can be considered homocedastic.
+## ------------------------------------------------------------------------
+## 
+## Adjustment of polynomial models of regression
+## ------------------------------------------------------------------------
+## 
+## Linear Model
+## ===========================================
+##    Estimate Standard.Error    tc    p.value
+## -------------------------------------------
+## b0 450.9542     2.5886     174.2110    0   
+## b1 -0.3608      0.0378     -9.5420     0   
+## -------------------------------------------
+## 
+## R2 of linear model
+## --------
+## 0.725499
+## --------
+## 
+## Analysis of Variance of linear model
+## ====================================================
+##               DF     SS         MS      Fc   p.value
+## ----------------------------------------------------
+## Linear Effect 1  4,880.7220 4,880.7220 91.05    0   
+## Lack of fit   2  1,846.6750  923.3376  17.22    0   
+## Residuals     44 2,358.6110  53.6048                
+## ----------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## Quadratic Model
+## ==========================================
+##    Estimate Standard.Error   tc    p.value
+## ------------------------------------------
+## b0 468.2146     5.8839     79.5761    0   
+## b1 -1.0512      0.2147     -4.8958 0.00001
+## b2  0.0055      0.0017     3.2666  0.0021 
+## ------------------------------------------
+## 
+## R2 of quadratic model
+## --------
+## 0.810526
+## --------
+## 
+## Analysis of Variance of quadratic model
+## =======================================================
+##                  DF     SS         MS      Fc   p.value
+## -------------------------------------------------------
+## Linear Effect    1  4,880.7220 4,880.7220 91.05    0   
+## Quadratic Effect 1   572.0102   572.0102  10.67 0.00211
+## Lack of fit      1  1,274.6650 1,274.6650 23.78  1e-05 
+## Residuals        44 2,358.6110  53.6048                
+## -------------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## Cubic Model
+## ==========================================
+##    Estimate Standard.Error   tc    p.value
+## ------------------------------------------
+## b0 548.8750    17.5564     31.2635    0   
+## b1 -6.1827      1.0740     -5.7567    0   
+## b2  0.0977      0.0190     5.1480  0.00001
+## b3 -0.0005      0.0001     -4.8764 0.00001
+## ------------------------------------------
+## 
+## R2 of cubic model
+## -
+## 1
+## -
+## 
+## Analysis of Variance of cubic model
+## =======================================================
+##                  DF     SS         MS      Fc   p.value
+## -------------------------------------------------------
+## Linear Effect    1  4,880.7220 4,880.7220 91.05    0   
+## Quadratic Effect 1   572.0102   572.0102  10.67 0.00211
+## Cubic Effect     1  1,274.6650 1,274.6650 23.78  1e-05 
+## Lack of fit      0      0          0        0      1   
+## Residuals        44 2,358.6110  53.6048                
+## -------------------------------------------------------
+## ------------------------------------------------------------------------
+```
+
+]
+
+---
+
+**Regressão da variável peso**
+
+.scroll-box-20[
+
+**Modelo linear**
+
+**peso = 450,9542 -0,3608 doses_Cu**
+
+
+
+```r
+# Modelo linear
+x &lt;- c(25, 50, 75, 100)
+y &lt;- 450.9542 -0.3608 * x
+plot(y ~ x, type = "l")
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-41-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+**Modelo quadrático**
+
+**peso = 468.2146 -1.0512  doses_Cu + 0.0055 doses_Cu^2**
+
+
+
+```r
+# Modelo quadrático
+x &lt;- c(25, 50, 75, 100)
+y &lt;- 468.2146 -1.0512 * x + 0.0055 * x^2
+plot(x, y, type = "l")
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-42-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+```r
+x &lt;- seq(25, 100, by = 0.1)
+y &lt;- 468.2146 -1.0512 * x + 0.0055 * x^2
+plot(x, y, type = "l")
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-42-2.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+**Modelo cúbico**
+
+**peso = 548.8750 -6.1827  doses_Cu + 0.0977 doses_Cu^2 -0.0005 doses_Cu^3**
+
+
+
+```r
+# Modelo cúbico
+x &lt;- seq(25, 100, by = 0.1)
+y &lt;- 548.8750 -6.1827 * x  + 0.0977 * x^2 -0.0005 * x^3
+plot(x, y, type = "l")
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-43-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+## Regressão linear múltipla em experimentos <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Experimento fatorial com dois fatores** (Banzatto e Kronka, 2005)
+
+
+&lt;img src="docs_aula10/fat8.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+&lt;img src="docs_aula10/fat9.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+&lt;img src="docs_aula10/fat10.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+- Arquivo com os dados: [dados_producao_peneira_densidade_fatorial_dbc_regressao.xlsx](docs_aula12/dados_producao_peneira_densidade_fatorial_dbc_regressao.xlsx)
+
+---
+
+**Análise no R**
+
+.scroll-output[
+
+
+```r
+library(openxlsx)
+library(ExpDes)
+
+dados &lt;- read.xlsx("dados_producao_peneira_densidade_fatorial_dbc_regressao.xlsx")
+
+dados
+```
+
+```
+##    tratamento peneira densidade bloco producao
+## 1        P1D1       1        10     1    11.82
+## 2        P1D2       1        15     1    12.34
+## 3        P1D3       1        20     1    13.41
+## 4        P2D1       2        10     1     6.97
+## 5        P2D2       2        15     1     8.96
+## 6        P2D3       2        20     1     8.48
+## 7        P3D1       3        10     1     7.53
+## 8        P3D2       3        15     1     6.71
+## 9        P3D3       3        20     1     7.82
+## 10       P1D1       1        10     2    12.03
+## 11       P1D2       1        15     2    14.08
+## 12       P1D3       1        20     2    12.98
+## 13       P2D1       2        10     2    10.26
+## 14       P2D2       2        15     2     9.02
+## 15       P2D3       2        20     2     9.66
+## 16       P3D1       3        10     2     7.67
+## 17       P3D2       3        15     2     7.87
+## 18       P3D3       3        20     2     9.44
+## 19       P1D1       1        10     3    12.55
+## 20       P1D2       1        15     3    12.13
+## 21       P1D3       1        20     3    13.35
+## 22       P2D1       2        10     3     9.02
+## 23       P2D2       2        15     3     9.84
+## 24       P2D3       2        20     3     8.50
+## 25       P3D1       3        10     3     7.81
+## 26       P3D2       3        15     3     9.49
+## 27       P3D3       3        20     3     9.37
+```
+
+]
+
+---
+.scroll-output[
+
+
+```r
+# Função fat2.rbd() do pacote ExpDes
+
+args(fat2.rbd)
+```
+
+```
+## function (factor1, factor2, block, resp, quali = c(TRUE, TRUE), 
+##     mcomp = "tukey", fac.names = c("F1", "F2"), sigT = 0.05, 
+##     sigF = 0.05) 
+## NULL
+```
+
+```r
+fat2.rbd(factor1 = dados$peneira, factor2 = dados$densidade,
+         block = dados$bloco, resp = dados$producao,
+         quali = c(TRUE, FALSE),
+         fac.names = c("Peneira", "Densidade"))
+```
+
+```
+## ------------------------------------------------------------------------
+## Legend:
+## FACTOR 1:  Peneira 
+## FACTOR 2:  Densidade 
+## ------------------------------------------------------------------------
+## 
+## 
+## Analysis of Variance Table
+## ------------------------------------------------------------------------
+##                   DF      SS     MS     Fc   Pr&gt;Fc
+## Block              2   5.396  2.698  4.396 0.03010
+## Peneira            2 106.778 53.389 86.986 0.00000
+## Densidade          2   3.092  1.546  2.519 0.11196
+## Peneira*Densidade  4   1.573  0.393  0.641 0.64105
+## Residuals         16   9.820  0.614               
+## Total             26 126.659                      
+## ------------------------------------------------------------------------
+## CV = 7.86 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test
+## p-value:  0.667136 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## No significant interaction: analyzing the simple effect
+## ------------------------------------------------------------------------
+## Peneira
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 1 	 12.74333 
+##  b 	 2 	 8.967778 
+##  b 	 3 	 8.19 
+## ------------------------------------------------------------------------
+## 
+## Densidade
+## According to the F test, the means of this factor are statistical equal.
+## ------------------------------------------------------------------------
+##   Levels     Means
+## 1     10  9.517778
+## 2     15 10.048889
+## 3     20 10.334444
+## ------------------------------------------------------------------------
+```
+
+]
+
+
+---
+## Regressão linear múltipla em experimentos <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Experimento parcela subdividida**
+
+
+- Um experimento avaliou o peso do pulmão (g) de ratos em duas dietas de vitamina A (moderada e suficiente) e em 5 períodos após o início da dieta.
+
+- 60 ratos Lister Hooded foram distribuídas em 12 gaiolas (5 ratos em cada gaiola).
+
+- Cada gaiola foi aleatorizada a uma das dietas, totalizando 6 gaiolas por dieta.
+
+- **Em cada um dos tempos 10, 15, 20, 25 e 30, um animal por gaiola era sacrificado e o peso do pulmão era mensurado. **
+
+- Nesse experimento as gaiolas (dietas de vitamina A) são as parcelas e os animais (tempo) são as subparcelas.
+
+- O experimento foi realizado em DIC.
+
+
+- Arquivo com os dados: [dados_peso_pulmao_ratos_subdivididas_dic.xlsx](docs_aula11/dados_peso_pulmao_ratos_subdivididas_dic.xlsx)
+
+
+---
+
+.scroll-output[
+
+
+```r
+# library(openxlsx)
+# library(ExpDes)
+
+dados &lt;- read.xlsx("dados_peso_pulmao_ratos_subdivididas_dic.xlsx")
+
+dados
+```
+
+```
+##    tratamento      dieta tempo gaiola peso
+## 1         m10   moderada    10      3  1.7
+## 2         m15   moderada    15      3  1.9
+## 3         m20   moderada    20      3  2.6
+## 4         m25   moderada    25      3  2.0
+## 5         m30   moderada    30      3  2.2
+## 6         s10 suficiente    10      1  1.9
+## 7         s15 suficiente    15      1  2.2
+## 8         s20 suficiente    20      1  1.4
+## 9         s25 suficiente    25      1  1.7
+## 10        s30 suficiente    30      1  2.9
+## 11        m10   moderada    10      5  2.6
+## 12        m15   moderada    15      5  2.2
+## 13        m20   moderada    20      5  2.2
+## 14        m25   moderada    25      5  2.1
+## 15        m30   moderada    30      5  1.7
+## 16        s10 suficiente    10      2  2.9
+## 17        s15 suficiente    15      2  2.2
+## 18        s20 suficiente    20      2  1.8
+## 19        s25 suficiente    25      2  2.4
+## 20        s30 suficiente    30      2  3.1
+## 21        m10   moderada    10      6  1.5
+## 22        m15   moderada    15      6  1.9
+## 23        m20   moderada    20      6  1.5
+## 24        m25   moderada    25      6  1.6
+## 25        m30   moderada    30      6  1.7
+## 26        s10 suficiente    10      4  1.2
+## 27        s15 suficiente    15      4  2.4
+## 28        s20 suficiente    20      4  2.1
+## 29        s25 suficiente    25      4  2.6
+## 30        s30 suficiente    30      4  3.0
+## 31        m10   moderada    10      9  2.2
+## 32        m15   moderada    15      9  1.9
+## 33        m20   moderada    20      9  2.4
+## 34        m25   moderada    25      9  2.4
+## 35        m30   moderada    30      9  2.4
+## 36        s10 suficiente    10      7  2.3
+## 37        s15 suficiente    15      7  2.3
+## 38        s20 suficiente    20      7  2.0
+## 39        s25 suficiente    25      7  2.8
+## 40        s30 suficiente    30      7  3.0
+## 41        m10   moderada    10      8  1.7
+## 42        m15   moderada    15      8  1.9
+## 43        m20   moderada    20      8  1.4
+## 44        m25   moderada    25      8  2.1
+## 45        m30   moderada    30      8  2.0
+## 46        s10 suficiente    10     11  1.4
+## 47        s15 suficiente    15     11  1.8
+## 48        s20 suficiente    20     11  1.8
+## 49        s25 suficiente    25     11  2.4
+## 50        s30 suficiente    30     11  2.8
+## 51        m10   moderada    10     12  2.1
+## 52        m15   moderada    15     12  2.0
+## 53        m20   moderada    20     12  2.0
+## 54        m25   moderada    25     12  1.7
+## 55        m30   moderada    30     12  1.9
+## 56        s10 suficiente    10     10  2.8
+## 57        s15 suficiente    15     10  1.2
+## 58        s20 suficiente    20     10  2.3
+## 59        s25 suficiente    25     10  2.1
+## 60        s30 suficiente    30     10  3.1
+```
+
+]
+
+---
+
+.scroll-output[
+
+
+```r
+# Função split2.crd() do pacote ExpDes
+
+args(split2.crd)
+```
+
+```
+## function (factor1, factor2, repet, resp, quali = c(TRUE, TRUE), 
+##     mcomp = "tukey", fac.names = c("F1", "F2"), sigT = 0.05, 
+##     sigF = 0.05) 
+## NULL
+```
+
+```r
+split2.crd(factor1 = dados$dieta, factor2 = dados$tempo,
+         repet = dados$gaiola, resp = dados$peso,
+         quali = c(TRUE, FALSE),
+         fac.names = c("Dieta", "Tempo"))
+```
+
+```
+## ------------------------------------------------------------------------
+## Legend:
+## FACTOR 1    (plot):  Dieta 
+## FACTOR 2 (split-plot):  Tempo 
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## $`Analysis of Variance Table`
+##             DF      SS      MS     Fc    Pr&gt;Fc
+## Dieta        1  1.1760 1.17600 5.0271 0.048829
+## Error a     10  2.3393 0.23393                
+## Tempo        4  2.2207 0.55517 4.1348 0.006760
+## Dieta*Tempo  4  2.2807 0.57017 4.2465 0.005868
+## Error b     40  5.3707 0.13427                
+## Total       59 13.3873                        
+## 
+## ------------------------------------------------------------------------
+## CV 1 = 22.77863 %
+## CV 2 = 17.25705 %
+## 
+## ------------------------------------------------------------------------
+## Shapiro-Wilk normality test (Error b)
+## p-value:  0.2009823 
+## According to Shapiro-Wilk normality test at 5% of significance, residuals can be considered normal.
+## ------------------------------------------------------------------------
+## 
+## 
+## 
+## Significant interaction: analyzing the interaction
+## ------------------------------------------------------------------------
+## 
+## Analyzing  Dieta  inside of each level of  Tempo 
+## ------------------------------------------------------------------------
+##                         DF       SS       MS        Fc  p.value
+## Dieta : Tempo 10   1.00000 0.040833 0.040833  0.264807 0.609255
+## Dieta : Tempo 15   1.00000 0.007500 0.007500  0.048638 0.826408
+## Dieta : Tempo 20   1.00000 0.040833 0.040833  0.264807 0.609255
+## Dieta : Tempo 25   1.00000 0.367500 0.367500  2.383265 0.129367
+## Dieta : Tempo 30   1.00000 3.000000 3.000000 19.455228    6e-05
+## Pooled Error      46.86733 7.226943 0.154200                   
+## ------------------------------------------------------------------------
+## 
+## 
+##  Dieta inside of Tempo 10
+## ------------------------------------------------------------------------
+## According to F test, the means of this factor are not distinct.
+## ------------------------------------------------------------------------
+##       Levels    Means
+## 1   moderada 1.966667
+## 2 suficiente 2.083333
+## ------------------------------------------------------------------------
+## 
+##  Dieta inside of Tempo 15
+## ------------------------------------------------------------------------
+## According to F test, the means of this factor are not distinct.
+## ------------------------------------------------------------------------
+##       Levels    Means
+## 1   moderada 1.966667
+## 2 suficiente 2.016667
+## ------------------------------------------------------------------------
+## 
+##  Dieta inside of Tempo 20
+## ------------------------------------------------------------------------
+## According to F test, the means of this factor are not distinct.
+## ------------------------------------------------------------------------
+##       Levels    Means
+## 1   moderada 2.016667
+## 2 suficiente 1.900000
+## ------------------------------------------------------------------------
+## 
+##  Dieta inside of Tempo 25
+## ------------------------------------------------------------------------
+## According to F test, the means of this factor are not distinct.
+## ------------------------------------------------------------------------
+##       Levels    Means
+## 1   moderada 1.983333
+## 2 suficiente 2.333333
+## ------------------------------------------------------------------------
+## 
+##  Dieta inside of Tempo 30
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 suficiente 	 2.983333 
+##  b 	 moderada 	 1.983333 
+## ------------------------------------------------------------------------
+## 
+## 
+## Analyzing  Tempo  inside of each level of  Dieta 
+## ------------------------------------------------------------------------
+##                           DF       SS       MS      Fc  p.value
+## Tempo : Dieta moderada     4 0.010000 0.002500 0.01862 0.999292
+## Tempo : Dieta suficiente   4 4.491333 1.122833 8.36269  5.3e-05
+## Error b                   40 5.370667 0.134267                 
+## ------------------------------------------------------------------------
+## 
+## 
+##  Tempo inside of Dieta moderada
+## ------------------------------------------------------------------------
+## According to F test, the means of this factor are not different.
+## ------------------------------------------------------------------------
+##   Levels    Means
+## 1     10 1.966667
+## 2     15 1.966667
+## 3     20 2.016667
+## 4     25 1.983333
+## 5     30 1.983333
+## ------------------------------------------------------------------------
+## 
+##  Tempo inside of Dieta suficiente
+## ------------------------------------------------------------------------
+## Adjustment of polynomial models of regression
+## ------------------------------------------------------------------------
+## 
+## Linear Model
+## =========================================
+##    Estimate Standard.Error   tc   p.value
+## -----------------------------------------
+## b0  1.4167      0.2007     7.0587    0   
+## b1  0.0423      0.0095     4.4745 0.0001 
+## -----------------------------------------
+## 
+## R2 of linear model
+## --------
+## 0.598523
+## --------
+## 
+## Analysis of Variance of linear model
+## ============================================
+##               DF   SS     MS    Fc   p.value
+## --------------------------------------------
+## Linear Effect 1  2.6882 2.6882 20.02  6e-05 
+## Lack of fit   3  1.8032 0.6011 4.48  0.00841
+## Residuals     40 5.3707 0.1343              
+## --------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## Quadratic Model
+## ==========================================
+##    Estimate Standard.Error   tc    p.value
+## ------------------------------------------
+## b0  3.4000      0.5946     5.7180     0   
+## b1 -0.1843      0.0647     -2.8506 0.0069 
+## b2  0.0057      0.0016     3.5434  0.0010 
+## ------------------------------------------
+## 
+## R2 of quadratic model
+## --------
+## 0.973876
+## --------
+## 
+## Analysis of Variance of quadratic model
+## ===============================================
+##                  DF   SS     MS    Fc   p.value
+## -----------------------------------------------
+## Linear Effect    1  2.6882 2.6882 20.02  6e-05 
+## Quadratic Effect 1  1.6858 1.6858 12.56 0.00102
+## Lack of fit      2  0.1173 0.0587 0.44  0.64906
+## Residuals        40 5.3707 0.1343              
+## -----------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## Cubic Model
+## ==========================================
+##    Estimate Standard.Error   tc    p.value
+## ------------------------------------------
+## b0  2.2800      2.0739     1.0994  0.2782 
+## b1  0.0139      0.3575     0.0388  0.9692 
+## b2 -0.0050      0.0190     -0.2633 0.7937 
+## b3  0.0002      0.0003     0.5637  0.5761 
+## ------------------------------------------
+## 
+## R2 of cubic model
+## --------
+## 0.983375
+## --------
+## 
+## Analysis of Variance of cubic model
+## ===============================================
+##                  DF   SS     MS    Fc   p.value
+## -----------------------------------------------
+## Linear Effect    1  2.6882 2.6882 20.02  6e-05 
+## Quadratic Effect 1  1.6858 1.6858 12.56 0.00102
+## Cubic Effect     1  0.0427 0.0427 0.32  0.57609
+## Lack of fit      1  0.0747 0.0747 0.56  0.46019
+## Residuals        40 5.3707 0.1343              
+## -----------------------------------------------
+## ------------------------------------------------------------------------
+```
+
+]
+
+
+---
+
+**Regressão da variável peso**
+
+.scroll-box-20[
+
+**Modelo linear**
+
+**peso = 1.4167 + 0.0423 tempo**
+
+
+
+```r
+# Modelo linear
+x &lt;- seq(10, 25, by = 0.1)
+y &lt;- 1.4167 + 0.0423 * x
+plot(y ~ x, type = "l", xlim = c(0,30), ylim = c(1.5, 3.0))
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-51-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+**Modelo quadrático**
+
+**peso = 3.4000 -0.1843  tempo + 0.0057 tempo^2**
+
+
+
+```r
+# Modelo quadrático
+x &lt;- seq(10, 25, by = 0.1)
+y &lt;- 3.4000 -0.1843 * x + 0.0057 * x^2
+plot(y ~ x, type = "l", xlim = c(0,30), ylim = c(1.5, 3.0))
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-52-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+&lt;img src="docs_aula12/peso_tukey.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+
+]
+
+---
+
+
+**Exemplo 11.2 de Sampaio (2015)**
+ 
+- Avaliar a motilidade observada no sêmen em função de 3 diluentes (A, B e C) e 3 tempos de conservação (8, 24 e 36h) a `\(5^\circ C\)`.
+
+- Cinco jumentos (blocos) foram utilizados.
+
+- Para cada jumento, o primeiro ejaculado foi dividido em três alíquotas, diluídas cada uma em um dos diluentes e este volume novamente dividido em outras três alíquotas, uma para cada tempo de conservação.
+
+
+**bloco:** animal
+
+**parcela:** diluente
+
+**subparcela:** tempo de conservação
+
+
+- Arquivo com os dados: [dados_motilidade_semen_subdivididas_dbc.xlsx](docs_aula11/dados_motilidade_semen_subdivididas_dbc.xlsx)
+
+
+---
+
+.scroll-box-20[
+
+
+```r
+# library(openxlsx)
+# library(ExpDes)
+
+dados &lt;- read.xlsx("dados_motilidade_semen_subdivididas_dbc.xlsx")
+
+dados
+```
+
+```
+##    tratamento jumento diluente tempo_conservacao motilidade
+## 1          A8       1        A                 8         75
+## 2         A24       1        A                24         73
+## 3         A36       1        A                36         66
+## 4          B8       1        B                 8         81
+## 5         B24       1        B                24         75
+## 6         B36       1        B                36         62
+## 7          C8       1        C                 8         68
+## 8         C24       1        C                24         61
+## 9         C36       1        C                36         50
+## 10         A8       2        A                 8         65
+## 11        A24       2        A                24         60
+## 12        A36       2        A                36         61
+## 13         B8       2        B                 8         69
+## 14        B24       2        B                24         62
+## 15        B36       2        B                36         51
+## 16         C8       2        C                 8         60
+## 17        C24       2        C                24         55
+## 18        C36       2        C                36         50
+## 19         A8       3        A                 8         78
+## 20        A24       3        A                24         83
+## 21        A36       3        A                36         70
+## 22         B8       3        B                 8         79
+## 23        B24       3        B                24         76
+## 24        B36       3        B                36         60
+## 25         C8       3        C                 8         72
+## 26        C24       3        C                24         68
+## 27        C36       3        C                36         61
+## 28         A8       4        A                 8         68
+## 29        A24       4        A                24         61
+## 30        A36       4        A                36         51
+## 31         B8       4        B                 8         76
+## 32        B24       4        B                24         66
+## 33        B36       4        B                36         51
+## 34         C8       4        C                 8         61
+## 35        C24       4        C                24         57
+## 36        C36       4        C                36         53
+## 37         A8       5        A                 8         44
+## 38        A24       5        A                24         43
+## 39        A36       5        A                36         37
+## 40         B8       5        B                 8         55
+## 41        B24       5        B                24         51
+## 42        B36       5        B                36         41
+## 43         C8       5        C                 8         34
+## 44        C24       5        C                24         24
+## 45        C36       5        C                36         21
+```
+
+]
+
+---
+
+.scroll-box-20[
+
+
+```r
+# Função split2.rbd() do pacote ExpDes
+
+args(split2.rbd)
+```
+
+```
+## function (factor1, factor2, block, resp, quali = c(TRUE, TRUE), 
+##     mcomp = "tukey", fac.names = c("F1", "F2"), sigT = 0.05, 
+##     sigF = 0.05) 
+## NULL
+```
+
+```r
+split2.rbd(factor1 = dados$diluente, factor2 = dados$tempo_conservacao,
+         block = dados$jumento, resp = dados$motilidade, 
+         quali = c(TRUE, FALSE),
+         fac.names = c("Diluente", "Tempo"))
+```
+
+```
+## ------------------------------------------------------------------------
+## Legend:
+## FACTOR 1 (plot):  Diluente 
+## FACTOR 2 (split-plot):  Tempo 
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## $`Analysis of Variance Table`
+##                DF     SS      MS     Fc   Pr(&gt;Fc)    
+## Diluente        2 1013.3  506.67  9.989  0.006685 ** 
+## Block           4 5845.6 1461.39 28.812   8.4e-05 ***
+## Error a         8  405.8   50.72                     
+## Tempo           2 1373.3  686.67 93.283 &lt; 2.2e-16 ***
+## Diluente*Tempo  4  153.3   38.33  5.208  0.003644 ** 
+## Error b        24  176.7    7.36                     
+## Total          44 8968.0                             
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## ------------------------------------------------------------------------
+## CV 1 = 11.93623 %
+## CV 2 = 4.547157 %
+## 
+## 
+## 
+## Significant interaction: analyzing the interaction
+## ------------------------------------------------------------------------
+## 
+## Analyzing  Diluente  inside of each level of  Tempo 
+## ------------------------------------------------------------------------
+##                            DF       SS        MS       Fc  p.value
+## Diluente : Tempo 8    2.00000 423.3333 211.66667 9.702886 0.002659
+## Diluente : Tempo 24   2.00000 490.0000 245.00000  11.2309 0.001482
+## Diluente : Tempo 36   2.00000 253.3333 126.66667 5.806452 0.015839
+## Pooled Error         12.95422 282.5939  21.81481                  
+## ------------------------------------------------------------------------
+## 
+## 
+##  Diluente inside of Tempo 8
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 B 	 72 
+## ab 	 A 	 66 
+##  b 	 C 	 59 
+## ------------------------------------------------------------------------
+## 
+##  Diluente inside of Tempo 24
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 B 	 66 
+## a 	 A 	 64 
+##  b 	 C 	 53 
+## ------------------------------------------------------------------------
+## 
+##  Diluente inside of Tempo 36
+## ------------------------------------------------------------------------
+## Tukey's test
+## ------------------------------------------------------------------------
+## Groups Treatments Means
+## a 	 A 	 57 
+## ab 	 B 	 53 
+##  b 	 C 	 47 
+## ------------------------------------------------------------------------
+## 
+## 
+## Analyzing  Tempo  inside of each level of  Diluente 
+## ------------------------------------------------------------------------
+##                     DF       SS         MS        Fc p.value
+## Tempo : Diluente A   2 223.3333 111.666667 15.169812 5.5e-05
+## Tempo : Diluente B   2 943.3333 471.666667 64.075473       0
+## Tempo : Diluente C   2 360.0000 180.000000 24.452831   2e-06
+## Error b             24 176.6667   7.361111                  
+## ------------------------------------------------------------------------
+## 
+## 
+##  Tempo inside of Diluente A
+## ------------------------------------------------------------------------
+## Adjustment of polynomial models of regression
+## ------------------------------------------------------------------------
+## 
+## Linear Model
+## ==========================================
+##    Estimate Standard.Error   tc    p.value
+## ------------------------------------------
+## b0 69.3784      1.5515     44.7158    0   
+## b1 -0.3108      0.0611     -5.0889 0.00003
+## ------------------------------------------
+## 
+## R2 of linear model
+## --------
+## 0.853570
+## --------
+## 
+## Analysis of Variance of linear model
+## ===============================================
+##               DF    SS       MS     Fc  p.value
+## -----------------------------------------------
+## Linear Effect 1  190.6306 190.6306 25.9  3e-05 
+## Lack of fit   1  32.7027  32.7027  4.44 0.04568
+## Residuals     24 176.6667  7.3611              
+## -----------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## Quadratic Model
+## ==========================================
+##    Estimate Standard.Error   tc    p.value
+## ------------------------------------------
+## b0 63.8571      3.0445     20.9746    0   
+## b1  0.3988      0.3422     1.1655  0.2552 
+## b2 -0.0164      0.0078     -2.1078 0.0457 
+## ------------------------------------------
+## 
+## R2 of quadratic model
+## -
+## 1
+## -
+## 
+## Analysis of Variance of quadratic model
+## ==================================================
+##                  DF    SS       MS     Fc  p.value
+## --------------------------------------------------
+## Linear Effect    1  190.6306 190.6306 25.9  3e-05 
+## Quadratic Effect 1  32.7027  32.7027  4.44 0.04568
+## Lack of fit      0     0        0      0      1   
+## Residuals        24 176.6667  7.3611              
+## --------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+##  Tempo inside of Diluente B
+## ------------------------------------------------------------------------
+## Adjustment of polynomial models of regression
+## ------------------------------------------------------------------------
+## 
+## Linear Model
+## ===========================================
+##    Estimate Standard.Error    tc    p.value
+## -------------------------------------------
+## b0 78.6757      1.5515     50.7081     0   
+## b1 -0.6622      0.0611     -10.8416    0   
+## -------------------------------------------
+## 
+## R2 of linear model
+## --------
+## 0.917200
+## --------
+## 
+## Analysis of Variance of linear model
+## =================================================
+##               DF    SS       MS      Fc   p.value
+## -------------------------------------------------
+## Linear Effect 1  865.2252 865.2252 117.54    0   
+## Lack of fit   1  78.1081  78.1081  10.61  0.00334
+## Residuals     24 176.6667  7.3611                
+## -------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## Quadratic Model
+## ==========================================
+##    Estimate Standard.Error   tc    p.value
+## ------------------------------------------
+## b0 70.1429      3.0445     23.0392    0   
+## b1  0.4345      0.3422     1.2699  0.2163 
+## b2 -0.0253      0.0078     -3.2574 0.0033 
+## ------------------------------------------
+## 
+## R2 of quadratic model
+## -
+## 1
+## -
+## 
+## Analysis of Variance of quadratic model
+## ====================================================
+##                  DF    SS       MS      Fc   p.value
+## ----------------------------------------------------
+## Linear Effect    1  865.2252 865.2252 117.54    0   
+## Quadratic Effect 1  78.1081  78.1081  10.61  0.00334
+## Lack of fit      0     0        0       0       1   
+## Residuals        24 176.6667  7.3611                
+## ----------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+##  Tempo inside of Diluente C
+## ------------------------------------------------------------------------
+## Adjustment of polynomial models of regression
+## ------------------------------------------------------------------------
+## 
+## Linear Model
+## ==========================================
+##    Estimate Standard.Error   tc    p.value
+## ------------------------------------------
+## b0 62.6486      1.5515     40.3783    0   
+## b1 -0.4257      0.0611     -6.9696    0   
+## ------------------------------------------
+## 
+## R2 of linear model
+## --------
+## 0.993243
+## --------
+## 
+## Analysis of Variance of linear model
+## ================================================
+##               DF    SS       MS     Fc   p.value
+## ------------------------------------------------
+## Linear Effect 1  357.5676 357.5676 48.58    0   
+## Lack of fit   1   2.4324   2.4324  0.33  0.57075
+## Residuals     24 176.6667  7.3611               
+## ------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## Quadratic Model
+## ==========================================
+##    Estimate Standard.Error   tc    p.value
+## ------------------------------------------
+## b0 61.1429      3.0445     20.0830    0   
+## b1 -0.2321      0.3422     -0.6784 0.5040 
+## b2 -0.0045      0.0078     -0.5748 0.5708 
+## ------------------------------------------
+## 
+## R2 of quadratic model
+## -
+## 1
+## -
+## 
+## Analysis of Variance of quadratic model
+## ===================================================
+##                  DF    SS       MS     Fc   p.value
+## ---------------------------------------------------
+## Linear Effect    1  357.5676 357.5676 48.58    0   
+## Quadratic Effect 1   2.4324   2.4324  0.33  0.57075
+## Lack of fit      0     0        0       0      1   
+## Residuals        24 176.6667  7.3611               
+## ---------------------------------------------------
+## ------------------------------------------------------------------------
+```
+
+
+]
+
+
+---
+## Regressão logística <i class="fas  fa-chart-line fa-pull-right "></i>
+
+**Fonte: [https://smolski.github.io/livroavancado/](https://smolski.github.io/livroavancado)**
+
+.scroll-box-20[
+
+
+O modelo de regressão logística é utilizado quando a variável dependente é binária, categórica ordenada ou mesmo categórica desordenada (quando não há relação hierárquica entre elas).
+
+
+
+&lt;img src="docs_aula12/reg_log1.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+.scroll-box-20[
+
+- A previsão da variável dependente (probabilidades) depende dos coeficientes logísticos e das variáveis independentes escolhidas ao modelo
+
+- Para a estimação dos coeficientes das variáveis independentes, são utilizados os valores logit:
+
+
+$$
+logit = \log\left( \frac{prob}{1 - prob} \right) = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p
+$$
+**ou**
+$$
+ \frac{prob}{1 - prob}  = e^{\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}
+$$
+
+]
+
+---
+
+.scroll-box-20[
+
+- A regressão logística utiliza a curva logística para representar a relação entre a variável dependente (binária) e as independentes.
+
+- Os valores preditos são probabilidades (valores entre 0 e 1), sendo definidos pelos coeficientes estimados.
+
+&lt;img src="docs_aula12/reg_log2.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+
+---
+## Regressão logística simples <i class="fas  fa-chart-line fa-pull-right "></i>
+
+.scroll-box-20[
+
+- Somente uma variável independente.
+
+- Dados do livro de Hosmer e Lemeshow (2000):
+
+- Amostra com 100 pessoas.
+
+- Variável dependente: ocorrência ou não (1 ou 0) de doença coronária cardíaca (CHD).
+
+- Variável independente: idade (AGE) dos indivíduos.
+
+
+
+
+```r
+library(openxlsx)
+dados &lt;- read.xlsx("dados_chd_regressao_logistica.xlsx")
+
+head(dados)
+```
+
+```
+##   AGE AGRP CHD
+## 1  20    1   0
+## 2  23    1   0
+## 3  24    1   0
+## 4  25    1   0
+## 5  25    1   1
+## 6  26    1   0
+```
+
+]
+
+---
+
+
+
+```r
+library(ggplot2)
+
+ggplot(dados, aes(x=AGE, y=CHD)) + 
+  geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-59-1.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+.scroll-box-20[
+
+$$
+ \log\left(\frac{prob_{CHD}}{1 - prob_{CHD}}\right)  = \beta_0 + \beta_1 AGE
+$$
+
+
+
+```r
+modelo &lt;- glm(CHD ~ AGE, family = binomial(link="logit"),
+              data = dados)
+modelo
+```
+
+```
+## 
+## Call:  glm(formula = CHD ~ AGE, family = binomial(link = "logit"), data = dados)
+## 
+## Coefficients:
+## (Intercept)          AGE  
+##     -5.3095       0.1109  
+## 
+## Degrees of Freedom: 99 Total (i.e. Null);  98 Residual
+## Null Deviance:	    136.7 
+## Residual Deviance: 107.4 	AIC: 111.4
+```
+
+```r
+summary(modelo)
+```
+
+```
+## 
+## Call:
+## glm(formula = CHD ~ AGE, family = binomial(link = "logit"), data = dados)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.9718  -0.8456  -0.4576   0.8253   2.2859  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -5.30945    1.13365  -4.683 2.82e-06 ***
+## AGE          0.11092    0.02406   4.610 4.02e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 136.66  on 99  degrees of freedom
+## Residual deviance: 107.35  on 98  degrees of freedom
+## AIC: 111.35
+## 
+## Number of Fisher Scoring iterations: 4
+```
+
+]
+
+---
+
+.scroll-box-20[
+
+- Intercepto ( `\(\beta_0\)` ) é igual a -5,309, sendo que para a análise aqui proposta da relação entre CHD e AGE não obtém-se um significado prático.
+
+- A variável de interesse é idade, que no modelo de regressão obteve o coeficiente de 0,1109.
+
+- Pelo fato de `\(\beta_1 = 0,1109\)` ser positivo, quando a idade (AGE) aumenta, elevam-se as chances de ocorrência de CHD.
+
+
+]
+
+---
+
+
+- O modelo pode ser utilizado para predizer todas as probabilidades em relação das idades
+
+
+
+```r
+# Criando a coluna prob no banco de dados
+dados$prob &lt;- predict(modelo, type="response")
+
+# Plotando as probabilidades preditas pelo modelo
+ggplot(dados, aes(x=AGE, y=prob)) + 
+  geom_point() +
+  geom_line()
+```
+
+&lt;img src="aula12_files/figure-html/unnamed-chunk-61-1.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+.scroll-box-20[
+
+**Estimando a Razão de Chances**
+
+- O modelo de regressão logística traz os resultados dos estimadores na forma logarítma, ou seja, **o log das chances da variável idade no modelo é 0,1109**.
+
+- Para uma interpretação mais enriquecida da relação da idade com a CHD é necessária a transformação deste coeficiente: exponenciação da(s) variavel(eis) da regressão.
+
+$$
+\frac{prob}{1 - prob} = OR  = e^{\beta_1} = e^{0,1109} = 1,1173
+$$
+
+- O resultado da razão de chances da variável AGE foi de 1,1173.
+
+- Para cada variação unitária na idade (AGE), as chances de ocorrência de CHD aumentam 1,1173 vezes. 
+
+- Dito de outra forma, para cada variação unitária em AGE, aumentam-se `\(11,73\% = (1,1173-1)\times 100\)` as chances da ocorrência de CHD.
+
+]
+
+---
+
+**Teste Hosmer e Lemeshow**
+
+.scroll-box-20[
+
+- O teste de Hosmer e Lemeshow é utilizado para avaliar a qualidade do ajuste do modelo (**se o modelo pode explicar os dados observados**).
+
+- Para este teste, os dados são divididos de acordo com as probabilidades previstas em 10 grupos iguais, sendo que os números previstos e os reais são comparados com a estatística qui-quadrado.
+
+A hipótese nula `\(H_0\)`  deste teste é a de que as proporções observadas e esperadas são as mesmas ao longo da amostra.
+
+
+```r
+library(ResourceSelection)
+hl=hoslem.test(dados$CHD, fitted(modelo), g=10)
+hl
+```
+
+```
+## 
+## 	Hosmer and Lemeshow goodness of fit (GOF) test
+## 
+## data:  dados$CHD, fitted(modelo)
+## X-squared = 2.2243, df = 8, p-value = 0.9734
+```
+
+]
+
+
+
+&lt;!-- --- --&gt;
+&lt;!-- ## Referência  <i class="fas  fa-chart-line fa-pull-right "></i> --&gt;
+
+&lt;!-- **Toda a aula foi baseada em:** --&gt;
+
+&lt;!-- .green[<i class="fas  fa-book fa-pull-left "></i>] Baldi, B. e Moore, D. S. **A Prática da Estatística nas Ciências da Vida**,  2. ed. LTC, 2014. --&gt;
+
+&lt;!-- .green[<i class="fas  fa-book fa-pull-left "></i>]  Gupta, B. C. e Guttman, I.  **Estatística e Probabilidade com Aplicações para Engenheiros e Cientistas.** Rio de Janeiro: LTC, 2017. --&gt;
+
+&lt;!-- .green[<i class="fas  fa-book fa-pull-left "></i>]  Montgomery, D.C. e Runger, G. C. **Estatística Aplicada e Probabilidade para Engenheiros.** 6. Ed. RIo de Janeiro: LTC, 2016. --&gt;
+
+&lt;!-- .green[<i class="fas  fa-book fa-pull-left "></i>]  Morettin, P.A. e Bussab, W. O. **Estatística Básica.** 9 ed. Saraiva. 2017. --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
