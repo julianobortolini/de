@@ -5,7 +5,7 @@ date: ""
 output: html_document
 ---
 
-*Doutorado em Ciências Veterinárias - UFMT*
+*Doutorado em Medicina Veterinária - UFMT*
 
 *Período letivo: 2024/2*
 
@@ -17,26 +17,93 @@ output: html_document
 
 
 
-### Ementa:
+### Conteúdo Programático:
+
+**Unidade I:**
+
+- Experimentação estatística.
+- Princípios básicos da experimentação.
+- Delineamento inteiramente casualizado.
+- Delineamento em blocos casualizados.
+- Delineamento em quadrado latino.
+- Métodos de comparações múltiplas de tratamentos.
+
+**Unidade II:**
+
+- Experimentos fatoriais cruzados.
+- Experimentos fatoriais em parcelas subdivididas.
+- Experimentos fatoriais hierárquicos.
+
+**Unidade III:**
+
+- Modelos lineares de efeitos mistos.
+- Modelos lineares generalizados (gama, logística, poisson e binomial negativa).
+- Modelos de equações de estimativas generalizadas (GEE).
+- Modelos aditivos generalizados para locação, escala e forma (GAMLSS).
 
 
 ### Notas de aula:
 
 - Aula 1: apresentação da disciplina.
 
+- Aula 2:
 
-### Avaliação:
+- Aula 3:
 
+- Aula 4:
 
-
-### Livro texto:
-
-
-
-### Livro complementar:
+- Aula 5:
 
 
+### Avaliações:
 
+- Provas, seminário e artigo.
+
+- $P_1$: nota da prova 1 (2,5 pontos): unidade I.
+  
+- $P_2$: nota da prova 2 (2,5 pontos): unidades I e II.
+
+- $S$: nota do seminário (2,5 pontos): unidade III.
+
+- $A$: Nota do artigo (2,5 pontos): análise de dados (dissertação, tese, pesquisas...) usando os conteúdos da disciplina.
+
+- Nota final, $NF$: soma de todas as notas ( $P_1 + P_2 + S + A$ )
+
+- Conceitos:  $A$ se $NF \geq9$,  $B$ se $9 > NF \geq 7,5$ ou $C$ se $7,5 > NF \geq 6$.
+
+- Reprovação por falta se a quantidade de faltas for superior a 4 aulas de 4 horas.
+
+**Nota bônus:** Se o artigo for aceito para publicação até a data do lançamento de notas, o aluno(a) terá conceito A na disciplina.
+
+
+### Bibliografia
+
+**Experimentação**
+
+Montgomery, D. C. **Design and Analysis of Experiments**. New York: Wiley, 2012.
+
+Dean, A., Voss, D., Draguljić, D. **Design and Analysis of Experiments** (2nd ed.). Springer. 2017. 
+
+Festing, M. F. W., Altman, D. G. Guidelines for the Design and Statistical Analysis of Experiments Using Laboratory Animals. **ILAR Journal**. Volume 43, Number 4, 2002.
+
+Freitas, A. R. de. **Estatística experimental na agropecuária**. Brasília, DF: Embrapa, 2022.
+
+Sampaio, I. B. M. **Estatística aplicada a experimentação animal**. Belo Horizonte: FEPMV, 2015. 265p.
+
+Banzatto, D. A., Kronka, S. N. **Experimentação agrícola**. Jaboticabal: Funep, 2006.
+
+
+
+**Estatística geral**
+
+
+Devore, Jay L.; Berk, Kenneth N.; Carlton, Matthew A. **Modern Mathematical Statistics with Applications**. 3. ed. Springer, 2021.
+
+Petrie, A., Watson, P. **Estatística em ciência animal e veterinária**. Roca, 2009.
+
+Baldi, B., Moore, D. S. **A prática da estatística nas ciências da vida**. LTC, 2014. 
+
+Bussab, W. O., Morettin, P. A. **Estatística básica**. 9. ed. São Paulo: Saraivauni, 2017.
 
 
 
