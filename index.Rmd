@@ -1,0 +1,51 @@
+---
+title: "Delineamento Experimental"
+author: "Prof. Dr. Juliano Bortolini"
+date: ""
+output: html_document
+---
+
+*Doutorado em Ciências Veterinárias - UFMT*
+
+*Período letivo: 2024/2*
+
+
+### Avisos:
+
+- Última atualização do site às **`r format(Sys.time(), "%H:%M")`** do dia **`r format(Sys.time(), "%d/%m/%Y")`**.
+- [Whatsapp da disciplina]()
+
+
+
+### Ementa:
+
+
+### Notas de aula:
+
+- Aula 1: apresentação da disciplina.
+
+
+### Avaliação:
+
+
+
+### Livro texto:
+
+
+
+### Livro complementar:
+
+
+
+
+
+
+
+----------
+<div style="text-align: center;">
+
+[@profjulianobortolini](https://instagram.com/profjulianobortolini) \  \  \ [www.julianobortolini.com.br](http://www.julianobortolini.com.br) \  \  \ [linkedin](https://linkedin.com/in/julianobortolini) \  \  \   [github](https://github.com/julianobortolini) \  \  \   [lattes](http://lattes.cnpq.br/6210909768845403)
+
+</div>
+
+
