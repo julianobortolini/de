@@ -44,7 +44,7 @@ output: html_document
 
 ### Notas de aula:
 
-- Aula 1: apresentação da disciplina.
+- Aula 1: apresentação da disciplina, variáveis contínuas e discretas, modelos lineares clássicos (distribuição normal da variável resposta) e generalizados (distribuição não normal para a variável resposta). Apresentação das pesquisas desenvolvidas pelos alunos no mestrado e em desenvolvimento no doutorado. **Tarefa:** listar os métodos estatísticos descritos nos artigos de referência para a pesquisa do doutorado.
 
 - Aula 2:
 
