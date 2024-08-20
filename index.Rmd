@@ -12,7 +12,7 @@ output: html_document
 
 ### Avisos:
 
-- Última atualização do site às **`r format(Sys.time(), "%H:%M")`** do dia **`r format(Sys.time(), "%d/%m/%Y")`**.
+- Última atualização do site às **`r format(Sys.time(), "%H:%M", tz="America/Cuiaba")`** do dia **`r format(Sys.time(), "%d/%m/%Y")`**.
 - [Whatsapp da disciplina]()
 
 
@@ -46,7 +46,7 @@ output: html_document
 
 - Aula 1: apresentação da disciplina, variáveis contínuas e discretas, modelos lineares clássicos (distribuição normal da variável resposta) e generalizados (distribuição não normal para a variável resposta). Apresentação das pesquisas desenvolvidas pelos alunos no mestrado e em desenvolvimento no doutorado. **Tarefa:** listar os métodos estatísticos descritos nos artigos de referência para a pesquisa do doutorado.
 
-- Aula 2:
+- [Aula 2](aulas/aula2.html): estudo observacional, estudo experimental, objetivos da experimentação, breve história do Planejamento e Análise de Experimentos (PAE), conceitos básicos do PAE, considerações éticas, princípios básicos do PAE, erro experimental, considerações no planejamento de experimentos, comparações simples (dois tratamentos) com modelo matemático e exemplo.
 
 - Aula 3:
 
