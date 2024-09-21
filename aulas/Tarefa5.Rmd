@@ -1,0 +1,101 @@
+---
+title: "Delineamento Experimental"
+author: "Prof. Dr. Juliano Bortolini"
+date: ""
+output: html_document
+---
+
+*Doutorado em Medicina Veterinária - UFMT*
+
+*Período letivo: 2024/2*
+
+Última atualização do site às **`r format(Sys.time(), "%H:%M", tz="America/Cuiaba")`** do dia **`r format(Sys.time(), "%d/%m/%Y")`**.
+
+[**Página inicial**](../index.html)
+
+**Tarefa 5: 24-9-2024**
+
+Adaptado do livro da Sônia Vieira:
+
+1. Delineie um experimento para comparar três formulações de adubação, em dois tipos de solo, no crescimento de Pinus Caribaea. Cada tratamento terá 15 repetições e cada parcela será um vaso de 7 litros, sendo a altura da planta medida após 9 meses após o início do experimento.
+
+2. Delineie um experimento para estudar o efeito de quatro modos de aplicação de zinco no crescimento inicial do milho, medido 55 dias após a aplicação. Os tratamentos são:
+   - Zinco incorporado ao solo.
+   - Zinco aplicado em adubação foliar.
+   - Zinco aplicado nas sementes.
+   - Testemunha (sem aplicação).
+
+3. Explique como você faria para designar cinco tratamentos (A, B, C, D e E) para 25 parcelas, com o objetivo de controlar dois gradientes de fertilidade perpendicularmente, usando um delineamento experimental adequado.
+
+4. Um pesquisador quer estudar o efeito de vitaminas do complexo B e C no ganho de peso de suínos, com o uso de um grupo controle. Como você delinearia o experimento, considerando que há um total de 40 animais disponíveis, divididos igualmente em quatro faixas etárias?
+
+5. Você quer conduzir um experimento em casa de vegetação para avaliar a taxa de crescimento de tomate cereja com diferentes biofertilizantes. Serão comparados quatro tratamentos (A, B, C e D), aplicados a 16 parcelas. Sorteie os tratamentos e descreva como você conduziria o experimento.
+
+
+6. Os dados obtidos em um experimento completamente ao acaso estão apresentados na tabela abaixo. Calcule as médias e os desvios padrão para cada tratamento. Desenhe um gráfico para apresentar os dados e interpretar os resultados.
+
+| Tratamento | A  | B  | C  | D  | E  |
+|------------|----|----|----|----|----|
+| Valores    | 11 | 13 | 10 | 13 | 12 |
+|            | 10 | 13 |  9 | 13 | 11 |
+|            | 12 | 10 |  7 | 11 | 13 |
+|            | 11 |  9 |  8 | 13 | 10 |
+|            | 10 | 12 | 11 | 12 | 12 |
+
+7. Faça a análise de variância dos dados apresentados no exercício anterior e interprete os resultados.
+
+8. Faça a análise de variância dos dados apresentados na tabela a seguir:
+
+| Bloco | Tratamento  |
+|-------|-------------|
+|       | A   B   Controle |
+| I     | 45  48  60   |
+| II    | 90  57  77   |
+| III   | 70  53  77   |
+| IV    | 82  70  97   |
+
+9. Faça a análise de variância dos dados apresentados na tabela a seguir:
+
+| Bloco | Tratamento  |
+|-------|-------------|
+|       | A   B   C   D  |
+| I     | 83  86 103 116 |
+| II    | 63  61  79  81 |
+| III   | 55  61  79  91 |
+
+10. Faça a análise de variância dos dados apresentados na tabela a seguir:
+
+| Bloco | Tratamento  |
+|-------|-------------|
+|       | A   B   C   D  E  |
+| I     | 4.00 4.00 5.52 3.76 |
+| II    | 4.48 4.72 4.72 4.00 |
+| III   | 4.00 5.28 5.44 4.96 |
+| IV    | 5.76 5.28 5.76 4.96 |
+| V     | 5.76 5.28 5.44 4.96 |
+
+11. Aplique o teste de Tukey para comparar as médias obtidas no exercício anterior.
+
+Adaptado do livro do Montgomery:
+
+12. Um fabricante farmacêutico quer investigar a bioatividade de um novo medicamento. Um experimento completamente casualizado com um fator foi conduzido com três níveis de dosagem, e os seguintes resultados foram obtidos.
+
+| Dosagem  | Observações             |
+|----------|-------------------------|
+| 20 g     | 24, 28, 37, 30          |
+| 30 g     | 37, 44, 31, 35          |
+| 40 g     | 42, 47, 52, 38          |
+
+(a) Há evidências para indicar que o nível de dosagem afeta a bioatividade? Use α = 0.05.
+
+(b) Se for apropriado, faça comparações entre os pares de médias. Quais conclusões você pode tirar?
+
+(c) Analise os resíduos deste experimento e comente sobre a adequação do modelo.
+
+
+
+------------------------------------------------------------------------
+
+::: {style="text-align: center;"}
+[\@profjulianobortolini](https://instagram.com/profjulianobortolini)      [www.julianobortolini.com.br](http://www.julianobortolini.com.br)      [linkedin](https://linkedin.com/in/julianobortolini)      [github](https://github.com/julianobortolini)       [lattes](http://lattes.cnpq.br/6210909768845403)
+:::

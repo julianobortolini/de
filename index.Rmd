@@ -45,15 +45,17 @@ output: html_document
 
 ### Notas de aula:
 
-- Aula 1: apresentação da disciplina, variáveis contínuas e discretas, modelos lineares clássicos (distribuição normal da variável resposta) e generalizados (distribuição não normal para a variável resposta). Apresentação das pesquisas desenvolvidas pelos alunos no mestrado e em desenvolvimento no doutorado. **Tarefa:** listar os métodos estatísticos descritos nos artigos de referência para a pesquisa do doutorado.
+- Aula 1: apresentação da disciplina, variáveis contínuas e discretas, modelos lineares clássicos (distribuição normal da variável resposta) e generalizados (distribuição não normal para a variável resposta). Apresentação das pesquisas desenvolvidas pelos alunos no mestrado e em desenvolvimento no doutorado. **Tarefa 1:** listar os métodos estatísticos descritos nos artigos de referência para a pesquisa do doutorado.
 
-- [Aula 2](aulas/aula2.html): estudo observacional, estudo experimental, objetivos da experimentação, breve história do Planejamento e Análise de Experimentos (PAE), conceitos básicos do PAE, considerações éticas, princípios básicos do PAE, erro experimental, considerações no planejamento de experimentos, comparações simples (dois tratamentos) com modelo matemático e exemplo. **Tarefa:** (enviado no grupo) planejar experimentos e identificar os fatores, tratamentos, delineamento, variável resposta, etc.
+- [Aula 2](aulas/aula2.html): estudo observacional, estudo experimental, objetivos da experimentação, breve história do Planejamento e Análise de Experimentos (PAE), conceitos básicos do PAE, considerações éticas, princípios básicos do PAE, erro experimental, considerações no planejamento de experimentos, comparações simples (dois tratamentos) com modelo matemático e exemplo. **Tarefa 2:** (enviado no grupo) planejar experimentos e identificar os fatores, tratamentos, delineamento, variável resposta, etc.
 
 - Aulas 3, 4 e 5: um pouco mais sobre o planejamento de experimentos. Delineamento inteiramente casualizado (DIC): motivação com o exemplo do experimento de supressão do crescimento de bactérias, aleatorização dos tratamentos nas UEB, modelos estatísticos, teste de hipóteses, somas de quadrados, graus de liberdade e teste F. Delineamento em blocos casualizados: motivação com a restrição na aleatorização. UEB heterogêneas e controle local (blocagem). Aleatorização dos tratamentos nas UEB de cada bloco. Exemplo da produção de leite. Análise de experimento em DBC. Delineamento em quadrado latino: exemplo com mais de uma fonte de variação a ser controlada. Aleatorização no DQL. Análise de experimentos em DQL.
 
-- Aula 6: aula prática com análise de experimentos em DIC, DBC e DQL no R. **Tarefa:** (enviado no grupo) análise de um experimento em R.
+- Aula 6: aula prática com análise de experimentos em DIC, DBC e DQL no R. **Tarefa 3:** (enviado no grupo) análise de um experimento em R.
 
-- [Aula 7](aulas/aula7.html): métodos de comparações múltiplas e pressupostos. **Tarefa:** refazer todos os exercícios da aula anterior com testes de comparações multiplas e análise dos pressupostos.
+- [Aula 7](aulas/aula7.html): métodos de comparações múltiplas e pressupostos. **Tarefa 4:** refazer todos os exercícios da aula anterior com testes de comparações multiplas e análise dos pressupostos.
+
+- [Tarefa 5](aulas/tarefa5.html): exercícios gerais sobre os conteúdos das aulas anteriores.
 
 
 ### Avaliações:
