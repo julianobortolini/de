@@ -1,0 +1,170 @@
+---
+title: "Delineamento Experimental"
+author: "Prof. Dr. Juliano Bortolini"
+date: ""
+output: html_document
+---
+
+*Doutorado em Medicina Veterinária - UFMT*
+
+*Período letivo: 2024/2*
+
+Última atualização do site às **`r format(Sys.time(), "%H:%M", tz="America/Cuiaba")`** do dia **`r format(Sys.time(), "%d/%m/%Y")`**.
+
+[**Página inicial**](../index.html)
+
+**Aula 7: 17-9-2024**
+
+## Testes de Comparações Múltiplas
+
+- Comparações entre tratamentos
+
+  -   **Objetivo**: Comparar diferentes tratamentos em um experimento para responder perguntas específicas do pesquisador.
+  -   **Importância**: As comparações permitem avaliar a eficácia dos tratamentos em relação a uma variável de interesse.
+  -   **Exemplo**: No experimento de supressão do crescimento bacteriano em carnes, tratamentos como ar ambiente, vácuo, mistura de gases e CO2 foram comparados para avaliar o crescimento bacteriano em diferentes condições de armazenamento.
+
+- Definição de contrastes
+
+  -   **Conceito**: Um contraste é uma combinação linear das médias dos tratamentos que representa comparações específicas.
+  -   **Requisitos**: A soma dos coeficientes dos contrastes deve ser igual a zero.
+  -   **Aplicações**: Contrastes são usados para comparar diferentes grupos de tratamentos, por exemplo, comparar o tratamento com atmosfera artificial versus vácuo.
+  -   **Expresão**: $C = \sum_{i=1}^{I} c_i \mu_i$, onde $\sum_{i=1}^{I} c_i = 0$.
+
+- Estimativas de contrastes
+
+  -   **Cálculo**: A estimativa do contraste é a diferença ponderada das médias dos tratamentos.
+  -   **Expressã**: $Ĉ = \sum_{i=1}^{I} c_i Ȳ_i·$.
+  -   **Interpretação**: Cada contraste fornece informações sobre a diferença entre grupos específicos de tratamentos.
+
+- Erros padrões de contrastes
+
+  -   **Definição**: O erro padrão de um contraste é uma medida de incerteza associada à estimativa do contraste.
+  -   **Cálculo**: O erro padrão é dado pela fórmula $S_C = \sqrt{S^2_C}$, onde $S^2_C$ é a variância do contraste.
+  -   **Importância**: O erro padrão permite calcular intervalos de confiança e realizar testes de hipóteses sobre os contrastes.
+
+- Intervalos de confiança (IC) para contrastes
+
+  -   **Conceito**: Um intervalo de confiança (IC) fornece um intervalo no qual o verdadeiro valor do contraste está com uma determinada probabilidade.
+  -   **Expressão**: $IC(C)_{1-\alpha} = (Ĉ \pm t_{\alpha/2, gl(erro)} S_C)$.
+  -   **Uso prático**: O IC ajuda a verificar se a diferença entre tratamentos é estatisticamente significativa.
+
+- Soma de quadrados para contrastes
+
+  -   **Definição**: A soma de quadrados (SQ) para um contraste mede a variação explicada pelo contraste.
+  -   **Expressão**: $SQ_C = \frac{Ĉ^2}{\sum_{i=1}^{I} \frac{c_i^2}{r_i}}$, onde $r_i$ é o número de réplicas.
+  -   **Interpretação**: A SQ do contraste indica o quanto da variabilidade dos dados é explicada pelas diferenças entre os grupos de tratamentos.
+
+- Testes de hipóteses sobre contrastes
+
+  -    **Hipótese nula**: Assume-se que o contraste é igual a zero, ou seja, não há diferença significativa entre os tratamentos.
+  -   **Hipótese alternativa**: Assume-se que o contraste é diferente de zero.
+  -   **Estatística de teste**: Para contrastes, utiliza-se o valor de $F_C = \frac{SQ_C}{QM_{erro}}$, ou o valor de $t_C$.
+  -   **Rejeição de** $H_0$: Se o valor de $t_C$ ou $F_C$ for maior que o valor crítico, rejeita-se a hipótese nula.
+
+- Contrastes ortogonais
+
+  -   **Definição**: Contrastes ortogonais são contrastes independentes, ou seja, não compartilham informações entre si.
+  -   **Vantagem**: Permitem particionar a soma de quadrados dos tratamentos em componentes independentes.
+  -   **Exemplo**: Em um experimento com quatro tratamentos, pode-se construir três contrastes ortogonais para comparar diferentes combinações de tratamentos.
+
+- Testes t de Student e F
+
+  -   **Teste t**: Usado para comparar a média de um contraste com zero. Calcula-se $t_C = \frac{Ĉ}{S_C}$.
+  -   **Teste F**: Utilizado para comparar múltiplos contrastes ao mesmo tempo, com a fórmula $F_C = \frac{SQC}{QM_{erro}}$.
+  -   **Interpretação**: Ambos os testes ajudam a verificar se as diferenças entre os tratamentos são significativas.
+
+- Teste de Tukey
+
+  -   **Objetivo**: Comparar todas as médias de tratamentos dois a dois.
+  -   **Diferença mínima significativa (DMS)**: $DMS = q_{\alpha,I,gl(Res)} \cdot \sqrt{QM_{erro}/J}$.
+  -   **Aplicação**: O teste de Tukey é amplamente utilizado para identificar quais grupos de tratamentos são significativamente diferentes.
+  -   **Exemplo prático**: No experimento de carne, a diferença entre o tratamento Comercial e o CO2 foi significativa.
+
+- Teste de Dunnett
+
+  -   **Aplicação**: Comparação de todos os tratamentos com um tratamento controle.
+  -   **Fórmula para DMS**: $DMS = t_d(\alpha, gl_{Trat}, gl_{Res}) \cdot \sqrt{V̂ar(Ĉ)}$.
+  -    **Interpretação**: Identifica quais tratamentos se diferenciam significativamente do controle.
+
+- Teste Scheffé
+
+  -   **Uso**: Pode ser usado para comparar contrastes definidos após a obtenção dos dados.
+  -   **DMS**: Calculada com a fórmula $DMS = \sqrt{(I-1)F_{\alpha,gl(Trat),gl(Res)} \cdot V̂ar(Ĉ)}$.
+  -   **Aplicação prática**: Pode ser usado em experimentos exploratórios onde múltiplas comparações são feitas.
+
+- Outros testes de comparações múltiplas
+
+  -   **SNK (Student-Newman-Keuls)**: Um teste sequencial para comparações múltiplas.
+  -   **LSD (Least Significant Difference)**: Realiza comparações par a par após análise de variância.
+  -   **LSDB (LSD com correção de Bonferroni)**: Ajusta o nível de significância para evitar erros tipo I.
+  -   **Scott-Knott**: Agrupa tratamentos em diferentes classes de significância.
+
+## Pressuposições da Análise de Experimentos
+
+- Modelo de efeitos de tratamentos do DIC (Delineamento Inteiramente Casualizado)
+
+  -   **Modelo**: $Y_{ij} = \mu + \tau_i + \epsilon_{ij}$, onde $\tau_i$ é o efeito do tratamento e $\epsilon_{ij} \sim N(0, \sigma^2)$.
+  -   **Pressupostos**:
+    -   **Normalidade dos resíduos**: Os erros seguem uma distribuição normal.
+    -   **Independência**: Os erros são independentes.
+    -   **Homocedasticidade**: A variância dos erros é constante.
+
+- Modelo de efeitos de tratamentos do DBC (Delineamento em Blocos Casualizados)
+
+  -   **Modelo**: $Y_{ij} = \mu + \tau_i + \beta_j + \epsilon_{ij}$, onde $\beta_j$ é o efeito do bloco.
+  -   **Vantagem**: Utilizado quando há variabilidade entre blocos, permitindo reduzir o erro experimental.
+
+- Modelo de efeitos de tratamentos do DQL (Delineamento Quadrado Latino)
+
+  -   **Modelo**: $Y_{ijk} = \mu + l_i + \tau_j + c_k + \epsilon_{ijk}$, onde $l_i$ é o efeito da linha e $c_k$ o efeito da coluna.
+  -   **Uso**: Ideal para experimentos com dois fatores de controle além do tratamento.
+
+- Resíduos
+
+  -   **Resíduo bruto**: $\epsilon̂_{ij} = Y_{ij} - Ŷ_{ij}$.
+  -   **Resíduo padronizado**: $d_{ij} = \frac{\epsilon̂_{ij}}{\sqrt{\sigmâ^2}}$.
+  -   **Resíduo studentizado**: $r_{ij} = \frac{\epsilon̂_{ij}}{\sqrt{\sigmâ^2 (1-h_{ii})}}$, onde $h_{ii}$ é o valor da diagonal da matriz H.
+
+- Normalidade dos resíduos
+
+  -   **Verificação**: Pode ser feita com histogramas, gráficos quantil-quantil e testes de normalidade como Shapiro-Wilk, Kolmogorov-Smirnov.
+  -   **Importância**: A normalidade dos resíduos é uma pressuposição fundamental para a validade dos testes estatísticos.
+
+- Independência dos resíduos
+
+  -   **Verificação**: Gráficos de resíduos padronizados versus valores estimados ou ordem de coleta dos dados, além de testes como Durbin-Watson.
+  -   **Importância**: A independência dos resíduos garante que o erro entre observações não está correlacionado.
+
+- Homocedasticidade dos resíduos
+
+  -   **Verificação**: Gráficos de dispersão (valores estimados vs. resíduos) e testes como Levene e Bartlett.
+  -   **Importância**: A homogeneidade de variâncias é essencial para a correta interpretação da análise de variância.
+
+- Pontos discrepantes (Outliers)
+
+  -   **Identificação**: Gráficos box-plot ou análise de resíduos padronizados podem indicar outliers.
+  -   **Impacto**: Outliers podem distorcer os resultados da análise e devem ser verificados cuidadosamente.
+
+- Linearidade da variável resposta
+
+  -   **Verificação**: Gráficos de dispersão dos valores observados em relação aos tratamentos.
+  -   **Ação**: Se a linearidade não for observada, transformações de dados podem ser necessárias.
+
+- Transformação de variáveis
+
+  -   **Tipos de transformações**:
+    -   Dados assimétricos: $y = \log(x)$.
+    -   Dados de contagem: $y = \sqrt{x}$ ou $y = \sqrt{x + 0,5}$.
+    -   Proporções: $y = \arcsen(\sqrt{x})$.
+    -   Variáveis com valores negativos: $y = x + c$.
+    
+- Transformação de Box-Cox
+
+  -   **Fórmula**: $y = \frac{x^p - 1}{p}$ para $p \neq 0$, e $y = \log(x)$ para $p = 0$.
+  -   **Uso**: Utilizada para encontrar a melhor transformação que estabilize a variância e melhore a normalidade dos resíduos.
+
+------------------------------------------------------------------------
+
+::: {style="text-align: center;"}
+[\@profjulianobortolini](https://instagram.com/profjulianobortolini)      [www.julianobortolini.com.br](http://www.julianobortolini.com.br)      [linkedin](https://linkedin.com/in/julianobortolini)      [github](https://github.com/julianobortolini)       [lattes](http://lattes.cnpq.br/6210909768845403)
+:::

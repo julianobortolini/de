@@ -14,6 +14,7 @@ output: html_document
 
 - Última atualização do site às **`r format(Sys.time(), "%H:%M", tz="America/Cuiaba")`** do dia **`r format(Sys.time(), "%d/%m/%Y")`**.
 - [Whatsapp da disciplina]()
+- **Prova 2: 8/10/2024**.
 
 
 
@@ -46,13 +47,13 @@ output: html_document
 
 - Aula 1: apresentação da disciplina, variáveis contínuas e discretas, modelos lineares clássicos (distribuição normal da variável resposta) e generalizados (distribuição não normal para a variável resposta). Apresentação das pesquisas desenvolvidas pelos alunos no mestrado e em desenvolvimento no doutorado. **Tarefa:** listar os métodos estatísticos descritos nos artigos de referência para a pesquisa do doutorado.
 
-- [Aula 2](aulas/aula2.html): estudo observacional, estudo experimental, objetivos da experimentação, breve história do Planejamento e Análise de Experimentos (PAE), conceitos básicos do PAE, considerações éticas, princípios básicos do PAE, erro experimental, considerações no planejamento de experimentos, comparações simples (dois tratamentos) com modelo matemático e exemplo.
+- [Aula 2](aulas/aula2.html): estudo observacional, estudo experimental, objetivos da experimentação, breve história do Planejamento e Análise de Experimentos (PAE), conceitos básicos do PAE, considerações éticas, princípios básicos do PAE, erro experimental, considerações no planejamento de experimentos, comparações simples (dois tratamentos) com modelo matemático e exemplo. **Tarefa:** (enviado no grupo) planejar experimentos e identificar os fatores, tratamentos, delineamento, variável resposta, etc.
 
-- Aula 3:
+- Aulas 3, 4 e 5: um pouco mais sobre o planejamento de experimentos. Delineamento inteiramente casualizado (DIC): motivação com o exemplo do experimento de supressão do crescimento de bactérias, aleatorização dos tratamentos nas UEB, modelos estatísticos, teste de hipóteses, somas de quadrados, graus de liberdade e teste F. Delineamento em blocos casualizados: motivação com a restrição na aleatorização. UEB heterogêneas e controle local (blocagem). Aleatorização dos tratamentos nas UEB de cada bloco. Exemplo da produção de leite. Análise de experimento em DBC. Delineamento em quadrado latino: exemplo com mais de uma fonte de variação a ser controlada. Aleatorização no DQL. Análise de experimentos em DQL.
 
-- Aula 4:
+- Aula 6: aula prática com análise de experimentos em DIC, DBC e DQL no R. **Tarefa:** (enviado no grupo) análise de um experimento em R.
 
-- Aula 5:
+- [Aula 7](aulas/aula7.html): métodos de comparações múltiplas e pressupostos. **Tarefa:** refazer todos os exercícios da aula anterior com testes de comparações multiplas e análise dos pressupostos.
 
 
 ### Avaliações:
