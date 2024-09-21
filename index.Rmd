@@ -55,7 +55,7 @@ output: html_document
 
 - [Aula 7](aulas/aula7.html): métodos de comparações múltiplas e pressupostos. **Tarefa 4:** refazer todos os exercícios da aula anterior com testes de comparações multiplas e análise dos pressupostos.
 
-- [Tarefa 5](aulas/tarefa5.html): exercícios gerais sobre os conteúdos das aulas anteriores.
+- [Tarefa 5](aulas/Tarefa5.html): exercícios gerais sobre os conteúdos das aulas anteriores.
 
 
 ### Avaliações:
