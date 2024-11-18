@@ -1,0 +1,97 @@
+---
+title: "Delineamento Experimental"
+author: "Prof. Dr. Juliano Bortolini"
+date: ""
+output: html_document
+---
+
+*Doutorado em Medicina Veterinária - UFMT*
+
+*Período letivo: 2024/2*
+
+Última atualização do site às **`r format(Sys.time(), "%H:%M", tz="America/Cuiaba")`** do dia **`r format(Sys.time(), "%d/%m/%Y")`**.
+
+[**Página inicial**](../index.html)
+
+**Prova 2: enviar por e-mail até 19-11-2024**
+
+**1.** Um veterinário está conduzindo um experimento (**fictício**) para avaliar o efeito de dois fatores, tipo de alimentação (fator A) e método de vacinação (fator B), sobre a resposta imunológica em animais. O estudo segue um delineamento fatorial 2x2, onde cada fator possui dois níveis: A0 representa uma alimentação padrão e A1 uma alimentação enriquecida; B0 representa a vacinação tradicional e B1 a vacinação avançada. O objetivo é verificar se existe uma interação significativa entre os fatores A e B, indicando uma possível dependência na resposta imunológica dos animais quando ambos os fatores são considerados em conjunto.
+
+Para isso, foram utilizados três blocos de animais, com cada combinação de tratamento aplicada em cada bloco. A variável resposta foi medida para cada tratamento, conforme mostrado na tabela abaixo:
+
+| Bloco | A0B0 | A0B1 | A1B0 | A1B1 |
+|-------|------|------|------|------|
+| I     | 12   | 22   | 22   | 32   |
+| II    | 17   | 23   | 21   | 35   |
+| III   | 19   | 27   | 23   | 35   |
+
+Realize a Análise de Variância (ANOVA) com análise dos pressupostos e comparações múltiplas. Interprete os resultados obtidos para explicar se o tipo de alimentação e o método de vacinação influenciam a resposta imunológica dos animais quando aplicados em conjunto.
+
+**2.** Em uma pesquisa clínica veterinária, especialistas investigam o impacto de diferentes protocolos de exercícios e o uso de um regulador de apetite em cães com sobrepeso. O objetivo do estudo é avaliar como essas intervenções afetam a **perda de peso** dos cães, com ênfase na interação entre o uso do regulador de apetite e a intensidade do protocolo de exercícios.
+
+O estudo segue um delineamento fatorial 2x2x2, com os fatores e seus respectivos níveis definidos da seguinte forma:
+
+- **Fator A**: Uso de medicação para controle de apetite (A0 = sem medicação, A1 = medicação com regulador de apetite específico para cães). A medicação escolhida foi baseada em estudos de segurança e eficácia para cães, utilizando um regulador de apetite aprovado e recomendado por veterinários para controle de peso em animais de estimação.
+
+- **Fator B**: Protocolo de exercícios (B0 = rotina usual de exercícios sem exigências de passeio adicional, B1 = passeio diário adicional de 30 minutos além da rotina usual). O grupo com protocolo B1 segue um plano de atividades com passeios adicionais, enquanto o grupo B0 mantém apenas a rotina usual sem uma frequência ou duração específicas de passeios.
+
+- **Fator C**: Duração do tratamento (C0 = 4 semanas, C1 = 8 semanas).
+
+Cada cão foi submetido a uma combinação desses fatores ao longo do período experimental. **A variável resposta principal** é o **percentual de perda de peso ao final do tratamento**, calculado pela diferença percentual entre o peso inicial e o peso final dos cães. Os dados foram coletados em quatro blocos de cães, cada bloco contendo animais com características semelhantes de idade, peso inicial e condição de saúde.
+
+Abaixo, a tabela resume os dados (**fictício**) do percentual de perda de peso registrado para cada combinação de tratamento em cada bloco.
+
+
+| Bloco | A0B0C0 | A0B0C1 | A0B1C0 | A0B1C1 | A1B0C0 | A1B0C1 | A1B1C0 | A1B1C1 |
+|-------|--------|--------|--------|--------|--------|--------|--------|--------|
+| I     | 6.2     | 7.1     | 5.4     | 6.7     | 5.6     | 8.5     | 6.5     | 10.4    |
+| II    | 5.3     | 8.2     | 4.5     | 7.1     | 6.8     | 8.2     | 7.4     | 9.7     |
+| III   | 5.7     | 6.9     | 4.4     | 6.1     | 7.0     | 7.6     | 8.0     | 11.1    |
+| IV    | 6.8     | 7.4     | 5.7     | 7.3     | 5.7     | 9.0     | 6.9     | 11.2    |
+
+
+Baseando-se nos dados acima, realize uma análise estatística para investigar as interações entre os fatores A, B e C. Realize a Análise de Variância (ANOVA) com análise dos pressupostos e comparações múltiplas. Interprete os resultados e discuta as implicações dos diferentes tratamentos na saúde e no controle de peso dos cães com sobrepeso.
+
+**3.** Em um estudo sobre a palatabilidade de rações para gatos, foram avaliadas três marcas de ração (A, B, C) em duas condições de temperatura (1: ambiente, 2: morna). Quatro gatos foram testados para cada condição e atribuíram notas de palatabilidade numa escala de 1 a 10 (média de três repetições) (**dados fictícios**):
+
+| Gato | A1  | A2  | B1  | B2  | C1  | C2  |
+|------|-----|-----|-----|-----|-----|-----|
+| 1    | 8.2 | 4.5 | 4.2 | 5.6 | 9.3 | 9.6 |
+| 2    | 7.8 | 3.5 | 4.4 | 4.9 | 8.7 | 8.9 |
+| 3    | 6.0 | 3.8 | 5.3 | 5.4 | 6.5 | 7.3 |
+| 4    | 8.0 | 4.7 | 6.8 | 6.8 | 7.9 | 9.3 |
+
+Realize a Análise de Variância (ANOVA), com análise dos pressupostos e comparações múltiplas, para verificar se a palatabilidade das rações é afetada pela marca da ração e pela temperatura. Discuta como a marca da ração e a temperatura podem influenciar a aceitação dos alimentos pelos gatos.
+
+
+
+**4.** Em um estudo de resposta a protocolos anestésicos para cirurgias ortopédicas em cães, três protocolos diferentes de anestesia (A, B, C) foram avaliados em duas condições de pré-medicação (1: com pré-medicação, 2: sem pré-medicação). A sedação foi medida por um índice de tranquilização (em uma escala de 1 a 10) por quatro veterinários para cada combinação de protocolo e pré-medicação.
+
+Os dados fictícios estão apresentados na tabela abaixo:
+
+| Veterinário | A1  | A2  | B1  | B2  | C1  | C2  |
+|-------------|-----|-----|-----|-----|-----|-----|
+| 1           | 7.5 | 5.2 | 6.0 | 4.8 | 8.3 | 7.5 |
+| 2           | 8.1 | 4.9 | 5.5 | 5.0 | 8.0 | 7.2 |
+| 3           | 7.0 | 5.4 | 6.2 | 4.6 | 7.8 | 8.1 |
+| 4           | 7.8 | 5.0 | 5.8 | 5.2 | 8.5 | 7.7 |
+
+Realize a Análise de Variância (ANOVA), com análise dos pressupostos e comparações múltiplas, para verificar se a tranquilização dos cães é afetada pelo protocolo anestésico e pela pré-medicação. Discuta como os diferentes protocolos anestésicos e a presença de pré-medicação podem influenciar a tranquilização dos cães durante procedimentos cirúrgicos.
+
+
+**5.** Analise os dados do experimento (fictício) em blocos ao acaso, com parcelas subdivididas, apresentados na tabela abaixo:
+
+
+| Bloco | A0b0 | A0b1 | A0b2 | A1b0 | A1b1 | A1b2 | A2b0 | A2b1 | A2b2 | A3b0 | A3b1 | A3b2 |
+|-------|------|------|------|------|------|------|------|------|------|------|------|------|
+| I     | 89   | 95   | 108  | 90   | 94   | 98   | 91   | 90   | 101  | 72   | 76   | 80   |
+| II    | 64   | 72   | 88   | 77   | 83   | 92   | 77   | 82   | 87   | 56   | 56   | 62   |
+
+
+
+
+------------------------------------------------------------------------
+
+::: {style="text-align: center;"}
+[\@profjulianobortolini](https://instagram.com/profjulianobortolini)      [www.julianobortolini.com.br](http://www.julianobortolini.com.br)      [linkedin](https://linkedin.com/in/julianobortolini)      [github](https://github.com/julianobortolini)       [lattes](http://lattes.cnpq.br/6210909768845403)
+:::

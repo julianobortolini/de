@@ -14,7 +14,7 @@ output: html_document
 
 - Última atualização do site às **`r format(Sys.time(), "%H:%M", tz="America/Cuiaba")`** do dia **`r format(Sys.time(), "%d/%m/%Y")`**.
 - [Whatsapp da disciplina]()
-- **Prova 2: 8/10/2024**.
+- **[Prova 2](aulas/prova2.html): enviar por e-mail até 19-11-2024**.
 
 
 
@@ -37,8 +37,8 @@ output: html_document
 
 **Unidade III:**
 
-- Modelos lineares de efeitos mistos.
 - Modelos lineares generalizados (gama, logística, poisson e binomial negativa).
+- Modelos lineares de efeitos mistos.
 - Modelos de equações de estimativas generalizadas (GEE).
 - Modelos aditivos generalizados para locação, escala e forma (GAMLSS).
 
@@ -56,6 +56,24 @@ output: html_document
 - [Aula 7](aulas/aula7.html): métodos de comparações múltiplas e pressupostos. **Tarefa 4:** refazer todos os exercícios da aula anterior com testes de comparações multiplas e análise dos pressupostos.
 
 - [Tarefa 5](aulas/Tarefa5.html): exercícios gerais sobre os conteúdos das aulas anteriores.
+
+- Aula 8: introdução aos experimentos fatoriais: conceito e definição de experimentos fatoriais, comparação com experimentos mais simples (um fator e combinações de níveis). Exemplos: avaliação de rações na produção de leite, estudo sobre medicamentos que afetam níveis de colesterol e mistura de proteína e carboidrato em rações. Estrutura dos experimentos fatoriais: definição de fatores, níveis e tratamentos, análise de efeitos simples, principais e de interação entre fatores.  Casualização dos tratamentos: delineamento inteiramente casualizado e blocos casualizados. Análise estatística no R: funções `fat2.rbd()` e `fat2.crd()` do pacote `ExpDes`.  Exemplos do livro do Kronka. Interpretação dos resultados de análise de variância (ANOVA): casos de interação significativa e não significativa, desdobramentos para estudar o comportamento de fatores dentro de outros. 
+
+- **Tarefa 6:** experimentos fatoriais triplos: exemplos 5.3 e 5.4 do livro do Kronka.
+
+- Aula 9: experimentos fatoriais triplos: definição, estrutura, análise de efeitos simples, principais e de interação entre fatores. Exemplos do livro do Kronka. Funções `fat3.rbd()` e `fat3.crd()` do pacote `ExpDes`.
+
+- Aula 10: experimentos fatoriais em parcelas subdivididas: definição, estrutura, análise de efeitos simples, principais e de interação entre fatores. Exemplos do livro do Kronka. Funções `split2.crd()` e `split2.rbd()`  do pacote `ExpDes`. Experimentos hierárquicos: definição, estrutura e exemplo de diferentes doses e medicamentos (doses diferentes dentro de cada medicamento).
+
+- [Prova 2](aulas/prova2.html): prova com questões sobre os conteúdos das unidades I e II.
+
+- Seminário 1: modelos lineares generalizados (19/11/2024).
+
+- Seminário 2: modelos lineares de efeitos mistos (26/11/2024).
+
+- Seminário 3: modelos de equações de estimativas generalizadas (GEE) (03/12/2024).
+
+- Seminário 4: modelos aditivos generalizados para locação, escala e forma (GAMLSS) (10/12/2024).
 
 
 ### Avaliações:
