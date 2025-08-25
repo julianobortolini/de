@@ -51,7 +51,7 @@ engine: knitr
 
 ### Notas de aula:
 
-- Aula 1: apresentação da disciplina, variáveis contínuas e discretas, modelos lineares clássicos (distribuição normal da variável resposta) e generalizados (distribuição não normal para a variável resposta). Apresentação das pesquisas desenvolvidas pelos alunos no mestrado e em desenvolvimento no doutorado. **Tarefa 1:** listar os métodos estatísticos descritos em 3 artigos de referência para a pesquisa do doutorado. Enviar por e-mail até 12h do dia 18-08-2024.
+- Aula 1: apresentação da disciplina, variáveis contínuas e discretas, modelos lineares clássicos (distribuição normal da variável resposta) e generalizados (distribuição não normal para a variável resposta). Apresentação das pesquisas desenvolvidas pelos alunos no mestrado e em desenvolvimento no doutorado. **Tarefa 1:** listar os métodos estatísticos descritos em 3 artigos de referência para a pesquisa do doutorado. Enviar por e-mail até 12h do dia 18-08-2025.
 
 
 - [Aula 2](aulas/aula2.html): estudo observacional, estudo experimental, objetivos da experimentação, breve história do Planejamento e Análise de Experimentos (PAE), conceitos básicos do PAE, considerações éticas, princípios básicos do PAE, erro experimental, considerações no planejamento de experimentos, comparações simples (dois tratamentos) com modelo matemático e exemplo.
