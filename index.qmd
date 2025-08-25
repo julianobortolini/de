@@ -1,0 +1,119 @@
+---
+title: "Delineamento Experimental"
+author:
+  - name: Prof. Dr. Juliano Bortolini
+    email: profjulianobortolini@gmail.com
+    url: http://www.julianobortolini.com.br
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+format:
+  html:
+    embed-resources: true
+engine: knitr
+---
+
+*Doutorado em Medicina Veterinária - UFMT*
+
+*Período letivo: 2025/2*
+
+
+### Avisos:
+
+- Última atualização do site às **`r format(Sys.time(), "%H:%M", tz="America/Cuiaba")`** do dia **`r format(Sys.time(), "%d/%m/%Y")`**.
+- [Whatsapp da disciplina]()
+
+
+
+### Conteúdo Programático:
+
+**Unidade I:**
+
+- Experimentação estatística.
+- Princípios básicos da experimentação.
+- Delineamento inteiramente casualizado.
+- Delineamento em blocos casualizados.
+- Delineamento em quadrado latino.
+- Métodos de comparações múltiplas de tratamentos.
+
+**Unidade II:**
+
+- Experimentos fatoriais cruzados.
+- Experimentos fatoriais em parcelas subdivididas.
+- Experimentos fatoriais hierárquicos.
+
+**Unidade III:**
+
+- Modelos lineares generalizados (gama, logística, poisson e binomial negativa).
+- Modelos lineares de efeitos mistos.
+- Modelos de equações de estimativas generalizadas (GEE).
+- Modelos aditivos generalizados para locação, escala e forma (GAMLSS).
+
+
+### Notas de aula:
+
+- Aula 1: apresentação da disciplina, variáveis contínuas e discretas, modelos lineares clássicos (distribuição normal da variável resposta) e generalizados (distribuição não normal para a variável resposta). Apresentação das pesquisas desenvolvidas pelos alunos no mestrado e em desenvolvimento no doutorado. **Tarefa 1:** listar os métodos estatísticos descritos em 3 artigos de referência para a pesquisa do doutorado. Enviar por e-mail até 12h do dia 18-08-2024.
+
+
+- [Aula 2](aulas/aula2.html): estudo observacional, estudo experimental, objetivos da experimentação, breve história do Planejamento e Análise de Experimentos (PAE), conceitos básicos do PAE, considerações éticas, princípios básicos do PAE, erro experimental, considerações no planejamento de experimentos, comparações simples (dois tratamentos) com modelo matemático e exemplo.
+
+
+
+### Avaliações:
+
+- Provas, seminário e artigo.
+
+- $P_1$: nota da prova 1 (2,5 pontos): unidade I.
+  
+- $P_2$: nota da prova 2 (2,5 pontos): unidades I e II.
+
+- $S$: nota do seminário (2,5 pontos): unidade III.
+
+- $A$: Nota do artigo (2,5 pontos): análise de dados (dissertação, tese, pesquisas...) usando os conteúdos da disciplina.
+
+- Nota final, $NF$: soma de todas as notas ( $P_1 + P_2 + S + A$ )
+
+- Conceitos:  $A$ se $NF \geq9$,  $B$ se $9 > NF \geq 7,5$ ou $C$ se $7,5 > NF \geq 6$.
+
+- Reprovação por falta se a quantidade de faltas for superior a 4 aulas de 4 horas.
+
+**Nota bônus:** Se o artigo for aceito para publicação até a data do lançamento de notas, o aluno(a) terá conceito A na disciplina.
+
+
+### Bibliografia
+
+**Experimentação**
+
+Montgomery, D. C. **Design and Analysis of Experiments**. New York: Wiley, 2012.
+
+Dean, A., Voss, D., Draguljić, D. **Design and Analysis of Experiments** (2nd ed.). Springer. 2017. 
+
+Festing, M. F. W., Altman, D. G. Guidelines for the Design and Statistical Analysis of Experiments Using Laboratory Animals. **ILAR Journal**. Volume 43, Number 4, 2002.
+
+Freitas, A. R. de. **Estatística experimental na agropecuária**. Brasília, DF: Embrapa, 2022.
+
+Sampaio, I. B. M. **Estatística aplicada a experimentação animal**. Belo Horizonte: FEPMV, 2015. 265p.
+
+Banzatto, D. A., Kronka, S. N. **Experimentação agrícola**. Jaboticabal: Funep, 2006.
+
+
+
+**Estatística geral**
+
+
+Devore, Jay L.; Berk, Kenneth N.; Carlton, Matthew A. **Modern Mathematical Statistics with Applications**. 3. ed. Springer, 2021.
+
+Petrie, A., Watson, P. **Estatística em ciência animal e veterinária**. Roca, 2009.
+
+Baldi, B., Moore, D. S. **A prática da estatística nas ciências da vida**. LTC, 2014. 
+
+Bussab, W. O., Morettin, P. A. **Estatística básica**. 9. ed. São Paulo: Saraivauni, 2017.
+
+
+
+
+
+------------------------------------------------------------------------
+
+::: {style="text-align: center;"}
+[\@profjulianobortolini](https://instagram.com/profjulianobortolini)      [www.julianobortolini.com.br](http://www.julianobortolini.com.br)      [linkedin](https://linkedin.com/in/julianobortolini)      [github](https://github.com/julianobortolini)       [lattes](http://lattes.cnpq.br/6210909768845403)
+:::

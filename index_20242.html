@@ -298,23 +298,17 @@ overflow-y: auto;
 border: 1px solid #ddd;
 border-radius: 4px;
 }
-.tabset-dropdown > .nav-tabs > li.active:before {
-content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+content: "\e259";
 font-family: 'Glyphicons Halflings';
 display: inline-block;
 padding: 10px;
 border-right: 1px solid #ddd;
 }
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-content: "";
-border: none;
-}
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-content: "";
+content: "\e258";
 font-family: 'Glyphicons Halflings';
-display: inline-block;
-padding: 10px;
-border-right: 1px solid #ddd;
+border: none;
 }
 .tabset-dropdown > .nav-tabs > li.active {
 display: block;
@@ -363,255 +357,176 @@ display: none;
 
 <p><em>Doutorado em Medicina Veterinária - UFMT</em></p>
 <p><em>Período letivo: 2024/2</em></p>
-<p>Última atualização do site às <strong>12:29</strong> do dia
-<strong>21/09/2024</strong>.</p>
-<p><a href="../index.html"><strong>Página inicial</strong></a></p>
-<p><strong>Aula 7: 17-9-2024</strong></p>
-<div id="testes-de-comparações-múltiplas" class="section level2">
-<h2>Testes de Comparações Múltiplas</h2>
+<div id="avisos" class="section level3">
+<h3>Avisos:</h3>
 <ul>
-<li><p>Comparações entre tratamentos</p>
-<ul>
-<li><strong>Objetivo</strong>: Comparar diferentes tratamentos em um
-experimento para responder perguntas específicas do pesquisador.</li>
-<li><strong>Importância</strong>: As comparações permitem avaliar a
-eficácia dos tratamentos em relação a uma variável de interesse.</li>
-<li><strong>Exemplo</strong>: No experimento de supressão do crescimento
-bacteriano em carnes, tratamentos como ar ambiente, vácuo, mistura de
-gases e CO2 foram comparados para avaliar o crescimento bacteriano em
-diferentes condições de armazenamento.</li>
-</ul></li>
-<li><p>Definição de contrastes</p>
-<ul>
-<li><strong>Conceito</strong>: Um contraste é uma combinação linear das
-médias dos tratamentos que representa comparações específicas.</li>
-<li><strong>Requisitos</strong>: A soma dos coeficientes dos contrastes
-deve ser igual a zero.</li>
-<li><strong>Aplicações</strong>: Contrastes são usados para comparar
-diferentes grupos de tratamentos, por exemplo, comparar o tratamento com
-atmosfera artificial versus vácuo.</li>
-<li><strong>Expresão</strong>: <span class="math inline">\(C =
-\sum_{i=1}^{I} c_i \mu_i\)</span>, onde <span class="math inline">\(\sum_{i=1}^{I} c_i = 0\)</span>.</li>
-</ul></li>
-<li><p>Estimativas de contrastes</p>
-<ul>
-<li><strong>Cálculo</strong>: A estimativa do contraste é a diferença
-ponderada das médias dos tratamentos.</li>
-<li><strong>Expressã</strong>: <span class="math inline">\(Ĉ =
-\sum_{i=1}^{I} c_i Ȳ_i·\)</span>.</li>
-<li><strong>Interpretação</strong>: Cada contraste fornece informações
-sobre a diferença entre grupos específicos de tratamentos.</li>
-</ul></li>
-<li><p>Erros padrões de contrastes</p>
-<ul>
-<li><strong>Definição</strong>: O erro padrão de um contraste é uma
-medida de incerteza associada à estimativa do contraste.</li>
-<li><strong>Cálculo</strong>: O erro padrão é dado pela fórmula <span class="math inline">\(S_C = \sqrt{S^2_C}\)</span>, onde <span class="math inline">\(S^2_C\)</span> é a variância do contraste.</li>
-<li><strong>Importância</strong>: O erro padrão permite calcular
-intervalos de confiança e realizar testes de hipóteses sobre os
-contrastes.</li>
-</ul></li>
-<li><p>Intervalos de confiança (IC) para contrastes</p>
-<ul>
-<li><strong>Conceito</strong>: Um intervalo de confiança (IC) fornece um
-intervalo no qual o verdadeiro valor do contraste está com uma
-determinada probabilidade.</li>
-<li><strong>Expressão</strong>: <span class="math inline">\(IC(C)_{1-\alpha} = (Ĉ \pm t_{\alpha/2, gl(erro)}
-S_C)\)</span>.</li>
-<li><strong>Uso prático</strong>: O IC ajuda a verificar se a diferença
-entre tratamentos é estatisticamente significativa.</li>
-</ul></li>
-<li><p>Soma de quadrados para contrastes</p>
-<ul>
-<li><strong>Definição</strong>: A soma de quadrados (SQ) para um
-contraste mede a variação explicada pelo contraste.</li>
-<li><strong>Expressão</strong>: <span class="math inline">\(SQ_C =
-\frac{Ĉ^2}{\sum_{i=1}^{I} \frac{c_i^2}{r_i}}\)</span>, onde <span class="math inline">\(r_i\)</span> é o número de réplicas.</li>
-<li><strong>Interpretação</strong>: A SQ do contraste indica o quanto da
-variabilidade dos dados é explicada pelas diferenças entre os grupos de
-tratamentos.</li>
-</ul></li>
-<li><p>Testes de hipóteses sobre contrastes</p>
-<ul>
-<li><strong>Hipótese nula</strong>: Assume-se que o contraste é igual a
-zero, ou seja, não há diferença significativa entre os tratamentos.</li>
-<li><strong>Hipótese alternativa</strong>: Assume-se que o contraste é
-diferente de zero.</li>
-<li><strong>Estatística de teste</strong>: Para contrastes, utiliza-se o
-valor de <span class="math inline">\(F_C =
-\frac{SQ_C}{QM_{erro}}\)</span>, ou o valor de <span class="math inline">\(t_C\)</span>.</li>
-<li><strong>Rejeição de</strong> <span class="math inline">\(H_0\)</span>: Se o valor de <span class="math inline">\(t_C\)</span> ou <span class="math inline">\(F_C\)</span> for maior que o valor crítico,
-rejeita-se a hipótese nula.</li>
-</ul></li>
-<li><p>Contrastes ortogonais</p>
-<ul>
-<li><strong>Definição</strong>: Contrastes ortogonais são contrastes
-independentes, ou seja, não compartilham informações entre si.</li>
-<li><strong>Vantagem</strong>: Permitem particionar a soma de quadrados
-dos tratamentos em componentes independentes.</li>
-<li><strong>Exemplo</strong>: Em um experimento com quatro tratamentos,
-pode-se construir três contrastes ortogonais para comparar diferentes
-combinações de tratamentos.</li>
-</ul></li>
-<li><p>Testes t de Student e F</p>
-<ul>
-<li><strong>Teste t</strong>: Usado para comparar a média de um
-contraste com zero. Calcula-se <span class="math inline">\(t_C =
-\frac{Ĉ}{S_C}\)</span>.</li>
-<li><strong>Teste F</strong>: Utilizado para comparar múltiplos
-contrastes ao mesmo tempo, com a fórmula <span class="math inline">\(F_C
-= \frac{SQC}{QM_{erro}}\)</span>.</li>
-<li><strong>Interpretação</strong>: Ambos os testes ajudam a verificar
-se as diferenças entre os tratamentos são significativas.</li>
-</ul></li>
-<li><p>Teste de Tukey</p>
-<ul>
-<li><strong>Objetivo</strong>: Comparar todas as médias de tratamentos
-dois a dois.</li>
-<li><strong>Diferença mínima significativa (DMS)</strong>: <span class="math inline">\(DMS = q_{\alpha,I,gl(Res)} \cdot
-\sqrt{QM_{erro}/J}\)</span>.</li>
-<li><strong>Aplicação</strong>: O teste de Tukey é amplamente utilizado
-para identificar quais grupos de tratamentos são significativamente
-diferentes.</li>
-<li><strong>Exemplo prático</strong>: No experimento de carne, a
-diferença entre o tratamento Comercial e o CO2 foi significativa.</li>
-</ul></li>
-<li><p>Teste de Dunnett</p>
-<ul>
-<li><strong>Aplicação</strong>: Comparação de todos os tratamentos com
-um tratamento controle.</li>
-<li><strong>Fórmula para DMS</strong>: <span class="math inline">\(DMS =
-t_d(\alpha, gl_{Trat}, gl_{Res}) \cdot \sqrt{V̂ar(Ĉ)}\)</span>.</li>
-<li><strong>Interpretação</strong>: Identifica quais tratamentos se
-diferenciam significativamente do controle.</li>
-</ul></li>
-<li><p>Teste Scheffé</p>
-<ul>
-<li><strong>Uso</strong>: Pode ser usado para comparar contrastes
-definidos após a obtenção dos dados.</li>
-<li><strong>DMS</strong>: Calculada com a fórmula <span class="math inline">\(DMS = \sqrt{(I-1)F_{\alpha,gl(Trat),gl(Res)} \cdot
-V̂ar(Ĉ)}\)</span>.</li>
-<li><strong>Aplicação prática</strong>: Pode ser usado em experimentos
-exploratórios onde múltiplas comparações são feitas.</li>
-</ul></li>
-<li><p>Outros testes de comparações múltiplas</p>
-<ul>
-<li><strong>SNK (Student-Newman-Keuls)</strong>: Um teste sequencial
-para comparações múltiplas.</li>
-<li><strong>LSD (Least Significant Difference)</strong>: Realiza
-comparações par a par após análise de variância.</li>
-<li><strong>LSDB (LSD com correção de Bonferroni)</strong>: Ajusta o
-nível de significância para evitar erros tipo I.</li>
-<li><strong>Scott-Knott</strong>: Agrupa tratamentos em diferentes
-classes de significância.</li>
-</ul></li>
+<li>Última atualização do site às <strong>13:04</strong> do dia
+<strong>18/11/2024</strong>.</li>
+<li><a href>Whatsapp da disciplina</a></li>
+<li><strong><a href="aulas/prova2.html">Prova 2</a>: enviar por e-mail
+até 19-11-2024</strong>.</li>
 </ul>
 </div>
-<div id="pressuposições-da-análise-de-experimentos" class="section level2">
-<h2>Pressuposições da Análise de Experimentos</h2>
+<div id="conteúdo-programático" class="section level3">
+<h3>Conteúdo Programático:</h3>
+<p><strong>Unidade I:</strong></p>
 <ul>
-<li><p>Modelo de efeitos de tratamentos do DIC (Delineamento
-Inteiramente Casualizado)</p>
-<ul>
-<li><strong>Modelo</strong>: <span class="math inline">\(Y_{ij} = \mu +
-\tau_i + \epsilon_{ij}\)</span>, onde <span class="math inline">\(\tau_i\)</span> é o efeito do tratamento e <span class="math inline">\(\epsilon_{ij} \sim N(0, \sigma^2)\)</span>.</li>
-<li><strong>Pressupostos</strong>:</li>
-<li><strong>Normalidade dos resíduos</strong>: Os erros seguem uma
-distribuição normal.</li>
-<li><strong>Independência</strong>: Os erros são independentes.</li>
-<li><strong>Homocedasticidade</strong>: A variância dos erros é
-constante.</li>
-</ul></li>
-<li><p>Modelo de efeitos de tratamentos do DBC (Delineamento em Blocos
-Casualizados)</p>
-<ul>
-<li><strong>Modelo</strong>: <span class="math inline">\(Y_{ij} = \mu +
-\tau_i + \beta_j + \epsilon_{ij}\)</span>, onde <span class="math inline">\(\beta_j\)</span> é o efeito do bloco.</li>
-<li><strong>Vantagem</strong>: Utilizado quando há variabilidade entre
-blocos, permitindo reduzir o erro experimental.</li>
-</ul></li>
-<li><p>Modelo de efeitos de tratamentos do DQL (Delineamento Quadrado
-Latino)</p>
-<ul>
-<li><strong>Modelo</strong>: <span class="math inline">\(Y_{ijk} = \mu +
-l_i + \tau_j + c_k + \epsilon_{ijk}\)</span>, onde <span class="math inline">\(l_i\)</span> é o efeito da linha e <span class="math inline">\(c_k\)</span> o efeito da coluna.</li>
-<li><strong>Uso</strong>: Ideal para experimentos com dois fatores de
-controle além do tratamento.</li>
-</ul></li>
-<li><p>Resíduos</p>
-<ul>
-<li><strong>Resíduo bruto</strong>: <span class="math inline">\(\epsilon̂_{ij} = Y_{ij} - Ŷ_{ij}\)</span>.</li>
-<li><strong>Resíduo padronizado</strong>: <span class="math inline">\(d_{ij} =
-\frac{\epsilon̂_{ij}}{\sqrt{\sigmâ^2}}\)</span>.</li>
-<li><strong>Resíduo studentizado</strong>: <span class="math inline">\(r_{ij} = \frac{\epsilon̂_{ij}}{\sqrt{\sigmâ^2
-(1-h_{ii})}}\)</span>, onde <span class="math inline">\(h_{ii}\)</span>
-é o valor da diagonal da matriz H.</li>
-</ul></li>
-<li><p>Normalidade dos resíduos</p>
-<ul>
-<li><strong>Verificação</strong>: Pode ser feita com histogramas,
-gráficos quantil-quantil e testes de normalidade como Shapiro-Wilk,
-Kolmogorov-Smirnov.</li>
-<li><strong>Importância</strong>: A normalidade dos resíduos é uma
-pressuposição fundamental para a validade dos testes estatísticos.</li>
-</ul></li>
-<li><p>Independência dos resíduos</p>
-<ul>
-<li><strong>Verificação</strong>: Gráficos de resíduos padronizados
-versus valores estimados ou ordem de coleta dos dados, além de testes
-como Durbin-Watson.</li>
-<li><strong>Importância</strong>: A independência dos resíduos garante
-que o erro entre observações não está correlacionado.</li>
-</ul></li>
-<li><p>Homocedasticidade dos resíduos</p>
-<ul>
-<li><strong>Verificação</strong>: Gráficos de dispersão (valores
-estimados vs. resíduos) e testes como Levene e Bartlett.</li>
-<li><strong>Importância</strong>: A homogeneidade de variâncias é
-essencial para a correta interpretação da análise de variância.</li>
-</ul></li>
-<li><p>Pontos discrepantes (Outliers)</p>
-<ul>
-<li><strong>Identificação</strong>: Gráficos box-plot ou análise de
-resíduos padronizados podem indicar outliers.</li>
-<li><strong>Impacto</strong>: Outliers podem distorcer os resultados da
-análise e devem ser verificados cuidadosamente.</li>
-</ul></li>
-<li><p>Linearidade da variável resposta</p>
-<ul>
-<li><strong>Verificação</strong>: Gráficos de dispersão dos valores
-observados em relação aos tratamentos.</li>
-<li><strong>Ação</strong>: Se a linearidade não for observada,
-transformações de dados podem ser necessárias.</li>
-</ul></li>
-<li><p>Transformação de variáveis</p>
-<ul>
-<li><strong>Tipos de transformações</strong>:</li>
-<li>Dados assimétricos: <span class="math inline">\(y =
-\log(x)\)</span>.</li>
-<li>Dados de contagem: <span class="math inline">\(y = \sqrt{x}\)</span>
-ou <span class="math inline">\(y = \sqrt{x + 0,5}\)</span>.</li>
-<li>Proporções: <span class="math inline">\(y =
-\arcsen(\sqrt{x})\)</span>.</li>
-<li>Variáveis com valores negativos: <span class="math inline">\(y = x +
-c\)</span>.</li>
-</ul></li>
-<li><p>Transformação de Box-Cox</p>
-<ul>
-<li><strong>Fórmula</strong>: <span class="math inline">\(y = \frac{x^p
-- 1}{p}\)</span> para <span class="math inline">\(p \neq 0\)</span>, e
-<span class="math inline">\(y = \log(x)\)</span> para <span class="math inline">\(p = 0\)</span>.</li>
-<li><strong>Uso</strong>: Utilizada para encontrar a melhor
-transformação que estabilize a variância e melhore a normalidade dos
-resíduos.</li>
-</ul></li>
+<li>Experimentação estatística.</li>
+<li>Princípios básicos da experimentação.</li>
+<li>Delineamento inteiramente casualizado.</li>
+<li>Delineamento em blocos casualizados.</li>
+<li>Delineamento em quadrado latino.</li>
+<li>Métodos de comparações múltiplas de tratamentos.</li>
 </ul>
+<p><strong>Unidade II:</strong></p>
+<ul>
+<li>Experimentos fatoriais cruzados.</li>
+<li>Experimentos fatoriais em parcelas subdivididas.</li>
+<li>Experimentos fatoriais hierárquicos.</li>
+</ul>
+<p><strong>Unidade III:</strong></p>
+<ul>
+<li>Modelos lineares generalizados (gama, logística, poisson e binomial
+negativa).</li>
+<li>Modelos lineares de efeitos mistos.</li>
+<li>Modelos de equações de estimativas generalizadas (GEE).</li>
+<li>Modelos aditivos generalizados para locação, escala e forma
+(GAMLSS).</li>
+</ul>
+</div>
+<div id="notas-de-aula" class="section level3">
+<h3>Notas de aula:</h3>
+<ul>
+<li><p>Aula 1: apresentação da disciplina, variáveis contínuas e
+discretas, modelos lineares clássicos (distribuição normal da variável
+resposta) e generalizados (distribuição não normal para a variável
+resposta). Apresentação das pesquisas desenvolvidas pelos alunos no
+mestrado e em desenvolvimento no doutorado. <strong>Tarefa 1:</strong>
+listar os métodos estatísticos descritos nos artigos de referência para
+a pesquisa do doutorado.</p></li>
+<li><p><a href="aulas/aula2.html">Aula 2</a>: estudo observacional,
+estudo experimental, objetivos da experimentação, breve história do
+Planejamento e Análise de Experimentos (PAE), conceitos básicos do PAE,
+considerações éticas, princípios básicos do PAE, erro experimental,
+considerações no planejamento de experimentos, comparações simples (dois
+tratamentos) com modelo matemático e exemplo. <strong>Tarefa 2:</strong>
+(enviado no grupo) planejar experimentos e identificar os fatores,
+tratamentos, delineamento, variável resposta, etc.</p></li>
+<li><p>Aulas 3, 4 e 5: um pouco mais sobre o planejamento de
+experimentos. Delineamento inteiramente casualizado (DIC): motivação com
+o exemplo do experimento de supressão do crescimento de bactérias,
+aleatorização dos tratamentos nas UEB, modelos estatísticos, teste de
+hipóteses, somas de quadrados, graus de liberdade e teste F.
+Delineamento em blocos casualizados: motivação com a restrição na
+aleatorização. UEB heterogêneas e controle local (blocagem).
+Aleatorização dos tratamentos nas UEB de cada bloco. Exemplo da produção
+de leite. Análise de experimento em DBC. Delineamento em quadrado
+latino: exemplo com mais de uma fonte de variação a ser controlada.
+Aleatorização no DQL. Análise de experimentos em DQL.</p></li>
+<li><p>Aula 6: aula prática com análise de experimentos em DIC, DBC e
+DQL no R. <strong>Tarefa 3:</strong> (enviado no grupo) análise de um
+experimento em R.</p></li>
+<li><p><a href="aulas/aula7.html">Aula 7</a>: métodos de comparações
+múltiplas e pressupostos. <strong>Tarefa 4:</strong> refazer todos os
+exercícios da aula anterior com testes de comparações multiplas e
+análise dos pressupostos.</p></li>
+<li><p><a href="aulas/Tarefa5.html">Tarefa 5</a>: exercícios gerais
+sobre os conteúdos das aulas anteriores.</p></li>
+<li><p>Aula 8: introdução aos experimentos fatoriais: conceito e
+definição de experimentos fatoriais, comparação com experimentos mais
+simples (um fator e combinações de níveis). Exemplos: avaliação de
+rações na produção de leite, estudo sobre medicamentos que afetam níveis
+de colesterol e mistura de proteína e carboidrato em rações. Estrutura
+dos experimentos fatoriais: definição de fatores, níveis e tratamentos,
+análise de efeitos simples, principais e de interação entre fatores.
+Casualização dos tratamentos: delineamento inteiramente casualizado e
+blocos casualizados. Análise estatística no R: funções
+<code>fat2.rbd()</code> e <code>fat2.crd()</code> do pacote
+<code>ExpDes</code>. Exemplos do livro do Kronka. Interpretação dos
+resultados de análise de variância (ANOVA): casos de interação
+significativa e não significativa, desdobramentos para estudar o
+comportamento de fatores dentro de outros.</p></li>
+<li><p><strong>Tarefa 6:</strong> experimentos fatoriais triplos:
+exemplos 5.3 e 5.4 do livro do Kronka.</p></li>
+<li><p>Aula 9: experimentos fatoriais triplos: definição, estrutura,
+análise de efeitos simples, principais e de interação entre fatores.
+Exemplos do livro do Kronka. Funções <code>fat3.rbd()</code> e
+<code>fat3.crd()</code> do pacote <code>ExpDes</code>.</p></li>
+<li><p>Aula 10: experimentos fatoriais em parcelas subdivididas:
+definição, estrutura, análise de efeitos simples, principais e de
+interação entre fatores. Exemplos do livro do Kronka. Funções
+<code>split2.crd()</code> e <code>split2.rbd()</code> do pacote
+<code>ExpDes</code>. Experimentos hierárquicos: definição, estrutura e
+exemplo de diferentes doses e medicamentos (doses diferentes dentro de
+cada medicamento).</p></li>
+<li><p><a href="aulas/prova2.html">Prova 2</a>: prova com questões sobre
+os conteúdos das unidades I e II.</p></li>
+<li><p>Seminário 1: modelos lineares generalizados
+(19/11/2024).</p></li>
+<li><p>Seminário 2: modelos lineares de efeitos mistos
+(26/11/2024).</p></li>
+<li><p>Seminário 3: modelos de equações de estimativas generalizadas
+(GEE) (03/12/2024).</p></li>
+<li><p>Seminário 4: modelos aditivos generalizados para locação, escala
+e forma (GAMLSS) (10/12/2024).</p></li>
+</ul>
+</div>
+<div id="avaliações" class="section level3">
+<h3>Avaliações:</h3>
+<ul>
+<li><p>Provas, seminário e artigo.</p></li>
+<li><p><span class="math inline">\(P_1\)</span>: nota da prova 1 (2,5
+pontos): unidade I.</p></li>
+<li><p><span class="math inline">\(P_2\)</span>: nota da prova 2 (2,5
+pontos): unidades I e II.</p></li>
+<li><p><span class="math inline">\(S\)</span>: nota do seminário (2,5
+pontos): unidade III.</p></li>
+<li><p><span class="math inline">\(A\)</span>: Nota do artigo (2,5
+pontos): análise de dados (dissertação, tese, pesquisas…) usando os
+conteúdos da disciplina.</p></li>
+<li><p>Nota final, <span class="math inline">\(NF\)</span>: soma de
+todas as notas ( <span class="math inline">\(P_1 + P_2 + S + A\)</span>
+)</p></li>
+<li><p>Conceitos: <span class="math inline">\(A\)</span> se <span class="math inline">\(NF \geq9\)</span>, <span class="math inline">\(B\)</span> se <span class="math inline">\(9 &gt;
+NF \geq 7,5\)</span> ou <span class="math inline">\(C\)</span> se <span class="math inline">\(7,5 &gt; NF \geq 6\)</span>.</p></li>
+<li><p>Reprovação por falta se a quantidade de faltas for superior a 4
+aulas de 4 horas.</p></li>
+</ul>
+<p><strong>Nota bônus:</strong> Se o artigo for aceito para publicação
+até a data do lançamento de notas, o aluno(a) terá conceito A na
+disciplina.</p>
+</div>
+<div id="bibliografia" class="section level3">
+<h3>Bibliografia</h3>
+<p><strong>Experimentação</strong></p>
+<p>Montgomery, D. C. <strong>Design and Analysis of
+Experiments</strong>. New York: Wiley, 2012.</p>
+<p>Dean, A., Voss, D., Draguljić, D. <strong>Design and Analysis of
+Experiments</strong> (2nd ed.). Springer. 2017.</p>
+<p>Festing, M. F. W., Altman, D. G. Guidelines for the Design and
+Statistical Analysis of Experiments Using Laboratory Animals.
+<strong>ILAR Journal</strong>. Volume 43, Number 4, 2002.</p>
+<p>Freitas, A. R. de. <strong>Estatística experimental na
+agropecuária</strong>. Brasília, DF: Embrapa, 2022.</p>
+<p>Sampaio, I. B. M. <strong>Estatística aplicada a experimentação
+animal</strong>. Belo Horizonte: FEPMV, 2015. 265p.</p>
+<p>Banzatto, D. A., Kronka, S. N. <strong>Experimentação
+agrícola</strong>. Jaboticabal: Funep, 2006.</p>
+<p><strong>Estatística geral</strong></p>
+<p>Devore, Jay L.; Berk, Kenneth N.; Carlton, Matthew A. <strong>Modern
+Mathematical Statistics with Applications</strong>. 3. ed. Springer,
+2021.</p>
+<p>Petrie, A., Watson, P. <strong>Estatística em ciência animal e
+veterinária</strong>. Roca, 2009.</p>
+<p>Baldi, B., Moore, D. S. <strong>A prática da estatística nas ciências
+da vida</strong>. LTC, 2014.</p>
+<p>Bussab, W. O., Morettin, P. A. <strong>Estatística básica</strong>.
+9. ed. São Paulo: Saraivauni, 2017.</p>
 <hr />
 <div style="text-align: center;">
-<p><a href="https://instagram.com/profjulianobortolini">@profjulianobortolini</a>
-     <a href="http://www.julianobortolini.com.br">www.julianobortolini.com.br</a>
+<p><a href="https://instagram.com/profjulianobortolini"><span class="citation">@profjulianobortolini</span></a>      <a href="http://www.julianobortolini.com.br">www.julianobortolini.com.br</a>
      <a href="https://linkedin.com/in/julianobortolini">linkedin</a>    
- <a href="https://github.com/julianobortolini">github</a>       <a href="http://lattes.cnpq.br/6210909768845403">lattes</a></p>
+  <a href="https://github.com/julianobortolini">github</a>       <a href="http://lattes.cnpq.br/6210909768845403">lattes</a></p>
 </div>
 </div>
 

@@ -1,0 +1,127 @@
+---
+title: "Delineamento Experimental"
+author:
+  - name: Prof. Dr. Juliano Bortolini
+    email: profjulianobortolini@gmail.com
+    url: http://www.julianobortolini.com.br
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+format:
+  html:
+    embed-resources: true
+engine: knitr
+---
+
+
+
+*Doutorado em Medicina Veterinária - UFMT*
+
+
+
+Última atualização do site às **`r format(Sys.time(), "%H:%M", tz="America/Cuiaba")`** do dia **`r format(Sys.time(), "%d/%m/%Y")`**.
+
+[**Página inicial**](../index.html)
+
+**Aula 2: 20-8-2024**
+
+- **Estudo Observacional:** Observa os elementos (animais) do estudo sem intervenção.
+  - *Estudo epidemiológico:* Investiga as causas de doenças e fatores de risco.
+  - *Exemplo:* Prevalência da síndrome de Cushing em cães de raças *toy*.
+
+- **Estudo Experimental:** Realiza intervenções nos elementos do estudo.
+  - Distribuição aleatória dos elementos aos tratamentos é essencial.
+  - *Exemplo:* Uso de tratamentos preventivos em animais.
+  - *Experimentos laboratoriais:* Células, tecidos ou animais são usados.
+  - *Estudos clínicos:* Avaliação de tratamentos específicos ou medidas profiláticas.
+
+- **Objetivos da Experimentação:**
+  - Identificar variáveis influentes na resposta.
+  - Minimizar variabilidade e efeitos de variáveis não-controláveis.
+
+- **A origem do PAE na agricultura (1908 - 1940):**
+  - W.S. Gossett e o teste $t$.
+  - Ronald A. Fisher e a ANOVA.
+  
+- **A primeira era industrial (1951 - 1970):**
+  - Superfícies de resposta aplicadas a processos industriais químicos.
+  
+- **A segunda era industrial (1970 - 1990):**
+  - Iniciativas de melhoria da qualidade e processos robustos.
+
+- **A era moderna (1990 - atualmente):**
+  - Evolução contínua e aplicação em diversas áreas.
+
+- Conceitos Básicos:
+
+- **Variável:** Condição ou característica das unidades experimentais (UEs).
+- **Variável Independente:** Manipulada para medir seu efeito.
+  - **Fator:** Variável cujo efeito é avaliado.
+  - **Tratamento:** Combinações dos níveis dos fatores.
+- **Variável Dependente:** Medida ou observada em cada UE.
+- **Grupo Controle:** Unidades que não recebem tratamento ou recebem um tratamento padrão.
+- **Variáveis de Confusão:** Variáveis que afetam as respostas e não são controladas.
+- **Parcela:** Unidade experimental que recebe um tratamento.
+
+- Princípios Básicos do PAE:
+
+- **Repetição:** Parcelas que recebem o mesmo tratamento em um experimento.
+- **Casualização/Randomização:** Uso de sorteio para designar tratamentos.
+- **Controle Local:** Agrupamento de parcelas em blocos para reduzir variabilidade.
+
+- Delineamentos Experimentais:
+
+- **Completamente ao Acaso:** Tratamentos designados aleatoriamente às parcelas.
+- **Em Blocos:** Parcelas divididas em blocos homogêneos, tratamentos designados aleatoriamente dentro dos blocos.
+- **Blocos com Repetições:** Tratamento designado ao acaso para mais de uma parcela dentro do mesmo bloco.
+- **Blocos Completos:** Todos os tratamentos aparecem igual número de vezes em todos os blocos.
+- **Blocos Incompletos:** Cada bloco acomoda apenas uma seleção de tratamentos.
+- **Quadrado Latino:** Blocos compostos em linhas e colunas.
+
+- Conceitos de Área Útil e Bordadura:
+
+- **Área Útil:** Fornece os dados do experimento.
+- **Bordadura:** Barreira física de proteção, evitando contaminação da área útil por tratamentos vizinhos.
+
+- Considerações Éticas:
+
+- Animais devem ser usados apenas para objetivos científicos que contribuem para o bem-estar humano ou animal.
+- Substituição de animais por alternativas menos sensíveis sempre que possível.
+- Redução do número de animais ao mínimo necessário para alcançar os objetivos científicos.
+
+- Erro Experimental:
+
+- **Erro Experimental:** Variação entre observações de unidades experimentais que receberam o mesmo tratamento.
+- **Erro Aleatório:** Variação inerente ao material experimental.
+- **Erro Sistemático:** Variação causada pelo método de medição ou falta de uniformidade na condução física do experimento.
+  
+- Teste de Hipóteses:
+
+- **Hipótese Estatística:** Afirmação sobre os parâmetros de uma distribuição de probabilidade ou modelo.
+- **Hipótese Nula ($H_0$):** Exemplo: $\mu_1 = \mu_2$.
+- **Hipótese Alternativa ($H_1$):** Exemplo: $\mu_1 \neq \mu_2$.
+- **Passos para Testar Hipóteses:**
+  1. Definir as hipóteses.
+  2. Obter uma amostra aleatória.
+  3. Calcular uma estatística de teste.
+  4. Decidir se rejeita ou não $H_0$.
+
+- Exemplo de Comparações Simples:
+
+- **Estimulando a Formação Óssea:** 
+  - Avaliação do efeito de suplementação de fosfato em cães.
+  - Comparação entre tratamentos com e sem suplementação de fosfato.
+
+----------
+<div style="text-align: center;">
+
+[@profjulianobortolini](https://instagram.com/profjulianobortolini) \  \  \ [www.julianobortolini.com.br](http://www.julianobortolini.com.br) \  \  \ [linkedin](https://linkedin.com/in/julianobortolini) \  \  \ [github](https://github.com/julianobortolini) \  \  \  [lattes](http://lattes.cnpq.br/6210909768845403)
+
+</div>
+
+
+
+
+
+  
+  
+  
