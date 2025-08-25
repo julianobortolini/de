@@ -22,7 +22,7 @@ engine: knitr
 
 [**Página inicial**](../index.html)
 
-**Aula 2: 20-8-2024**
+**Aula 2:**
 
 - **Estudo Observacional:** Observa os elementos (animais) do estudo sem intervenção.
   - *Estudo epidemiológico:* Investiga as causas de doenças e fatores de risco.
