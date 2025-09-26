@@ -57,6 +57,16 @@ engine: knitr
 - [Aula 2](aulas/aula2.html): estudo observacional, estudo experimental, objetivos da experimentação, breve história do Planejamento e Análise de Experimentos (PAE), conceitos básicos do PAE, considerações éticas, princípios básicos do PAE, erro experimental, considerações no planejamento de experimentos, comparações simples (dois tratamentos) com modelo matemático e exemplo.
 
 
+- Aulas 3, 4 e 5: um pouco mais sobre o planejamento de experimentos. Delineamento inteiramente casualizado (DIC): motivação com o exemplo do experimento de supressão do crescimento de bactérias, aleatorização dos tratamentos nas UEB, modelos estatísticos, teste de hipóteses, somas de quadrados, graus de liberdade e teste F. Delineamento em blocos casualizados: motivação com a restrição na aleatorização. UEB heterogêneas e controle local (blocagem). Aleatorização dos tratamentos nas UEB de cada bloco. Exemplo da produção de leite. Análise de experimento em DBC. Delineamento em quadrado latino: exemplo com mais de uma fonte de variação a ser controlada. Aleatorização no DQL. Análise de experimentos em DQL.
+
+
+- Aulas 6 e 7: métodos de comparações múltiplas e análise de pressupostos. Análise no R e Jamovi.
+
+
+- Lista da Unidade I: [ListaU1](listaU1.html).
+
+
+
 
 ### Avaliações:
 
